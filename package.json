@@ -1,0 +1,24 @@
+{
+  "name": "tiptap-markdown",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "bootstrap": "^5.0.0-beta3",
+    "tiptap": "^1.32.2",
+    "tiptap-extensions": "^1.35.2",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.2.1",
+    "@vue/compiler-sfc": "^3.0.5",
+    "prosemirror-markdown": "^1.5.1",
+    "sass": "^1.32.10",
+    "vite": "^2.1.5",
+    "vite-plugin-vue2": "^1.4.3"
+  }
+}
