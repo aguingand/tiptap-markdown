@@ -64,6 +64,8 @@
                     ...marks,
                     [Bold.prototype.name]: marks.strong,
                     [Italic.prototype.name]: marks.em,
+                    [Underline.prototype.name]: {open:'',close:''},
+                    [Strike.prototype.name]: {open:'~~', close:'~~'}
                 });
                 this.$refs.markdown.value = serializer.serialize(doc);
             },
