@@ -8,14 +8,16 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "@tiptap/core": "^2.0.0-beta.60",
+    "@tiptap/extension-image": "^2.0.0-beta.12",
+    "@tiptap/starter-kit": "^2.0.0-beta.57",
+    "@tiptap/vue-3": "^2.0.0-beta.34",
     "bootstrap": "^5.0.0-beta3",
-    "tiptap": "^1.32.2",
-    "tiptap-extensions": "^1.35.2",
-    "vue": "^2.6.12"
+    "vue": "^3.0.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.1",
-    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/compiler-sfc": "^3.0.11",
     "prosemirror-markdown": "^1.5.1",
     "sass": "^1.32.10",
     "vite": "^2.1.5",

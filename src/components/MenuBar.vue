@@ -1,194 +1,73 @@
 <template>
-    <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div class="menubar">
-            <div class="toolbar">
-<!--                <button-->
-<!--                    class="menubar__button btn"-->
-<!--                    @click="commands.undo"-->
-<!--                >-->
-<!--                    <i class="fas fa-undo" />-->
-<!--                </button>-->
-
-<!--                <button-->
-<!--                    class="menubar__button btn"-->
-<!--                    @click="commands.redo"-->
-<!--                >-->
-<!--                    <i class="fas fa-redo" />-->
-<!--                </button>-->
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.bold() }"
-                    @click="commands.bold"
-                >
-                    <i class="fas fa-bold" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.italic() }"
-                    @click="commands.italic"
-                >
-                    <i class="fas fa-italic" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.strike() }"
-                    @click="commands.strike"
-                >
-                    <i class="fas fa-strikethrough" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.underline() }"
-                    @click="commands.underline"
-                >
-                    <i class="fas fa-underline" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.code() }"
-                    @click="commands.code"
-                >
-                    <i class="fas fa-code" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.paragraph() }"
-                    @click="commands.paragraph"
-                >
-                    <i class="fas fa-paragraph" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-                    @click="commands.heading({ level: 1 })"
-                >
-                    H1
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-                    @click="commands.heading({ level: 2 })"
-                >
-                    H2
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-                    @click="commands.heading({ level: 3 })"
-                >
-                    H3
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.bullet_list() }"
-                    @click="commands.bullet_list"
-                >
-                    <i class="fas fa-list-ul" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.ordered_list() }"
-                    @click="commands.ordered_list"
-                >
-                    <i class="fas fa-list-ol" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.blockquote() }"
-                    @click="commands.blockquote"
-                >
-                    <i class="fas fa-quote-right" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    :class="{ 'is-active': isActive.code_block() }"
-                    @click="commands.code_block"
-                >
-                    <i class="fas fa-code" />
-                </button>
-
-                <button
-                    class="menubar__button btn"
-                    @click="commands.createTable({rowsCount: 3, colsCount: 3, withHeaderRow: false })"
-                >
-                    <i class="fas fa-table" />
-                </button>
-
-                <span :class="{ 'hidden': isActive.table() }">
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.deleteTable"
-                    >
-                        <i class="fas fa-delete_table" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.addColumnBefore"
-                    >
-                        <i class="fas fa-add_col_before" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.addColumnAfter"
-                    >
-                        <i class="fas fa-add_col_after" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.deleteColumn"
-                    >
-                        <i class="fas fa-delete_col" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.addRowBefore"
-                    >
-                        <i class="fas fa-add_row_before" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.addRowAfter"
-                    >
-                        <i class="fas fa-add_row_after" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.deleteRow"
-                    >
-                        <i class="fas fa-delete_row" />
-                    </button>
-                    <button
-                        class="menubar__button btn"
-                        @click="commands.toggleCellMerge"
-                    >
-                        <i class="fas fa-combine_cells" />
-                    </button>
-                </span>
-            </div>
-        </div>
-    </editor-menu-bar>
+    <div v-if="editor">
+        <button @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+            bold
+        </button>
+        <button @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
+            italic
+        </button>
+        <button @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
+            strike
+        </button>
+<!--        <button @click="editor.chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">-->
+<!--            code-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().unsetAllMarks().run()">-->
+<!--            clear marks-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().clearNodes().run()">-->
+<!--            clear nodes-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">-->
+<!--            paragraph-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">-->
+<!--            h1-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">-->
+<!--            h2-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">-->
+<!--            h3-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleHeading({ level: 4 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }">-->
+<!--            h4-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleHeading({ level: 5 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }">-->
+<!--            h5-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleHeading({ level: 6 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }">-->
+<!--            h6-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">-->
+<!--            bullet list-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">-->
+<!--            ordered list-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">-->
+<!--            code block-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">-->
+<!--            blockquote-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().setHorizontalRule().run()">-->
+<!--            horizontal rule-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().setHardBreak().run()">-->
+<!--            hard break-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().undo().run()">-->
+<!--            undo-->
+<!--        </button>-->
+<!--        <button @click="editor.chain().focus().redo().run()">-->
+<!--            redo-->
+<!--        </button>-->
+    </div>
 </template>
 
 <script>
-    import { EditorMenuBar } from 'tiptap';
-
     export default {
-        components: {
-            EditorMenuBar,
-        },
         props: {
             editor: Object,
         }
