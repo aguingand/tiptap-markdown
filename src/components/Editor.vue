@@ -42,7 +42,7 @@
                 extensions: [
                     StarterKit,
                 ],
-                // content: `## Tables`,
+                content: `## Tables`,
                 onUpdate: () => {
                     this.updateMarkdownOutput();
                 },
