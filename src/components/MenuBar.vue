@@ -9,6 +9,33 @@
         <button @click="editor.chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
             strike
         </button>
+        <button @click="editor.chain().focus().toggleUnderline().run()" :class="{ 'is-active': editor.isActive('underline') }">
+            underline
+        </button>
+        <button @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">
+            insertTable
+        </button>
+        <button @click="editor.chain().focus().addColumnBefore().run()" :disabled="!editor.can().addColumnBefore()">
+            addColumnBefore
+        </button>
+        <button @click="editor.chain().focus().addColumnAfter().run()" :disabled="!editor.can().addColumnAfter()">
+            addColumnAfter
+        </button>
+        <button @click="editor.chain().focus().deleteColumn().run()" :disabled="!editor.can().deleteColumn()">
+            deleteColumn
+        </button>
+        <button @click="editor.chain().focus().addRowBefore().run()" :disabled="!editor.can().addRowBefore()">
+            addRowBefore
+        </button>
+        <button @click="editor.chain().focus().addRowAfter().run()" :disabled="!editor.can().addRowAfter()">
+            addRowAfter
+        </button>
+        <button @click="editor.chain().focus().deleteRow().run()" :disabled="!editor.can().deleteRow()">
+            deleteRow
+        </button>
+        <button @click="editor.chain().focus().deleteTable().run()" :disabled="!editor.can().deleteTable()">
+            deleteTable
+        </button>
 <!--        <button @click="editor.chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">-->
 <!--            code-->
 <!--        </button>-->

@@ -11,9 +11,14 @@
 </template>
 
 <script>
-    import StarterKit from '@tiptap/starter-kit';
-    import { createMarkdownEditor } from "../../lib/MarkdownEditor";
     import { Editor, EditorContent } from '@tiptap/vue-3';
+    import StarterKit from '@tiptap/starter-kit';
+    import Table from '@tiptap/extension-table';
+    import TableRow from '@tiptap/extension-table-row';
+    import TableCell from '@tiptap/extension-table-cell';
+    import TableHeader from '@tiptap/extension-table-header';
+    import Underline from '@tiptap/extension-underline';
+    import { createMarkdownEditor } from "../../lib/MarkdownEditor";
     import MenuBar from "./MenuBar.vue";
 
 
@@ -41,8 +46,15 @@
             this.editor = new MarkdownEditor({
                 extensions: [
                     StarterKit,
+                    Table.configure({
+                        resizable: false,
+                    }),
+                    TableRow,
+                    TableHeader,
+                    TableCell,
+                    Underline,
                 ],
-                content: `## Tables`,
+                content: `## Tables\n\nede <u>Hello world</u>sdfdsf`,
                 onUpdate: () => {
                     this.updateMarkdownOutput();
                 },
