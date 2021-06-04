@@ -1,6 +1,7 @@
 import { serialize } from "./util/serialize";
 import { parse } from "./util/parse";
 
+
 export function createMarkdownEditor(Editor) {
     return class extends Editor {
         constructor(options) {

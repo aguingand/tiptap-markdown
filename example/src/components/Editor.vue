@@ -18,7 +18,7 @@
     import TableCell from '@tiptap/extension-table-cell';
     import TableHeader from '@tiptap/extension-table-header';
     import Underline from '@tiptap/extension-underline';
-    import { createMarkdownEditor } from "../../lib/MarkdownEditor";
+    import { createMarkdownEditor } from "../../../src/MarkdownEditor";
     import MenuBar from "./MenuBar.vue";
 
 

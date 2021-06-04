@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parse bold 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "bold",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse code 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "code",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse italic 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "italic",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse link 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "attrs": Object {
+        "href": "http://example.org",
+        "target": "_blank",
+      },
+      "type": "link",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse strike 1`] = `
+Object {
+  "text": "~~example~~",
+  "type": "text",
+}
+`;
