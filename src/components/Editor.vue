@@ -54,7 +54,14 @@
                     TableCell,
                     Underline,
                 ],
-                content: `## Tables\n\nede <u>Hello  <br>\n world</u>`,
+                content: `## Tables
+dedzedfze
+
+<p>fzfzfzfzfezf</p>
+
+fzefzefzefez
+                `,
+                html: true,
                 onUpdate: () => {
                     this.updateMarkdownOutput();
                 },
