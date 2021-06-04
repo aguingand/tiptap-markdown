@@ -54,7 +54,12 @@ Object {
 
 exports[`parse strike 1`] = `
 Object {
-  "text": "~~example~~",
+  "marks": Array [
+    Object {
+      "type": "strike",
+    },
+  ],
+  "text": "example",
   "type": "text",
 }
 `;
