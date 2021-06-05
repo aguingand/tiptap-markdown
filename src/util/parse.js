@@ -55,6 +55,10 @@ function getTokens(schema) {
     );
     const tokens = {
         ...defaultTokens,
+        fence: {
+            ...defaultTokens.fence,
+            getAttrs: tok => ({ language: tok.info || null }),
+        },
         s: { mark:tokenToMark.s },
     };
 
@@ -189,7 +193,7 @@ function parseDOMNode(parser, domNode) {
 
 export function parse(schema, content, { html }) {
     if(typeof content === 'string') {
-        const tokenizer = markdownit("commonmark", { html });
+        const tokenizer = markdownit({ html });
         const parser = new MarkdownParser(schema, tokenizer, {
             ...getTokens(schema)
         });

@@ -56,7 +56,7 @@
                 ],
                 content: `## Tables
 dedzedfze
-
+~~example~~
 <p>fzfzfzfzfezf</p>
 
 fzefzefzefez

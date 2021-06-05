@@ -6,6 +6,7 @@ import TableRow from "@tiptap/extension-table-row";
 import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
 import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 
 export function createEditor(options) {
     const MarkdownEditor = createMarkdownEditor(Editor);
@@ -19,6 +20,7 @@ export function createEditor(options) {
             TableHeader,
             TableCell,
             Link,
+            Image,
         ],
         ...options,
     });

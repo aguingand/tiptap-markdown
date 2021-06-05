@@ -1,6 +1,323 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parse bold 1`] = `
+exports[`parse block bullet list 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "example1",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "listItem",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "example2",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "listItem",
+    },
+  ],
+  "type": "bulletList",
+}
+`;
+
+exports[`parse block bullet list 2`] = `
+Object {
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "example1",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "listItem",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "example2",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "listItem",
+    },
+  ],
+  "type": "bulletList",
+}
+`;
+
+exports[`parse block code block 1`] = `
+Object {
+  "attrs": Object {
+    "language": null,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "codeBlock",
+}
+`;
+
+exports[`parse block code block 2`] = `
+Object {
+  "attrs": Object {
+    "language": "js",
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "codeBlock",
+}
+`;
+
+exports[`parse block code block 3`] = `
+Object {
+  "attrs": Object {
+    "language": null,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "codeBlock",
+}
+`;
+
+exports[`parse block hard break 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "text": "example1",
+      "type": "text",
+    },
+    Object {
+      "type": "hardBreak",
+    },
+    Object {
+      "text": "example2",
+      "type": "text",
+    },
+  ],
+  "type": "paragraph",
+}
+`;
+
+exports[`parse block headings 1`] = `
+Object {
+  "attrs": Object {
+    "level": 1,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "heading",
+}
+`;
+
+exports[`parse block headings 2`] = `
+Object {
+  "attrs": Object {
+    "level": 2,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "heading",
+}
+`;
+
+exports[`parse block headings 3`] = `
+Object {
+  "attrs": Object {
+    "level": 3,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "heading",
+}
+`;
+
+exports[`parse block headings 4`] = `
+Object {
+  "attrs": Object {
+    "level": 4,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "heading",
+}
+`;
+
+exports[`parse block headings 5`] = `
+Object {
+  "attrs": Object {
+    "level": 5,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "heading",
+}
+`;
+
+exports[`parse block headings 6`] = `
+Object {
+  "attrs": Object {
+    "level": 6,
+  },
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
+  "type": "heading",
+}
+`;
+
+exports[`parse block hr 1`] = `
+Object {
+  "type": "horizontalRule",
+}
+`;
+
+exports[`parse block image 1`] = `
+Object {
+  "attrs": Object {
+    "alt": "example",
+    "src": "example.jpg",
+  },
+  "type": "image",
+}
+`;
+
+exports[`parse block ordered list 1`] = `
+Object {
+  "attrs": Object {
+    "start": 1,
+  },
+  "content": Array [
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "example1",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "listItem",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "content": Array [
+            Object {
+              "text": "example2",
+              "type": "text",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ],
+      "type": "listItem",
+    },
+  ],
+  "type": "orderedList",
+}
+`;
+
+exports[`parse block ordered list 2`] = `
+Object {
+  "content": Array [
+    Object {
+      "text": "A. example1
+B. example2",
+      "type": "text",
+    },
+  ],
+  "type": "paragraph",
+}
+`;
+
+exports[`parse block paragraph 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example1",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+  Object {
+    "content": Array [
+      Object {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse inline bold 1`] = `
 Object {
   "marks": Array [
     Object {
@@ -12,7 +329,7 @@ Object {
 }
 `;
 
-exports[`parse code 1`] = `
+exports[`parse inline code 1`] = `
 Object {
   "marks": Array [
     Object {
@@ -24,7 +341,7 @@ Object {
 }
 `;
 
-exports[`parse italic 1`] = `
+exports[`parse inline italic 1`] = `
 Object {
   "marks": Array [
     Object {
@@ -36,7 +353,7 @@ Object {
 }
 `;
 
-exports[`parse link 1`] = `
+exports[`parse inline link 1`] = `
 Object {
   "marks": Array [
     Object {
@@ -52,13 +369,20 @@ Object {
 }
 `;
 
-exports[`parse strike 1`] = `
+exports[`parse inline strike 1`] = `
 Object {
   "marks": Array [
     Object {
       "type": "strike",
     },
   ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse inline text 1`] = `
+Object {
   "text": "example",
   "type": "text",
 }
