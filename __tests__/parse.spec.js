@@ -17,6 +17,10 @@ function inlineNode(doc) {
     return doc.content[0].content[0];
 }
 
+function dedent(str) {
+    return str[0].replace(/^\s*/gm, '');
+}
+
 describe('parse', () => {
     describe('inline', () => {
         test('text', () => {
@@ -70,6 +74,13 @@ describe('parse', () => {
         });
         test('hard break', () => {
             expect(node(parse('example1  \nexample2'))).toMatchSnapshot();
+        });
+        test('table', () => {
+            expect(node(parse(dedent`
+                | example1 | example2 |
+                | --- | --- |
+                | example3 | example4 |
+            `))).toMatchSnapshot();
         });
     })
 });

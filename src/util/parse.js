@@ -59,7 +59,27 @@ function getTokens(schema) {
             ...defaultTokens.fence,
             getAttrs: tok => ({ language: tok.info || null }),
         },
-        s: { mark:tokenToMark.s },
+        table: {
+            block: tokenToNode.table,
+        },
+        thead: {
+            ignore: true,
+        },
+        tbody: {
+            ignore: true,
+        },
+        tr: {
+            block: tokenToNode.tr,
+        },
+        th: {
+            block: tokenToNode.th,
+        },
+        td: {
+            block: tokenToNode.td,
+        },
+        s: {
+            mark: tokenToMark.s,
+        },
     };
 
     return Object.fromEntries(
@@ -72,6 +92,9 @@ function getTokens(schema) {
             }
             if(definition.mark) {
                 return schema.marks[definition.mark];
+            }
+            if(definition.ignore) {
+                return true;
             }
         })
     );
@@ -191,16 +214,34 @@ function parseDOMNode(parser, domNode) {
     return parsed;
 }
 
+function wrapContentWithParagraph(handlers, nodeName) {
+    const open = handlers[`${nodeName}_open`];
+    const close = handlers[`${nodeName}_close`];
+    return {
+        [`${nodeName}_open`]: (...args) => {
+            open(...args);
+            handlers.paragraph_open(...args);
+        },
+        [`${nodeName}_close`]: (...args) => {
+            handlers.paragraph_close(...args);
+            return close(...args);
+        }
+    }
+}
+
 export function parse(schema, content, { html }) {
     if(typeof content === 'string') {
         const tokenizer = markdownit({ html });
         const parser = new MarkdownParser(schema, tokenizer, {
             ...getTokens(schema)
         });
-        parser.tokenHandlers.inline = handleInline;
-        parser.tokenHandlers.html_inline = () => {}; // handle in inline
-        parser.tokenHandlers.html_block = () => {};
-
+        parser.tokenHandlers = {
+            ...parser.tokenHandlers,
+            inline: handleInline,
+            html_inline: () => {},
+            html_block: () => {},
+            ...wrapContentWithParagraph(parser.tokenHandlers, 'td'),
+        }
         return parseDOMNode(parser, elementFromString(content)).toJSON();
     }
     return content;

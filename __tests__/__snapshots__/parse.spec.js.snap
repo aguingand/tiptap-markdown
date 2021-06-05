@@ -317,6 +317,60 @@ Array [
 ]
 `;
 
+exports[`parse block table 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "tableRow",
+    },
+    Object {
+      "content": Array [
+        Object {
+          "attrs": Object {
+            "colspan": 1,
+            "colwidth": null,
+            "rowspan": 1,
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "example3",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "tableCell",
+        },
+        Object {
+          "attrs": Object {
+            "colspan": 1,
+            "colwidth": null,
+            "rowspan": 1,
+          },
+          "content": Array [
+            Object {
+              "content": Array [
+                Object {
+                  "text": "example4",
+                  "type": "text",
+                },
+              ],
+              "type": "paragraph",
+            },
+          ],
+          "type": "tableCell",
+        },
+      ],
+      "type": "tableRow",
+    },
+  ],
+  "type": "table",
+}
+`;
+
 exports[`parse inline bold 1`] = `
 Object {
   "marks": Array [
