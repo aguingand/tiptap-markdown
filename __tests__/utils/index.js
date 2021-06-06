@@ -8,19 +8,19 @@ import TableCell from "@tiptap/extension-table-cell";
 import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 
-export function createEditor(options) {
+export function createEditor({ image, ...options } = {}) {
     const MarkdownEditor = createMarkdownEditor(Editor);
     return new MarkdownEditor({
         extensions: [
             StarterKit,
-            Table.configure({
-                resizable: false,
-            }),
+            Table,
             TableRow,
             TableHeader,
             TableCell,
             Link,
-            Image,
+            Image.configure({
+                ...image,
+            }),
         ],
         ...options,
     });

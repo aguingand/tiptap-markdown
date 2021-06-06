@@ -1,7 +1,7 @@
 import markdownit from "markdown-it";
 import { MarkdownParser, defaultMarkdownParser } from "prosemirror-markdown";
 import { DOMParser } from "prosemirror-model";
-import { isVoidElement } from "./dom";
+import { isVoidElement, elementFromString } from "../util/dom";
 
 const tokenToNode = {
     blockquote: "blockquote",
@@ -98,13 +98,6 @@ function getTokens(schema) {
             }
         })
     );
-}
-
-function elementFromString(value) {
-    // add a wrapper to preserve leading and trailing whitespace
-    const wrappedValue = `<body>${value}</body>`
-
-    return new window.DOMParser().parseFromString(wrappedValue, 'text/html').body
 }
 
 function handleHtmlInline(state, tokens, index) {

@@ -1,5 +1,5 @@
-import { serialize } from "./util/serialize";
-import { parse } from "./util/parse";
+import { serialize } from "./serialize";
+import { parse } from "./parse";
 
 
 export function createMarkdownEditor(Editor) {

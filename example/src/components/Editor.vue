@@ -18,6 +18,7 @@
     import TableCell from '@tiptap/extension-table-cell';
     import TableHeader from '@tiptap/extension-table-header';
     import Underline from '@tiptap/extension-underline';
+    import Image from '@tiptap/extension-image';
     import { createMarkdownEditor } from "../../../src/MarkdownEditor";
     import MenuBar from "./MenuBar.vue";
 
@@ -53,13 +54,12 @@
                     TableHeader,
                     TableCell,
                     Underline,
+                    Image.configure({
+                        inline: true,
+                    }),
                 ],
                 content: `## Tables
-dedzedfze
-~~example~~
-<p>fzfzfzfzfezf</p>
-
-fzefzefzefez
+![example](example.jpg)
                 `,
                 html: true,
                 onUpdate: () => {
