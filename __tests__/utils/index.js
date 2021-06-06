@@ -9,8 +9,7 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 
 export function createEditor({ image, ...options } = {}) {
-    const MarkdownEditor = createMarkdownEditor(Editor);
-    return new MarkdownEditor({
+    return new Editor({
         extensions: [
             StarterKit,
             Table,
@@ -24,4 +23,20 @@ export function createEditor({ image, ...options } = {}) {
         ],
         ...options,
     });
+}
+
+export function nodes(doc) {
+    return doc.content;
+}
+
+export function node(doc) {
+    return doc.content[0];
+}
+
+export function inlineNode(doc) {
+    return doc.content[0].content[0];
+}
+
+export function dedent(str) {
+    return str[0].replace(/^\s*/gm, '');
 }

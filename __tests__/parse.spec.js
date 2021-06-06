@@ -1,25 +1,14 @@
-import { createEditor } from "./utils";
+import { parse as baseParse } from '../src/parse';
+import { createEditor, nodes, node, inlineNode, dedent } from "./utils";
 
 
 function parse(content, { html=true, image } = {}) {
-    return createEditor({ html, image }).parseMarkdown(content);
+    const editor = createEditor({
+        image,
+    });
+    return baseParse(editor.schema, content, { html });
 }
 
-function nodes(doc) {
-    return doc.content;
-}
-
-function node(doc) {
-    return doc.content[0];
-}
-
-function inlineNode(doc) {
-    return doc.content[0].content[0];
-}
-
-function dedent(str) {
-    return str[0].replace(/^\s*/gm, '');
-}
 
 describe('parse', () => {
     describe('inline', () => {
@@ -76,6 +65,7 @@ describe('parse', () => {
         })
         test('code block', () => {
             expect(node(parse('    example'))).toMatchSnapshot();
+            expect(node(parse('<pre><code>example</code></pre>'))).toMatchSnapshot('html');
         });
         test('image', () => {
             expect(node(parse('![example](example.jpg)'))).toMatchSnapshot();
@@ -92,11 +82,27 @@ describe('parse', () => {
         });
         test('table', () => {
             expect(node(parse(dedent`
-                | example1 | example2 |
-                | --- | --- |
-                | example3 | example4 |
+                example1 | example2
+                --- | ---
+                example3 | example4
             `))).toMatchSnapshot();
+            expect(node(parse(dedent`
+                <table>
+                <thead>
+                    <tr>
+                        <th>example1</th>
+                        <th>example2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>example3</td>
+                        <td>example4</td>
+                    </tr>
+                </tbody>
+                </table>
+            `))).toMatchSnapshot('html');
         });
-    })
+    });
 });
 

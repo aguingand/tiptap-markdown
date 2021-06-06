@@ -16,7 +16,6 @@ function getNodes() {
         hardBreak: nodes.hard_break,
         text: nodes.text,
         table(state, node) {
-            console.log('table', node);
             node.content.content.forEach((row, i) => {
                 row.content.content.forEach((col, j) => {
                     if(j) {
