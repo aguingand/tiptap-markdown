@@ -1,11 +1,11 @@
-import { serialize as baseSerialize } from '../src/serialize';
+import { serialize as baseSerialize } from '../src/serialize/serialize';
 import { dedent, createEditor } from "./utils";
 
-function serialize(content) {
+function serialize(content, options) {
     const editor = createEditor({
         content,
     });
-    return baseSerialize(editor.state.doc);
+    return baseSerialize(editor.schema, editor.state.doc, options);
 }
 
 describe('serialize', () => {
@@ -26,7 +26,7 @@ describe('serialize', () => {
             expect(serialize('<code>example</code>')).toEqual('`example`');
         });
         test('link', () => {
-            expect(serialize('<a href="http://example.org">example</a>')).toEqual('![example](example.jpg)');
+            expect(serialize('<a href="http://example.org">example</a>')).toEqual('[example](http://example.org)');
         });
     });
     describe('block', () => {
@@ -42,10 +42,21 @@ describe('serialize', () => {
             expect(serialize('<h6>example</h6>')).toEqual('###### example');
         });
         test('bullet list', () => {
-            expect(serialize('<ul><li>example1</li><li>example2</li></ul>')).toEqual('* example1\n* example2');
+            expect(serialize('<ul><li>example1</li><li>example2</li></ul>'))
+                .toEqual('* example1\n\n* example2');
+
+            expect(serialize('<ul><li>example1</li><li>example2</li></ul>', { bulletListMarker: '-' }))
+                .toEqual('- example1\n\n- example2');
+
+            expect(serialize('<ul><li>example1</li><li>example2</li></ul>', { tightLists: true }))
+                .toEqual('* example1\n* example2');
         });
         test('ordered list', () => {
-            expect(serialize('<ol><li>example1</li><li>example2</li></ol>')).toEqual('1. example1\n2. example2');
+            expect(serialize('<ol><li>example1</li><li>example2</li></ol>'))
+                .toEqual('1. example1\n\n2. example2');
+
+            expect(serialize('<ol><li>example1</li><li>example2</li></ol>', { tightLists: true }))
+                .toEqual('1. example1\n2. example2');
         });
         test('fence', () => {
         })

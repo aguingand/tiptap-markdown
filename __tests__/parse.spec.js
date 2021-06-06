@@ -1,4 +1,4 @@
-import { parse as baseParse } from '../src/parse';
+import { parse as baseParse } from '../src/parse/parse';
 import { createEditor, nodes, node, inlineNode, dedent } from "./utils";
 
 
@@ -51,8 +51,8 @@ describe('parse', () => {
             expect(node(parse('<h1>example</h1>'))).toMatchSnapshot('h1 html');
         });
         test('bullet list', () => {
-            expect(node(parse('- example1\n- example2'))).toMatchSnapshot();
-            expect(node(parse('* example1\n* example2'))).toMatchSnapshot();
+            expect(node(parse('- example1\n\n- example2'))).toMatchSnapshot();
+            expect(node(parse('* example1\n\n* example2'))).toMatchSnapshot();
             expect(node(parse('<ul><li>example1</li><li>example2</li></ul>'))).toMatchSnapshot('html');
         });
         test('ordered list', () => {

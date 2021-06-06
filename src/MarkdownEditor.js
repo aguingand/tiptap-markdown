@@ -4,6 +4,13 @@ import { parse } from "./parse";
 
 export function createMarkdownEditor(Editor) {
     return class extends Editor {
+
+        defaultMarkdownOptions = {
+            html: true,
+            tightLists: false,
+            bulletListMarker: '*',
+        }
+
         constructor(options) {
             super(options);
             const { setContent, insertContentAt } = this.commandManager.commands;
@@ -17,21 +24,37 @@ export function createMarkdownEditor(Editor) {
 
         setOptions(options) {
             super.setOptions(options);
-            Object.defineProperty(this.options, 'content', {
-                get: () => {
-                    return this.parseMarkdown(options.content);
-                },
-            });
+            this.options.markdown = {
+                ...this.defaultMarkdownOptions,
+                ...options?.markdown,
+            }
+        }
+
+        createView() {
+            const originalContent = this.options.content;
+            this.options.content = this.parseMarkdown(this.options.content);
+
+            this.extensionManager.plugins;
+
+            super.createView();
+
+            this.options.content = originalContent;
         }
 
         parseMarkdown(content) {
+            const { html } = this.options.markdown;
             return parse(this.schema, content, {
-                html: this.options.html,
+                html,
             });
         }
 
         getMarkdown() {
-            return serialize(this.state.doc);
+            const { html, tightLists, bulletListMarker } = this.options.markdown;
+            return serialize(this.schema, this.state.doc, {
+                html,
+                tightLists,
+                bulletListMarker,
+            });
         }
     }
 }

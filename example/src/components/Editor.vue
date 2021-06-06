@@ -61,7 +61,6 @@
                 content: `## Tables
 ![example](example.jpg)
                 `,
-                html: true,
                 onUpdate: () => {
                     this.updateMarkdownOutput();
                 },
