@@ -34,8 +34,6 @@ export function createMarkdownEditor(Editor) {
             const originalContent = this.options.content;
             this.options.content = this.parseMarkdown(this.options.content);
 
-            this.extensionManager.plugins;
-
             super.createView();
 
             this.options.content = originalContent;

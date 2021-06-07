@@ -34,7 +34,7 @@ function getNodes(schema, { html, bulletListMarker = '*' }) {
         text: nodes.text,
         table(state, node) {
             node.content.content.forEach((row, i) => {
-                row.content.content.forEach((col, j) => {
+                row.content.content.forEach((col, j, nodes) => {
                     if(j) {
                         state.write(' | ');
                     }
@@ -42,7 +42,11 @@ function getNodes(schema, { html, bulletListMarker = '*' }) {
                     if(cellContent.textContent.trim()) {
                         state.renderInline(cellContent);
                     } else {
-                        state.write('&nbsp;');
+                        if(!j) {
+                            state.write('| ');
+                        } else if(j === nodes.length - 1) {
+                            state.write(' |')
+                        }
                     }
                 });
                 state.ensureNewLine();
@@ -74,7 +78,15 @@ export function serialize(schema, content, {
     tightLists = false,
     bulletListMarker = '*',
 } = {}) {
-    const serializer = new MarkdownSerializer(getNodes(schema, { html, bulletListMarker }), getMarks());
-    return serializer.serialize(content, { tightLists });
+    const nodes = getNodes(schema, {
+        html,
+        bulletListMarker,
+    });
+    const marks = getMarks();
+
+    return new MarkdownSerializer(nodes, marks)
+        .serialize(content, {
+            tightLists,
+        });
 }
 

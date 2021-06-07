@@ -75,23 +75,36 @@ describe('serialize', () => {
         test('table', () => {
             expect(serialize(dedent`
                 <table>
-                <thead>
                     <tr>
                         <th>example1</th>
                         <th>example2</th>
                     </tr>
-                </thead>
-                <tbody>
                     <tr>
                         <td>example3</td>
                         <td>example4</td>
                     </tr>
-                </tbody>
                 </table>
             `)).toEqual(dedent`
                 example1 | example2
                 --- | ---
                 example3 | example4
+            `);
+
+            expect(serialize(dedent`
+                <table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            `)).toEqual(dedent`
+                |  |  |
+                --- | ---
+                |  |  |
             `);
         });
     });
