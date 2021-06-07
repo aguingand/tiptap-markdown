@@ -59,6 +59,7 @@ describe('serialize', () => {
                 .toEqual('1. example1\n2. example2');
         });
         test('fence', () => {
+            expect(serialize('<pre><code class="language-js">example</code></pre>')).toEqual('```js\nexample\n```');
         })
         test('code block', () => {
             expect(serialize('<pre><code>example</code></pre>')).toEqual('```\nexample\n```');

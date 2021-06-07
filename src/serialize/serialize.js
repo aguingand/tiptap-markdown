@@ -20,7 +20,13 @@ function getNodes(schema, { html, bulletListMarker = '*' }) {
             ])
         ),
         blockquote: nodes.blockquote,
-        codeBlock: nodes.code_block,
+        codeBlock(state, node) {
+            state.write("```" + (node.attrs.language || "") + "\n");
+            state.text(node.textContent, false);
+            state.ensureNewLine();
+            state.write("```");
+            state.closeBlock(node);
+        },
         heading: nodes.heading,
         horizontalRule: nodes.horizontal_rule,
         bulletList(state, node) {
