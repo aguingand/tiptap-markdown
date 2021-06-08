@@ -1,12 +1,19 @@
 <template>
-    <div class="editor card m-5">
-        <div class="card-header">
-            <MenuBar :editor="editor" />
+    <div class="vh-100 p-4">
+        <div class="row h-100">
+            <div class="col-md-6">
+                <textarea class="form-control h-100" rows="10" ref="markdown" v-model="markdown" @input="handleInput"></textarea>
+            </div>
+            <div class="col-md-6">
+                <div class="editor card h-100">
+                    <div class="card-header">
+                        <MenuBar :editor="editor" />
+                    </div>
+
+                    <EditorContent class="editor__content flex-fill" style="margin: -1px" :editor="editor" />
+                </div>
+            </div>
         </div>
-
-        <EditorContent class="editor__content" style="margin: -1px" :editor="editor" />
-
-        <textarea class="form-control card-body" rows="10" ref="markdown" v-model="markdown" @input="handleInput"></textarea>
     </div>
 </template>
 
@@ -19,8 +26,13 @@
     import TableHeader from '@tiptap/extension-table-header';
     import Underline from '@tiptap/extension-underline';
     import Image from '@tiptap/extension-image';
+    import Link from '@tiptap/extension-link';
+    import Highlight from '@tiptap/extension-highlight';
+    import TaskList from '@tiptap/extension-task-list'
+    import TaskItem from '@tiptap/extension-task-item'
     import { createMarkdownEditor } from "../../../src/MarkdownEditor";
     import MenuBar from "./MenuBar.vue";
+    import content from '../content.md?raw';
 
 
     export default {
@@ -57,16 +69,17 @@
                     Image.configure({
                         inline: true,
                     }),
+                    Link,
+                    Highlight,
+                    TaskList,
+                    TaskItem,
                 ],
-                content: `## Tables
-![example](example.jpg)
-                `,
+                content,
                 onUpdate: () => {
                     this.updateMarkdownOutput();
                 },
             });
-            this.editor.view.dom.classList.add('form-control');
-            this.editor.view.dom.classList.add('card-body');
+            this.editor.view.dom.classList.add('card-body', 'form-control', 'h-100');
             this.updateMarkdownOutput();
         },
     }

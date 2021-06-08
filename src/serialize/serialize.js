@@ -10,6 +10,12 @@ function getHTMLSerializer(schema) {
     }
 }
 
+function getBulletListSerializer(marker) {
+    return (state, node) => {
+        return state.renderList(node, "  ", () => (marker || "*") + " ");
+    }
+}
+
 function getNodes(schema, { html, bulletListMarker = '*' }) {
     const { nodes } = defaultMarkdownSerializer;
     return {
@@ -29,11 +35,15 @@ function getNodes(schema, { html, bulletListMarker = '*' }) {
         },
         heading: nodes.heading,
         horizontalRule: nodes.horizontal_rule,
-        bulletList(state, node) {
-            return state.renderList(node, "  ", () => (bulletListMarker || "*") + " ");
-        },
+        bulletList: getBulletListSerializer(bulletListMarker),
         orderedList: nodes.ordered_list,
         listItem: nodes.list_item,
+        taskList: getBulletListSerializer(bulletListMarker),
+        taskItem(state, node) {
+            const check = node.attrs.checked ? '[x]' : '[ ]';
+            state.write(`${check} `);
+            state.renderContent(node)
+        },
         paragraph: nodes.paragraph,
         image: nodes.image,
         hardBreak: nodes.hard_break,
@@ -76,6 +86,7 @@ function getMarks() {
         strike: {open:'~~', close:'~~'},
         code: marks.code,
         link: marks.link,
+        highlight: {open:'==', close:'=='},
     }
 }
 

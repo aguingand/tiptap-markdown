@@ -1,9 +1,5 @@
 <template>
-    <div>
-        <div class="d-flex justify-content-center">
-            <Editor></Editor>
-        </div>
-    </div>
+    <Editor />
 </template>
 
 <script>
