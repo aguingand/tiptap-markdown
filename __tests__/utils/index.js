@@ -1,5 +1,4 @@
-import { createMarkdownEditor } from "../../src/MarkdownEditor";
-import { Editor } from "@tiptap/core";
+import { Editor, Node, } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
@@ -8,7 +7,11 @@ import TableCell from "@tiptap/extension-table-cell";
 import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 
-export function createEditor({ image, ...options } = {}) {
+export function createEditor({
+    image,
+    htmlNode,
+    ...options
+} = {}) {
     return new Editor({
         extensions: [
             StarterKit,
@@ -19,6 +22,10 @@ export function createEditor({ image, ...options } = {}) {
             Link,
             Image.configure({
                 ...image,
+            }),
+            Node.create({
+                name: 'html',
+                ...htmlNode,
             }),
         ],
         ...options,

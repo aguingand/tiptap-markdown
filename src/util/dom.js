@@ -7,6 +7,18 @@ export function elementFromString(value) {
     return new window.DOMParser().parseFromString(wrappedValue, 'text/html').body
 }
 
+export function extractElement(node) {
+    const parent = node.parentElement;
+    const prepend = parent.cloneNode();
+
+    while(parent.firstChild && parent.firstChild !== node) {
+        prepend.appendChild(parent.firstChild);
+    }
+
+    parent.parentElement.insertBefore(prepend, parent);
+    parent.parentElement.insertBefore(node, parent);
+}
+
 export function isVoidElement(tagName) {
     if(!tagName) {
         return false;

@@ -323,6 +323,23 @@ Object {
 }
 `;
 
+exports[`parse block html 1`] = `
+Object {
+  "type": "html",
+}
+`;
+
+exports[`parse block html inline 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "type": "html",
+    },
+  ],
+  "type": "paragraph",
+}
+`;
+
 exports[`parse block image 1`] = `
 Object {
   "attrs": Object {
@@ -336,7 +353,12 @@ Object {
 
 exports[`parse block image: html 1`] = `
 Object {
-  "type": "paragraph",
+  "attrs": Object {
+    "alt": "example",
+    "src": "example.jpg",
+    "title": null,
+  },
+  "type": "image",
 }
 `;
 

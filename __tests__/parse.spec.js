@@ -2,9 +2,10 @@ import { parse as baseParse } from '../src/parse/parse';
 import { createEditor, nodes, node, inlineNode, dedent } from "./utils";
 
 
-function parse(content, { html=true, image } = {}) {
+function parse(content, { html=true, image, htmlNode } = {}) {
     const editor = createEditor({
         image,
+        htmlNode,
     });
     return baseParse(editor.schema, content, { html });
 }
@@ -86,6 +87,7 @@ describe('parse', () => {
                 --- | ---
                 example3 | example4
             `))).toMatchSnapshot();
+
             expect(node(parse(dedent`
                 <table>
                 <thead>
@@ -102,6 +104,27 @@ describe('parse', () => {
                 </tbody>
                 </table>
             `))).toMatchSnapshot('html');
+        });
+        test('html', () => {
+            expect(node(parse('<custom-element></custom-element>', {
+                htmlNode: {
+                    group: 'block',
+                    parseHTML: () => [{
+                        tag: 'custom-element',
+                    }],
+                },
+            }))).toMatchSnapshot();
+        });
+        test('html inline', () => {
+            expect(node(parse('<custom-element></custom-element>', {
+                htmlNode: {
+                    group: 'inline',
+                    inline: true,
+                    parseHTML: () => [{
+                        tag: 'custom-element',
+                    }],
+                },
+            }))).toMatchSnapshot();
         });
     });
 });
