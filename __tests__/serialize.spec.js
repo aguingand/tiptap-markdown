@@ -1,9 +1,10 @@
 import { serialize as baseSerialize } from '../src/serialize/serialize';
 import { dedent, createEditor } from "./utils";
 
-function serialize(content, options) {
+function serialize(content, { htmlNode, ...options } = {}) {
     const editor = createEditor({
         content,
+        htmlNode,
     });
     return baseSerialize(editor.schema, editor.state.doc, options);
 }
@@ -27,6 +28,12 @@ describe('serialize', () => {
         });
         test('link', () => {
             expect(serialize('<a href="http://example.org">example</a>')).toEqual('[example](http://example.org)');
+        });
+        test('underline', () => {
+            expect(serialize('<u>example</u>')).toEqual('example');
+        });
+        test('underline html', () => {
+            expect(serialize('<u>example</u>', { html: true })).toEqual('<u>example</u>');
         });
     });
     describe('block', () => {
@@ -107,6 +114,37 @@ describe('serialize', () => {
                 --- | ---
                 |  |  |
             `);
+        });
+        test('html', () => {
+            expect(serialize('<custom-element>example</custom-element>', {
+                html: true,
+                htmlNode: {
+                    group: 'block',
+                    content: 'inline*',
+                    parseHTML: () => [{
+                        tag: 'custom-element',
+                    }],
+                    renderHTML: () => [
+                        'custom-element',
+                        0,
+                    ],
+                },
+            })).toEqual('<custom-element>example</custom-element>');
+        });
+        test('html inline', () => {
+            expect(serialize('<p><custom-element></custom-element></p>', {
+                html: true,
+                htmlNode: {
+                    group: 'inline',
+                    inline: true,
+                    parseHTML: () => [{
+                        tag: 'custom-element',
+                    }],
+                    renderHTML: () => [
+                        'custom-element'
+                    ],
+                },
+            })).toEqual('<custom-element></custom-element>');
         });
     });
 })

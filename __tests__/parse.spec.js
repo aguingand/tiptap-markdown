@@ -106,9 +106,10 @@ describe('parse', () => {
             `))).toMatchSnapshot('html');
         });
         test('html', () => {
-            expect(node(parse('<custom-element></custom-element>', {
+            expect(node(parse('<custom-element>example</custom-element>', {
                 htmlNode: {
                     group: 'block',
+                    content: 'inline*',
                     parseHTML: () => [{
                         tag: 'custom-element',
                     }],
@@ -120,6 +121,17 @@ describe('parse', () => {
                 htmlNode: {
                     group: 'inline',
                     inline: true,
+                    parseHTML: () => [{
+                        tag: 'custom-element',
+                    }],
+                },
+            }))).toMatchSnapshot();
+        });
+        test('html disabled', () => {
+            expect(node(parse('<custom-element></custom-element>', {
+                html: false,
+                htmlNode: {
+                    group: 'block',
                     parseHTML: () => [{
                         tag: 'custom-element',
                     }],

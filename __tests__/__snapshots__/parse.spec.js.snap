@@ -325,7 +325,25 @@ Object {
 
 exports[`parse block html 1`] = `
 Object {
+  "content": Array [
+    Object {
+      "text": "example",
+      "type": "text",
+    },
+  ],
   "type": "html",
+}
+`;
+
+exports[`parse block html disabled 1`] = `
+Object {
+  "content": Array [
+    Object {
+      "text": "<custom-element></custom-element>",
+      "type": "text",
+    },
+  ],
+  "type": "paragraph",
 }
 `;
 

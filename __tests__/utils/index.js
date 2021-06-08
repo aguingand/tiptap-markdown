@@ -6,6 +6,7 @@ import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
 import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
+import Underline from '@tiptap/extension-underline';
 
 export function createEditor({
     image,
@@ -20,6 +21,7 @@ export function createEditor({
             TableHeader,
             TableCell,
             Link,
+            Underline,
             Image.configure({
                 ...image,
             }),

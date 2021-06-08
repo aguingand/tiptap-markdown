@@ -77,12 +77,31 @@ function getNodes(schema, { html, bulletListMarker = '*' }) {
     }
 }
 
-function getMarks() {
+function htmlMark(tag, { name, html }) {
+    if(!html) {
+        return {
+            open() {
+                console.warn(`Tiptap Markdown: "${name}" is only available in html (<${tag}>)`);
+                return '';
+            },
+            close: '',
+        }
+    }
+    return {
+        open: `<${tag}>`,
+        close: `</${tag}>`,
+    }
+}
+
+function getMarks(schema, { html }) {
     const { marks } = defaultMarkdownSerializer;
     return {
         bold: marks.strong,
         italic: marks.em,
-        underline: {open:'<u>', close:'</u>'},
+        underline: htmlMark('u', {
+            name: 'underline',
+            html,
+        }),
         strike: {open:'~~', close:'~~'},
         code: marks.code,
         link: marks.link,
@@ -99,7 +118,9 @@ export function serialize(schema, content, {
         html,
         bulletListMarker,
     });
-    const marks = getMarks();
+    const marks = getMarks(schema, {
+        html,
+    });
 
     return new MarkdownSerializer(nodes, marks)
         .serialize(content, {
