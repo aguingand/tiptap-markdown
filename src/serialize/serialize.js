@@ -1,4 +1,4 @@
-import { MarkdownSerializer } from 'prosemirror-markdown';
+import { MarkdownSerializer } from 'prosemirror-markdown/src/to_markdown';
 import { getMarks } from "./marks";
 import { getNodes } from "./nodes";
 
