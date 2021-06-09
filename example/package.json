@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
-    "@tiptap/vue-3": "^2.0.0-beta.34",
     "bootstrap": "^5.0.0-beta3",
     "vue": "^3.0.11"
   },
@@ -17,7 +16,6 @@
     "@vitejs/plugin-vue": "^1.2.1",
     "@vue/compiler-sfc": "^3.0.11",
     "sass": "^1.32.10",
-    "vite": "^2.1.5",
-    "vite-plugin-vue2": "^1.4.3"
+    "vite": "^2.1.5"
   }
 }
