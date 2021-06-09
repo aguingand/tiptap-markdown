@@ -1,6 +1,141 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parse block bullet list 1`] = `
+exports[`parse marks bold 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "bold",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks bold: html 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "bold",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks code 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "code",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks code: html 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "code",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks italic 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "italic",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks italic: html 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "italic",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks link 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "attrs": Object {
+        "href": "http://example.org",
+        "target": "_blank",
+      },
+      "type": "link",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks link: html 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "attrs": Object {
+        "href": "http://example.org",
+        "target": "_blank",
+      },
+      "type": "link",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks strike 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "strike",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks strike: html 1`] = `
+Object {
+  "marks": Array [
+    Object {
+      "type": "strike",
+    },
+  ],
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse marks text 1`] = `
+Object {
+  "text": "example",
+  "type": "text",
+}
+`;
+
+exports[`parse nodes bullet list 1`] = `
 Object {
   "content": Array [
     Object {
@@ -36,7 +171,7 @@ Object {
 }
 `;
 
-exports[`parse block bullet list 2`] = `
+exports[`parse nodes bullet list 2`] = `
 Object {
   "content": Array [
     Object {
@@ -72,7 +207,7 @@ Object {
 }
 `;
 
-exports[`parse block bullet list: html 1`] = `
+exports[`parse nodes bullet list: html 1`] = `
 Object {
   "content": Array [
     Object {
@@ -108,7 +243,7 @@ Object {
 }
 `;
 
-exports[`parse block code block 1`] = `
+exports[`parse nodes code block 1`] = `
 Object {
   "attrs": Object {
     "language": null,
@@ -123,7 +258,7 @@ Object {
 }
 `;
 
-exports[`parse block code block: html 1`] = `
+exports[`parse nodes code block: html 1`] = `
 Object {
   "attrs": Object {
     "language": null,
@@ -138,7 +273,7 @@ Object {
 }
 `;
 
-exports[`parse block fence 1`] = `
+exports[`parse nodes fence 1`] = `
 Object {
   "attrs": Object {
     "language": null,
@@ -153,7 +288,7 @@ Object {
 }
 `;
 
-exports[`parse block fence: lang 1`] = `
+exports[`parse nodes fence: lang 1`] = `
 Object {
   "attrs": Object {
     "language": "js",
@@ -168,7 +303,7 @@ Object {
 }
 `;
 
-exports[`parse block hard break 1`] = `
+exports[`parse nodes hard break 1`] = `
 Object {
   "content": Array [
     Object {
@@ -187,7 +322,7 @@ Object {
 }
 `;
 
-exports[`parse block hard break: html 1`] = `
+exports[`parse nodes hard break: html 1`] = `
 Object {
   "content": Array [
     Object {
@@ -206,7 +341,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h1 1`] = `
+exports[`parse nodes headings: h1 1`] = `
 Object {
   "attrs": Object {
     "level": 1,
@@ -221,7 +356,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h1 html 1`] = `
+exports[`parse nodes headings: h1 html 1`] = `
 Object {
   "attrs": Object {
     "level": 1,
@@ -236,7 +371,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h2 1`] = `
+exports[`parse nodes headings: h2 1`] = `
 Object {
   "attrs": Object {
     "level": 2,
@@ -251,7 +386,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h3 1`] = `
+exports[`parse nodes headings: h3 1`] = `
 Object {
   "attrs": Object {
     "level": 3,
@@ -266,7 +401,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h4 1`] = `
+exports[`parse nodes headings: h4 1`] = `
 Object {
   "attrs": Object {
     "level": 4,
@@ -281,7 +416,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h5 1`] = `
+exports[`parse nodes headings: h5 1`] = `
 Object {
   "attrs": Object {
     "level": 5,
@@ -296,7 +431,7 @@ Object {
 }
 `;
 
-exports[`parse block headings: h6 1`] = `
+exports[`parse nodes headings: h6 1`] = `
 Object {
   "attrs": Object {
     "level": 6,
@@ -311,19 +446,19 @@ Object {
 }
 `;
 
-exports[`parse block hr 1`] = `
+exports[`parse nodes hr 1`] = `
 Object {
   "type": "horizontalRule",
 }
 `;
 
-exports[`parse block hr: html 1`] = `
+exports[`parse nodes hr: html 1`] = `
 Object {
   "type": "horizontalRule",
 }
 `;
 
-exports[`parse block html 1`] = `
+exports[`parse nodes html 1`] = `
 Object {
   "content": Array [
     Object {
@@ -331,11 +466,11 @@ Object {
       "type": "text",
     },
   ],
-  "type": "html",
+  "type": "html-node",
 }
 `;
 
-exports[`parse block html disabled 1`] = `
+exports[`parse nodes html disabled 1`] = `
 Object {
   "content": Array [
     Object {
@@ -347,18 +482,18 @@ Object {
 }
 `;
 
-exports[`parse block html inline 1`] = `
+exports[`parse nodes html inline 1`] = `
 Object {
   "content": Array [
     Object {
-      "type": "html",
+      "type": "html-node",
     },
   ],
   "type": "paragraph",
 }
 `;
 
-exports[`parse block image 1`] = `
+exports[`parse nodes image 1`] = `
 Object {
   "attrs": Object {
     "alt": "example",
@@ -369,7 +504,7 @@ Object {
 }
 `;
 
-exports[`parse block image: html 1`] = `
+exports[`parse nodes image: html 1`] = `
 Object {
   "attrs": Object {
     "alt": "example",
@@ -380,7 +515,7 @@ Object {
 }
 `;
 
-exports[`parse block image: inline 1`] = `
+exports[`parse nodes image: inline 1`] = `
 Object {
   "content": Array [
     Object {
@@ -396,7 +531,7 @@ Object {
 }
 `;
 
-exports[`parse block ordered list 1`] = `
+exports[`parse nodes ordered list 1`] = `
 Object {
   "attrs": Object {
     "start": 1,
@@ -435,7 +570,7 @@ Object {
 }
 `;
 
-exports[`parse block ordered list: html 1`] = `
+exports[`parse nodes ordered list: html 1`] = `
 Object {
   "attrs": Object {
     "start": 1,
@@ -474,7 +609,7 @@ Object {
 }
 `;
 
-exports[`parse block paragraph 1`] = `
+exports[`parse nodes paragraph 1`] = `
 Array [
   Object {
     "content": Array [
@@ -497,7 +632,7 @@ Array [
 ]
 `;
 
-exports[`parse block paragraph: html 1`] = `
+exports[`parse nodes paragraph: html 1`] = `
 Array [
   Object {
     "content": Array [
@@ -520,7 +655,7 @@ Array [
 ]
 `;
 
-exports[`parse block table 1`] = `
+exports[`parse nodes table 1`] = `
 Object {
   "content": Array [
     Object {
@@ -614,7 +749,7 @@ Object {
 }
 `;
 
-exports[`parse block table: html 1`] = `
+exports[`parse nodes table: html 1`] = `
 Object {
   "content": Array [
     Object {
@@ -705,140 +840,5 @@ Object {
     },
   ],
   "type": "table",
-}
-`;
-
-exports[`parse inline bold 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "bold",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline bold: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "bold",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline code 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "code",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline code: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "code",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline italic 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "italic",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline italic: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "italic",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline link 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "attrs": Object {
-        "href": "http://example.org",
-        "target": "_blank",
-      },
-      "type": "link",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline link: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "attrs": Object {
-        "href": "http://example.org",
-        "target": "_blank",
-      },
-      "type": "link",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline strike 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "strike",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline strike: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "strike",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse inline text 1`] = `
-Object {
-  "text": "example",
-  "type": "text",
 }
 `;

@@ -12,7 +12,7 @@ function parse(content, { html=true, image, htmlNode } = {}) {
 
 
 describe('parse', () => {
-    describe('inline', () => {
+    describe('marks', () => {
         test('text', () => {
             expect(inlineNode(parse('example'))).toMatchSnapshot();
         });
@@ -37,7 +37,7 @@ describe('parse', () => {
             expect(inlineNode(parse('<a href="http://example.org">example</a>'))).toMatchSnapshot('html');
         });
     });
-    describe('block', () => {
+    describe('nodes', () => {
         test('paragraph', () => {
             expect(nodes(parse('example1\n\nexample2'))).toMatchSnapshot();
             expect(nodes(parse('<p>example1</p><p>example2</p>'))).toMatchSnapshot('html');

@@ -1,16 +1,17 @@
 import { serialize as baseSerialize } from '../src/serialize/serialize';
 import { dedent, createEditor } from "./utils";
 
-function serialize(content, { htmlNode, ...options } = {}) {
+function serialize(content, { htmlNode, htmlMark, ...options } = {}) {
     const editor = createEditor({
         content,
         htmlNode,
+        htmlMark,
     });
     return baseSerialize(editor.schema, editor.state.doc, options);
 }
 
 describe('serialize', () => {
-    describe('inline', () => {
+    describe('marks', () => {
         test('text', () => {
             expect(serialize('example')).toEqual('example');
         });
@@ -35,8 +36,19 @@ describe('serialize', () => {
         test('underline html', () => {
             expect(serialize('<u>example</u>', { html: true })).toEqual('<u>example</u>');
         });
+        test('html', () => {
+            expect(serialize('<sup>example</sup>', {
+                html: true,
+                htmlMark: {
+                    parseHTML: () => [{
+                        tag: 'sup',
+                    }],
+                    renderHTML: () => ['sup', 0],
+                },
+            })).toEqual('<sup>example</sup>');
+        })
     });
-    describe('block', () => {
+    describe('nodes', () => {
         test('paragraph', () => {
             expect(serialize('<p>example1</p><p>example2</p>')).toEqual('example1\n\nexample2');
         });

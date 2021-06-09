@@ -1,4 +1,4 @@
-import { Editor, Node, } from "@tiptap/core";
+import { Editor, Node, Mark } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
@@ -11,6 +11,7 @@ import Underline from '@tiptap/extension-underline';
 export function createEditor({
     image,
     htmlNode,
+    htmlMark,
     ...options
 } = {}) {
     return new Editor({
@@ -26,8 +27,12 @@ export function createEditor({
                 ...image,
             }),
             Node.create({
-                name: 'html',
+                name: 'html-node',
                 ...htmlNode,
+            }),
+            Mark.create({
+                name: 'html-mark',
+                ...htmlMark,
             }),
         ],
         ...options,
