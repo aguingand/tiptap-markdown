@@ -1,5 +1,5 @@
 <template>
-    <div class="vh-100 p-4">
+    <div class="min-vh-100 p-4">
         <div class="row h-100">
             <div class="col-md-6">
                 <textarea class="form-control h-100" rows="10" ref="markdown" v-model="markdown" @input="handleInput"></textarea>
