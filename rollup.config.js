@@ -15,5 +15,9 @@ export default {
         }),
         json(),
     ],
-
+    external: [
+        'prosemirror-model',
+        '@tiptap/core',
+        'markdown-it',
+    ],
 }

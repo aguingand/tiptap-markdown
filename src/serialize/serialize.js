@@ -1,7 +1,6 @@
-import { MarkdownSerializer } from 'prosemirror-markdown/src/to_markdown';
+import { MarkdownSerializerState } from './state';
 import { getMarks } from "./marks";
 import { getNodes } from "./nodes";
-
 
 export function serialize(schema, content, {
     html,
@@ -15,10 +14,12 @@ export function serialize(schema, content, {
     const marks = getMarks(schema, {
         html,
     });
+    const state = new MarkdownSerializerState(nodes, marks, {
+        tightLists,
+    });
 
-    return new MarkdownSerializer(nodes, marks)
-        .serialize(content, {
-            tightLists,
-        });
+    state.renderContent(content);
+
+    return state.out;
 }
 
