@@ -1,5 +1,7 @@
 <template>
-    <Editor />
+    <div class="container">
+        <Editor />
+    </div>
 </template>
 
 <script>
