@@ -42,9 +42,9 @@ export function getMarks(schema, { html }) {
         ),
         bold: marks.strong,
         italic: marks.em,
-        strike: {open:'~~', close:'~~'},
+        strike: {open:'~~', close:'~~', expelEnclosingWhitespace: true},
         code: marks.code,
         link: marks.link,
-        highlight: {open:'==', close:'=='},
+        highlight: {open:'==', close:'==', expelEnclosingWhitespace: true},
     }
 }
