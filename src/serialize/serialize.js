@@ -2,6 +2,7 @@ import { MarkdownSerializerState } from './state';
 import { getMarks } from "./marks";
 import { getNodes } from "./nodes";
 
+
 export function serialize(schema, content, {
     html,
     tightLists = false,

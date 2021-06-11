@@ -12,7 +12,8 @@ function getHTMLSerializer() {
 
 function getHTMLFallbackSerializer() {
     return (state, node) => {
-        state.write(`[${node.type.name}]`)
+        console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
+        state.write(`[${node.type.name}]`);
     }
 }
 
@@ -90,6 +91,7 @@ export function getNodes(schema, { html, bulletListMarker = '*' }) {
         paragraph: nodes.paragraph,
         image: nodes.image,
         hardBreak: nodes.hard_break,
+        hard_break: nodes.hard_break,
         text: nodes.text,
         table: getTableSerializer(),
     }

@@ -24,7 +24,7 @@ function getHTMLSerializer() {
 function getHTMLFallbackSerializer() {
     return {
         open(state, mark) {
-            console.warn(`Tiptap Markdown: "${mark.type.name}" is only available in html mode`);
+            console.warn(`Tiptap Markdown: "${mark.type.name}" mark is only available in html mode`);
             return '';
         },
         close: '',

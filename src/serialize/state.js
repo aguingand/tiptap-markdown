@@ -7,10 +7,18 @@ import { trimInline } from "../util/markdown";
  * https://spec.commonmark.org/0.29/#left-flanking-delimiter-run
  */
 export class MarkdownSerializerState extends BaseMarkdownSerializerState {
+
     constructor(nodes, marks, options) {
         super(nodes, marks, options);
         this.inlines = [];
     }
+
+    renderContent(parent) {
+        this.withSerializableSchema(parent.type.schema, () => {
+            super.renderContent(parent);
+        });
+    }
+
     render(node, parent, index) {
         super.render(node, parent, index);
         const top = this.inlines[this.inlines.length - 1];
@@ -19,6 +27,7 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
             this.inlines.pop();
         }
     }
+
     markString(mark, open, parent, index) {
         const info = this.marks[mark.type.name]
         if(info.expelEnclosingWhitespace) {
@@ -36,5 +45,19 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
             }
         }
         return super.markString(mark, open, parent, index);
+    }
+
+    /**
+     * update some nodes name due to serializer requiring on it
+     */
+    withSerializableSchema(schema, render) {
+        const { hardBreak } = schema.nodes;
+        if(hardBreak) {
+            hardBreak.name = 'hard_break';
+        }
+        render();
+        if(hardBreak) {
+            hardBreak.name = 'hardBreak';
+        }
     }
 }

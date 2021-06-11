@@ -31,7 +31,12 @@ describe('serialize', () => {
             expect(serialize('<a href="http://example.org">example</a>')).toEqual('[example](http://example.org)');
         });
         test('underline', () => {
-            expect(serialize('<u>example</u>')).toEqual('example');
+            jest.spyOn(console, 'warn').mockImplementation();
+
+            expect(serialize('<u>example</u>', { html: false })).toEqual('example');
+            expect(console.warn).toHaveBeenCalledWith(
+                `Tiptap Markdown: "underline" mark is only available in html mode`
+            );
         });
         test('underline html', () => {
             expect(serialize('<u>example</u>', { html: true })).toEqual('<u>example</u>');
@@ -46,7 +51,7 @@ describe('serialize', () => {
                     renderHTML: () => ['sup', 0],
                 },
             })).toEqual('<sup>example</sup>');
-        })
+        });
     });
     describe('nodes', () => {
         test('paragraph', () => {
@@ -91,6 +96,9 @@ describe('serialize', () => {
         });
         test('hard break', () => {
             expect(serialize('example1<br>example2')).toEqual('example1\\\nexample2');
+        });
+        test('hard break with mark wrap', () => {
+            expect(serialize('example1<strong><br></strong>example2')).toEqual('example1\\\nexample2');
         });
         test('table', () => {
             expect(serialize(dedent`
@@ -157,6 +165,27 @@ describe('serialize', () => {
                     ],
                 },
             })).toEqual('<custom-element></custom-element>');
+        });
+        test('html disabled', () => {
+            jest.spyOn(console, 'warn').mockImplementation();
+
+            expect(serialize('<custom-element></custom-element>', {
+                html: false,
+                htmlNode: {
+                    name: 'customElement',
+                    group: 'block',
+                    parseHTML: () => [{
+                        tag: 'custom-element',
+                    }],
+                    renderHTML: () => [
+                        'custom-element'
+                    ],
+                },
+            })).toEqual('[customElement]');
+
+            expect(console.warn).toHaveBeenCalledWith(
+                `Tiptap Markdown: "customElement" node is only available in html mode`
+            );
         });
     });
 })
