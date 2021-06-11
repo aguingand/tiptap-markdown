@@ -91,7 +91,6 @@ export function getNodes(schema, { html, bulletListMarker = '*' }) {
         paragraph: nodes.paragraph,
         image: nodes.image,
         hardBreak: nodes.hard_break,
-        hard_break: nodes.hard_break,
         text: nodes.text,
         table: getTableSerializer(),
     }

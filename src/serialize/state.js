@@ -3,8 +3,9 @@ import { trimInline } from "../util/markdown";
 
 
 /**
- * Override default MarkdownSerializerState to handle commonmark delimiters:
- * https://spec.commonmark.org/0.29/#left-flanking-delimiter-run
+ * Override default MarkdownSerializerState to:
+ * - handle commonmark delimiters (https://spec.commonmark.org/0.29/#left-flanking-delimiter-run)
+ * - update schema due to serializer looking at specific node names
  */
 export class MarkdownSerializerState extends BaseMarkdownSerializerState {
 
@@ -52,10 +53,14 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
      */
     withSerializableSchema(schema, render) {
         const { hardBreak } = schema.nodes;
+
         if(hardBreak) {
             hardBreak.name = 'hard_break';
+            this.nodes.hard_break = this.nodes.hardBreak;
         }
+
         render();
+
         if(hardBreak) {
             hardBreak.name = 'hardBreak';
         }
