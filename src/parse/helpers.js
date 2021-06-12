@@ -16,7 +16,7 @@ export function setupTaskLists(node) {
         });
 }
 
-export function normalizeHTML(schema, html) {
+export function normalizeHTML(html) {
     html = html.replace(/\n<\/code>/g, '</code>');
     return html;
 }

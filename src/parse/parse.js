@@ -6,7 +6,7 @@ import { elementFromString } from "../util/dom";
 import { normalizeHTML, normalizeBlocks, setupTaskLists } from "./helpers";
 
 function setupDOM(schema, node) {
-    node.innerHTML = normalizeHTML(schema, node.innerHTML);
+    node.innerHTML = normalizeHTML(node.innerHTML);
     setupTaskLists(node);
     normalizeBlocks(schema, node);
     [...node.querySelectorAll('p')]

@@ -7,15 +7,23 @@ export function serialize(schema, content, {
     html,
     tightLists = false,
     bulletListMarker = '*',
+    marks,
+    nodes,
 } = {}) {
-    const nodes = getNodes(schema, {
-        html,
-        bulletListMarker,
-    });
-    const marks = getMarks(schema, {
-        html,
-    });
-    const state = new MarkdownSerializerState(nodes, marks, {
+    const resolvedNodes = {
+        ...getNodes(schema, {
+            html,
+            bulletListMarker,
+        }),
+        ...nodes,
+    }
+    const resolvedMarks = {
+        ...getMarks(schema, {
+            html,
+        }),
+        ...marks,
+    }
+    const state = new MarkdownSerializerState(resolvedNodes, resolvedMarks, {
         tightLists,
     });
 
