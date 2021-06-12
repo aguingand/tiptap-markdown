@@ -1,6 +1,4 @@
 import { MarkdownSerializerState } from './state';
-import { getMarks } from "./marks";
-import { getNodes } from "./nodes";
 
 
 export function serialize(schema, content, {
@@ -11,16 +9,11 @@ export function serialize(schema, content, {
     nodes,
 } = {}) {
     const resolvedNodes = {
-        ...getNodes(schema, {
-            html,
-            bulletListMarker,
-        }),
+        // ...getNodes(schema),
         ...nodes,
     }
     const resolvedMarks = {
-        ...getMarks(schema, {
-            html,
-        }),
+        // ...getMarks(schema),
         ...marks,
     }
     const state = new MarkdownSerializerState(resolvedNodes, resolvedMarks, {

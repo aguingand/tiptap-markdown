@@ -1,5 +1,5 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../util/extensions";
+import { createMarkdownExtension } from "../../util/extensions";
 
 const Table = Node.create({
     name: 'table',

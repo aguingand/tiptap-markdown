@@ -1,6 +1,6 @@
 import taskListPlugin from "markdown-it-task-lists";
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../util/extensions";
+import { createMarkdownExtension } from "../../util/extensions";
 import BulletList from "./bullet-list";
 
 

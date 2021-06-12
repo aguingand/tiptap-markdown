@@ -1,5 +1,5 @@
 import markPlugin from "markdown-it-mark";
-import { createMarkdownExtension } from "../util/extensions";
+import { createMarkdownExtension } from "../../util/extensions";
 import { Mark } from "@tiptap/core";
 
 
