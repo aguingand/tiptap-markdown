@@ -1,22 +1,14 @@
 import { extractElement } from "../util/dom";
 
-
-export function setupTaskLists(node) {
-    [...node.querySelectorAll('.contains-task-list')]
-        .forEach(list => {
-            list.setAttribute('data-type', 'taskList');
-            [...list.children].forEach(item => {
-                const input = item.querySelector('input');
-                item.setAttribute('data-type', 'taskItem');
-                if(input) {
-                    item.setAttribute('data-checked', input.checked);
-                    input.remove();
-                }
-            });
-        });
+export function normalizeDOM(schema, node) {
+    normalizeBlocks(schema, node);
+    [...node.querySelectorAll('p')]
+        .filter(p => !p.innerHTML.trim())
+        .forEach(p => p.remove());
+    return node;
 }
 
-export function normalizeBlocks(schema, node) {
+function normalizeBlocks(schema, node) {
     const blocks = Object.values(schema.nodes)
         .filter(node => node.spec.group === 'block');
 
