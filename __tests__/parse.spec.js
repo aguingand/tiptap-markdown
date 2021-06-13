@@ -3,14 +3,17 @@ import { parse as baseParse } from '../src/parse/parse';
 import { createEditor, nodes, node, inlineNode, dedent } from "./utils";
 
 
-function parse(content, { html=true, image, htmlNode } = {}) {
+function parse(content, { html=true, linkify, image, codeBlock, htmlNode } = {}) {
     const editor = createEditor({
         image,
         htmlNode,
+        codeBlock,
     });
     return baseParse(editor.schema, content, {
         extensions,
         html,
+        linkify,
+        languageClassPrefix: codeBlock?.languageClassPrefix,
     });
 }
 
@@ -19,6 +22,7 @@ describe('parse', () => {
     describe('marks', () => {
         test('text', () => {
             expect(inlineNode(parse('example'))).toMatchSnapshot();
+            expect(inlineNode(parse('http://example.org'))).toMatchSnapshot('link');
         });
         test('bold', () => {
             expect(inlineNode(parse('**example**'))).toMatchSnapshot();
@@ -39,6 +43,9 @@ describe('parse', () => {
         test('link', () => {
             expect(inlineNode(parse('[example](http://example.org)'))).toMatchSnapshot();
             expect(inlineNode(parse('<a href="http://example.org">example</a>'))).toMatchSnapshot('html');
+        });
+        test('link with linkify', () => {
+            expect(inlineNode(parse('http://example.org', { linkify:true }))).toMatchSnapshot();
         });
     });
     describe('nodes', () => {
@@ -67,6 +74,9 @@ describe('parse', () => {
         test('fence', () => {
             expect(node(parse('```\nexample\n```'))).toMatchSnapshot();
             expect(node(parse('```js\nexample\n```'))).toMatchSnapshot('lang');
+        });
+        test('fence with languageClassPrefix', () => {
+            expect(node(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang-' } }))).toMatchSnapshot();
         })
         test('code block', () => {
             expect(node(parse('    example'))).toMatchSnapshot();

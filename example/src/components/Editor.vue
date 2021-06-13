@@ -30,7 +30,8 @@
     import Highlight from '@tiptap/extension-highlight';
     import TaskList from '@tiptap/extension-task-list'
     import TaskItem from '@tiptap/extension-task-item'
-    import { createMarkdownEditor } from "../../../src/MarkdownEditor";
+    import CodeBlock from "@tiptap/extension-code-block";
+    import { createMarkdownEditor } from "../../../src";
     import MenuBar from "./MenuBar.vue";
     import content from '../content.md?raw';
 
@@ -58,7 +59,9 @@
             const MarkdownEditor = createMarkdownEditor(Editor);
             this.editor = new MarkdownEditor({
                 extensions: [
-                    StarterKit,
+                    StarterKit.configure({
+                        codeBlock: false,
+                    }),
                     Table.configure({
                         resizable: false,
                     }),
@@ -73,6 +76,9 @@
                     Highlight,
                     TaskList,
                     TaskItem,
+                    CodeBlock.configure({
+                        languageClassPrefix: 'lang-',
+                    }),
                 ],
                 content,
                 onUpdate: () => {

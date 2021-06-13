@@ -14,9 +14,13 @@ export default createMarkdownExtension(CodeBlock, {
         state.closeBlock(node);
     },
     parse: {
+        setup(markdownit) {
+            markdownit.set({
+                langPrefix: this.options.languageClassPrefix ?? 'language-',
+            });
+        },
         updateDOM(element) {
             element.innerHTML = element.innerHTML.replace(/\n<\/code><\/pre>/g, '</code></pre>')
         },
-        // handled by markdown-it
     },
 });

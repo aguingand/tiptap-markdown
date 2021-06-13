@@ -2,16 +2,17 @@ import { serialize } from "./serialize";
 import { parse } from "./parse";
 import defaultExtensions from './extensions';
 
+const defaultMarkdownOptions = {
+    html: true,
+    tightLists: true,
+    bulletListMarker: '-',
+    linkify: false,
+    extensions: defaultExtensions,
+}
 
 export function createMarkdownEditor(Editor) {
-    return class extends Editor {
 
-        defaultMarkdownOptions = {
-            html: true,
-            tightLists: false,
-            bulletListMarker: '*',
-            extensions: defaultExtensions,
-        }
+    return class extends Editor {
 
         constructor(options) {
             super(options);
@@ -27,10 +28,10 @@ export function createMarkdownEditor(Editor) {
         setOptions(options) {
             super.setOptions(options);
             this.options.markdown = {
-                ...this.defaultMarkdownOptions,
+                ...defaultMarkdownOptions,
                 ...options?.markdown,
                 extensions: [
-                    ...this.defaultMarkdownOptions.extensions,
+                    ...defaultMarkdownOptions.extensions,
                     ...(options?.markdown?.extensions ?? []),
                 ],
             }
@@ -50,10 +51,15 @@ export function createMarkdownEditor(Editor) {
         }
 
         parseMarkdown(content) {
-            const { html } = this.options.markdown;
+            const { html, linkify } = this.options.markdown;
+            const codeBlockNode = this.options.extensions
+                .find(extension => extension.type === 'node' && extension.name === 'codeBlock');
+
             return parse(this.schema, content, {
                 extensions: this.markdownExtensions,
                 html,
+                linkify,
+                languageClassPrefix: codeBlockNode?.options.languageClassPrefix,
             });
         }
 

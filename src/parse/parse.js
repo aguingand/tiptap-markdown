@@ -11,15 +11,24 @@ function normalizeDOM(schema, node) {
     return node;
 }
 
-export function parse(schema, content, { extensions, html }) {
+export function parse(schema, content, { extensions, ...options }) {
+    const {
+        html,
+        linkify,
+        languageClassPrefix,
+    } = options;
+
     if(typeof content === 'string') {
-        const renderer = markdownit({ html });
-        extensions.forEach(extension => extension.parse?.setup?.(renderer));
+        const renderer = markdownit({
+            html,
+            linkify,
+        });
+        extensions.forEach(extension => extension.parse?.setup?.call({ schema, options }, renderer));
 
         const renderedHTML = renderer.render(content);
         const element = elementFromString(renderedHTML);
 
-        extensions.forEach(extension => extension.parse?.updateDOM?.(element));
+        extensions.forEach(extension => extension.parse?.updateDOM?.call({ schema, options }, element));
         normalizeDOM(schema, element);
 
         return DOMParser.fromSchema(schema)
