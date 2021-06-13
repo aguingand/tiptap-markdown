@@ -7,25 +7,25 @@ const Table = Node.create({
 
 export default createMarkdownExtension(Table, {
     serialize(state, node) {
-        node.content.content.forEach((row, i) => {
-            row.content.content.forEach((col, j, nodes) => {
+        node.forEach((row, p, i) => {
+            row.forEach((col, p, j) => {
                 if(j) {
                     state.write(' | ');
                 }
-                const cellContent = col.content.content[0];
+                const cellContent = col.firstChild;
                 if(cellContent.textContent.trim()) {
                     state.renderInline(cellContent);
                 } else {
                     if(!j) {
                         state.write('| ');
-                    } else if(j === nodes.length - 1) {
+                    } else if(j === row.childCount - 1) {
                         state.write(' |')
                     }
                 }
             });
             state.ensureNewLine();
             if(!i) {
-                const delimiterRow = row.content.content.map(() => '---').join(' | ');
+                const delimiterRow = Array.from({ length:row.childCount }).map(() => '---').join(' | ');
                 state.write(delimiterRow);
                 state.ensureNewLine();
             }
