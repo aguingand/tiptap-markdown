@@ -16,11 +16,6 @@ export function setupTaskLists(node) {
         });
 }
 
-export function normalizeHTML(html) {
-    html = html.replace(/\n<\/code>/g, '</code>');
-    return html;
-}
-
 export function normalizeBlocks(schema, node) {
     const blocks = Object.values(schema.nodes)
         .filter(node => node.spec.group === 'block');

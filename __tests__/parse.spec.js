@@ -1,3 +1,4 @@
+import extensions from "../src/extensions";
 import { parse as baseParse } from '../src/parse/parse';
 import { createEditor, nodes, node, inlineNode, dedent } from "./utils";
 
@@ -7,7 +8,10 @@ function parse(content, { html=true, image, htmlNode } = {}) {
         image,
         htmlNode,
     });
-    return baseParse(editor.schema, content, { html });
+    return baseParse(editor.schema, content, {
+        extensions,
+        html,
+    });
 }
 
 

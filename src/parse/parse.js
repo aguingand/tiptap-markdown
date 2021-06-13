@@ -1,13 +1,9 @@
 import markdownit from "markdown-it";
-import markPlugin from "markdown-it-mark";
-import taskListPlugin from "markdown-it-task-lists";
 import { DOMParser } from "prosemirror-model";
 import { elementFromString } from "../util/dom";
-import { normalizeHTML, normalizeBlocks, setupTaskLists } from "./helpers";
+import { normalizeBlocks } from "./helpers";
 
-function setupDOM(schema, node) {
-    node.innerHTML = normalizeHTML(node.innerHTML);
-    setupTaskLists(node);
+function normalizeDOM(schema, node) {
     normalizeBlocks(schema, node);
     [...node.querySelectorAll('p')]
         .filter(p => !p.innerHTML.trim())
@@ -15,13 +11,17 @@ function setupDOM(schema, node) {
     return node;
 }
 
-export function parse(schema, content, { html }) {
+export function parse(schema, content, { extensions, html }) {
     if(typeof content === 'string') {
-        const renderer = markdownit({ html })
-            .use(markPlugin)
-            .use(taskListPlugin);
+        const renderer = markdownit({ html });
+        extensions.forEach(extension => extension.parse?.setup?.(renderer));
+
         const renderedHTML = renderer.render(content);
-        const element = setupDOM(schema, elementFromString(renderedHTML));
+        const element = elementFromString(renderedHTML);
+
+        extensions.forEach(extension => extension.parse?.updateDOM?.(element));
+        normalizeDOM(schema, element);
+
         return DOMParser.fromSchema(schema)
             .parse(element)
             .toJSON();

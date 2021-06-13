@@ -1,22 +1,22 @@
 import { MarkdownSerializerState } from './state';
+import { getMarks } from "./marks";
+import { getNodes } from "./nodes";
 
 
 export function serialize(schema, content, {
+    extensions,
     html,
     tightLists = false,
     bulletListMarker = '*',
-    marks,
-    nodes,
 } = {}) {
-    const resolvedNodes = {
-        // ...getNodes(schema),
-        ...nodes,
-    }
-    const resolvedMarks = {
-        // ...getMarks(schema),
-        ...marks,
-    }
-    const state = new MarkdownSerializerState(resolvedNodes, resolvedMarks, {
+    const nodes = getNodes(schema, extensions, {
+        html,
+        bulletListMarker,
+    });
+    const marks = getMarks(schema, extensions, {
+        html,
+    });
+    const state = new MarkdownSerializerState(nodes, marks, {
         tightLists,
     });
 

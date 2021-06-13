@@ -14,6 +14,9 @@ export default createMarkdownExtension(CodeBlock, {
         state.closeBlock(node);
     },
     parse: {
+        updateDOM(element) {
+            element.innerHTML = element.innerHTML.replace(/\n<\/code><\/pre>/g, '</code></pre>')
+        },
         // handled by markdown-it
     },
 });

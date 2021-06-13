@@ -1,3 +1,4 @@
+import extensions from "../src/extensions";
 import { serialize as baseSerialize } from '../src/serialize/serialize';
 import { dedent, createEditor } from "./utils";
 
@@ -7,7 +8,10 @@ function serialize(content, { htmlNode, htmlMark, ...options } = {}) {
         htmlNode,
         htmlMark,
     });
-    return baseSerialize(editor.schema, editor.state.doc, options);
+    return baseSerialize(editor.schema, editor.state.doc, {
+        extensions,
+        ...options,
+    });
 }
 
 describe('serialize', () => {

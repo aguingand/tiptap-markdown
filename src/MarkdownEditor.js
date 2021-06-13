@@ -1,7 +1,6 @@
 import { serialize } from "./serialize";
 import { parse } from "./parse";
 import defaultExtensions from './extensions';
-import { getMarks, getNodes } from "./util/extensions";
 
 
 export function createMarkdownEditor(Editor) {
@@ -53,6 +52,7 @@ export function createMarkdownEditor(Editor) {
         parseMarkdown(content) {
             const { html } = this.options.markdown;
             return parse(this.schema, content, {
+                extensions: this.markdownExtensions,
                 html,
             });
         }
@@ -60,11 +60,10 @@ export function createMarkdownEditor(Editor) {
         getMarkdown() {
             const { html, tightLists, bulletListMarker } = this.options.markdown;
             return serialize(this.schema, this.state.doc, {
+                extensions: this.markdownExtensions,
                 html,
                 tightLists,
                 bulletListMarker,
-                marks: getMarks(this.markdownExtensions),
-                nodes: getNodes(this.markdownExtensions),
             });
         }
     }
