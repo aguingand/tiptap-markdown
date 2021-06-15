@@ -7,7 +7,6 @@ const defaultMarkdownOptions = {
     tightLists: true,
     bulletListMarker: '-',
     linkify: false,
-    extensions: defaultExtensions,
 }
 
 export function createMarkdownEditor(Editor) {
@@ -29,16 +28,16 @@ export function createMarkdownEditor(Editor) {
             super.setOptions(options);
             this.options.markdown = {
                 ...defaultMarkdownOptions,
+                ...this.options.markdown,
                 ...options?.markdown,
-                extensions: [
-                    ...defaultMarkdownOptions.extensions,
-                    ...(options?.markdown?.extensions ?? []),
-                ],
             }
         }
 
         get markdownExtensions() {
-            return this.options.markdown.extensions;
+            return [
+                ...defaultExtensions,
+                ...(this.options.markdown.extensions ?? []),
+            ]
         }
 
         createView() {
