@@ -1,6 +1,7 @@
 {
   "name": "tiptap-markdown",
   "version": "0.1.0",
+  "description": "Edit markdown content in tiptap editor.",
   "scripts": {
     "test": "jest",
     "build": "rollup -c",
@@ -13,6 +14,15 @@
     "src",
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aguingand/tiptap-markdown.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aguingand/tiptap-markdown/issues"
+  },
+  "author": "Antoine Guingand",
+  "license": "MIT",
   "dependencies": {
     "markdown-it": "^12.0.6",
     "markdown-it-mark": "^3.0.1",
