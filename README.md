@@ -33,7 +33,6 @@ export default {
         const markdownOutput = this.editor.getMarkdown();
     }
 }
-
 ```
 
 ## Contributing
