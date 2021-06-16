@@ -1,6 +1,6 @@
 # Tiptap markdown
 
-Allows you to edit markdown content in [tiptap editor](https://www.tiptap.dev/). 
+Edit markdown content in [tiptap editor](https://www.tiptap.dev/). 
 
 ## Installation
 
