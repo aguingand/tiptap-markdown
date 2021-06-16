@@ -9,6 +9,10 @@
   "main": "dist/tiptap-markdown.cjs.js",
   "umd": "dist/tiptap-markdown.umd.js",
   "module": "dist/tiptap-markdown.esm.js",
+  "files": [
+    "src",
+    "dist"
+  ],
   "dependencies": {
     "markdown-it": "^12.0.6",
     "markdown-it-mark": "^3.0.1",
