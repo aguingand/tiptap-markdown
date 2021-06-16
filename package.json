@@ -7,7 +7,8 @@
     "watch": "rollup -c -w"
   },
   "main": "dist/tiptap-markdown.cjs.js",
-  "module": "dist/tiptap-markdown.es.js",
+  "umd": "dist/tiptap-markdown.umd.js",
+  "module": "dist/tiptap-markdown.esm.js",
   "dependencies": {
     "markdown-it": "^12.0.6",
     "markdown-it-mark": "^3.0.1",
@@ -39,7 +40,8 @@
     "jest": "^27.0.4",
     "npm": "^7.16.0",
     "prosemirror-model": "^1.14.1",
-    "rollup": "^2.51.1"
+    "rollup": "^2.51.1",
+    "rollup-plugin-auto-external": "^2.0.0"
   },
   "peerDependencies": {
     "@tiptap/core": "^2.0.0-beta.60",
