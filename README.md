@@ -11,6 +11,9 @@ npm install tiptap-markdown
 ### Requirements
 **This package only works with [tiptap v2](https://www.tiptap.dev/)**, tiptap v1 is not supported.
 
+Support all frameworks handled by tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
+
+
 ## Usage
 Vue 3 example:
 
