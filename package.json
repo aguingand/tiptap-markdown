@@ -5,7 +5,8 @@
   "scripts": {
     "test": "jest",
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "watch": "rollup -c -w",
+    "preversion": "npm run build"
   },
   "main": "dist/tiptap-markdown.cjs.js",
   "umd": "dist/tiptap-markdown.umd.js",
