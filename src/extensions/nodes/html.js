@@ -15,6 +15,9 @@ export default createMarkdownExtension(HTML, {
             console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
             state.write(`[${node.type.name}]`);
         }
+        if(node.isBlock) {
+            state.closeBlock(node);
+        }
     },
     parse: {
         // handled by markdown-it

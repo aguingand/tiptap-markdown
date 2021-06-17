@@ -140,35 +140,37 @@ describe('serialize', () => {
             `);
         });
         test('html', () => {
-            expect(serialize('<custom-element>example</custom-element>', {
+            expect(serialize('<block-element>example1</block-element> <block-element>example2</block-element>', {
                 html: true,
                 htmlNode: {
                     group: 'block',
                     content: 'inline*',
                     parseHTML: () => [{
-                        tag: 'custom-element',
+                        tag: 'block-element',
                     }],
                     renderHTML: () => [
-                        'custom-element',
+                        'block-element',
                         0,
                     ],
                 },
-            })).toEqual('<custom-element>example</custom-element>');
+            })).toEqual('<block-element>example1</block-element>\n\n<block-element>example2</block-element>');
         });
         test('html inline', () => {
-            expect(serialize('<p><custom-element></custom-element></p>', {
+            expect(serialize('<p> <inline-element>example1</inline-element> <inline-element>example2</inline-element> </p>', {
                 html: true,
                 htmlNode: {
                     group: 'inline',
                     inline: true,
+                    content: 'text*',
                     parseHTML: () => [{
-                        tag: 'custom-element',
+                        tag: 'inline-element',
                     }],
                     renderHTML: () => [
-                        'custom-element'
+                        'inline-element',
+                        0,
                     ],
                 },
-            })).toEqual('<custom-element></custom-element>');
+            })).toEqual('<inline-element>example1</inline-element> <inline-element>example2</inline-element>');
         });
         test('html disabled', () => {
             jest.spyOn(console, 'warn').mockImplementation();

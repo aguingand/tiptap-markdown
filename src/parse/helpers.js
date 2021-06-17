@@ -10,13 +10,17 @@ export function normalizeDOM(schema, node) {
 
 function normalizeBlocks(schema, node) {
     const blocks = Object.values(schema.nodes)
-        .filter(node => node.spec.group === 'block');
+        .filter(node => node.isBlock);
 
     const selector = blocks
         .map(block => block.spec.parseDOM?.map(spec => spec.tag))
         .flat()
         .filter(Boolean)
         .join(',');
+
+    if(!selector) {
+        return;
+    }
 
     [...node.querySelectorAll(selector)].forEach(el => {
         if(el.parentElement.matches('p')) {
