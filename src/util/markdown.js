@@ -42,6 +42,9 @@ export function trimInline(text, delim, from, to) {
         from,
         to,
     }
+    while(state.text.charAt(state.from).match(/\s/)) {
+        state.from++;
+    }
     state = trimStart(state.text, delim, state.from, state.to);
     state = trimEnd(state.text, delim, state.from, state.to);
 
