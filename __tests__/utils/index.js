@@ -46,18 +46,6 @@ export function createEditor({
     });
 }
 
-export function nodes(doc) {
-    return doc.content;
-}
-
-export function node(doc) {
-    return doc.content[0];
-}
-
-export function inlineNode(doc) {
-    return doc.content[0].content[0];
-}
-
 export function dedent(str) {
     return str[0].replace(/^\s*/gm, '');
 }

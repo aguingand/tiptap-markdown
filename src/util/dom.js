@@ -19,33 +19,11 @@ export function extractElement(node) {
     parent.parentElement.insertBefore(node, parent);
 }
 
-export function isVoidElement(tagName) {
-    if(!tagName) {
-        return false;
-    }
-    return [
-        'area',
-        'base',
-        'basefont',
-        'bgsound',
-        'br',
-        'col',
-        'command',
-        'embed',
-        'frame',
-        'hr',
-        'image',
-        'img',
-        'input',
-        'isindex',
-        'keygen',
-        'link',
-        'menuitem',
-        'meta',
-        'nextid',
-        'param',
-        'source',
-        'track',
-        'wbr'
-    ].includes(tagName.toLowerCase());
+
+export function unwrapElement(node) {
+    const parent = node.parentNode;
+
+    while (node.firstChild) parent.insertBefore(node.firstChild, node);
+
+    parent.removeChild(node);
 }

@@ -1,10 +1,19 @@
-import { extractElement } from "../util/dom";
+import { extractElement, unwrapElement } from "../util/dom";
 
-export function normalizeDOM(schema, node) {
+export function normalizeDOM(schema, node, { inline } = {}) {
     normalizeBlocks(schema, node);
+
     [...node.querySelectorAll('p')]
         .filter(p => !p.innerHTML.trim())
         .forEach(p => p.remove());
+
+    if(inline
+        && node.firstElementChild.matches('p')
+        // && node.querySelectorAll(':scope > p').length === 1
+    ) {
+        unwrapElement(node.firstElementChild);
+    }
+
     return node;
 }
 

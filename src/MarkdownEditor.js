@@ -20,7 +20,7 @@ export function createMarkdownEditor(Editor) {
                 return setContent(this.parseMarkdown(content), emitUpdate, parseOptions)(props);
             }
             this.commandManager.commands.insertContentAt = (range, content) => (props) => {
-                return insertContentAt(range, this.parseMarkdown(content))(props);
+                return insertContentAt(range, this.parseMarkdown(content, { inline: true }))(props);
             }
         }
 
@@ -49,16 +49,17 @@ export function createMarkdownEditor(Editor) {
             this.options.content = originalContent;
         }
 
-        parseMarkdown(content) {
+        parseMarkdown(content, { inline } = {}) {
             const { html, linkify } = this.options.markdown;
             const codeBlockNode = this.options.extensions
                 .find(extension => extension.type === 'node' && extension.name === 'codeBlock');
 
             return parse(this.schema, content, {
                 extensions: this.markdownExtensions,
+                languageClassPrefix: codeBlockNode?.options.languageClassPrefix,
                 html,
                 linkify,
-                languageClassPrefix: codeBlockNode?.options.languageClassPrefix,
+                inline,
             });
         }
 
