@@ -1,5 +1,4 @@
 import markdownit from "markdown-it";
-import { DOMParser } from "prosemirror-model";
 import { elementFromString } from "../util/dom";
 import { normalizeDOM } from "./helpers";
 
