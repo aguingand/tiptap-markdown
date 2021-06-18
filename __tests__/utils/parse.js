@@ -29,6 +29,6 @@ export function parse(content, options = {}) {
     });
 
     return DOMParser.fromSchema(editor.schema)
-        .parseSlice(elementFromString(parsed)).content
+        .parseSlice(elementFromString(parsed), { preserveWhitespace: 'full' }).content
         .toJSON();
 }

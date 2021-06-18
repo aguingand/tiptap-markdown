@@ -15,10 +15,14 @@ export function extractElement(node) {
         prepend.appendChild(parent.firstChild);
     }
 
-    parent.parentElement.insertBefore(prepend, parent);
+    if(prepend.childNodes.length > 0) {
+        parent.parentElement.insertBefore(prepend, parent);
+    }
     parent.parentElement.insertBefore(node, parent);
+    if(parent.childNodes.length === 0) {
+        parent.remove();
+    }
 }
-
 
 export function unwrapElement(node) {
     const parent = node.parentNode;
