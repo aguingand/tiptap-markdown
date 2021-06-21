@@ -1,4 +1,4 @@
-import { MarkdownSerializerState as BaseMarkdownSerializerState } from "prosemirror-markdown/src/to_markdown";
+import { MarkdownSerializerState as BaseMarkdownSerializerState } from "prosemirror-markdown";
 import { trimInline } from "../util/markdown";
 
 
