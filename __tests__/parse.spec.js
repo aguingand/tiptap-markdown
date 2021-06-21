@@ -1,156 +1,225 @@
-import extensions from "../src/extensions";
-import { parse as baseParse } from '../src/parse/parse';
-import { createEditor, nodes, node, inlineNode, dedent } from "./utils";
-
-
-function parse(content, { html=true, linkify, image, codeBlock, htmlNode } = {}) {
-    const editor = createEditor({
-        image,
-        htmlNode,
-        codeBlock,
-    });
-    return baseParse(editor.schema, content, {
-        extensions,
-        html,
-        linkify,
-        languageClassPrefix: codeBlock?.languageClassPrefix,
-    });
-}
+import { dedent } from "./utils";
+import { parse } from "./utils/parse";
 
 
 describe('parse', () => {
     describe('marks', () => {
-        test('text', () => {
-            expect(inlineNode(parse('example'))).toMatchSnapshot();
-            expect(inlineNode(parse('http://example.org'))).toMatchSnapshot('link');
+        describe('text', () => {
+            test('', () => {
+                expect(parse('example')).toMatchSnapshot();
+            });
+            test('link', () => {
+                expect(parse('http://example.org')).toMatchSnapshot();
+            });
+        })
+        describe('bold', () => {
+            test('markdown', () => {
+                expect(parse('**example**')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<b>example</b>')).toMatchSnapshot();
+            });
         });
-        test('bold', () => {
-            expect(inlineNode(parse('**example**'))).toMatchSnapshot();
-            expect(inlineNode(parse('<b>example</b>'))).toMatchSnapshot('html');
+        describe('italic', () => {
+            test('markdown', () => {
+                expect(parse('*example*')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<em>example</em>')).toMatchSnapshot();
+            });
         });
-        test('italic', () => {
-            expect(inlineNode(parse('*example*'))).toMatchSnapshot();
-            expect(inlineNode(parse('<em>example</em>'))).toMatchSnapshot('html');
+        describe('strike', () => {
+            test('markdown', () => {
+                expect(parse('~~example~~')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<s>example</s>')).toMatchSnapshot();
+            });
         });
-        test('strike', () => {
-            expect(inlineNode(parse('~~example~~'))).toMatchSnapshot();
-            expect(inlineNode(parse('<s>example</s>'))).toMatchSnapshot('html');
+        describe('code', () => {
+            test('markdown', () => {
+                expect(parse('`example`')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<code>example</code>')).toMatchSnapshot();
+            });
         });
-        test('code', () => {
-            expect(inlineNode(parse('`example`'))).toMatchSnapshot();
-            expect(inlineNode(parse('<code>example</code>'))).toMatchSnapshot('html');
-        });
-        test('link', () => {
-            expect(inlineNode(parse('[example](http://example.org)'))).toMatchSnapshot();
-            expect(inlineNode(parse('<a href="http://example.org">example</a>'))).toMatchSnapshot('html');
-        });
-        test('link with linkify', () => {
-            expect(inlineNode(parse('http://example.org', { linkify:true }))).toMatchSnapshot();
+        describe('link', () => {
+            test('markdown', () => {
+                expect(parse('[example](http://example.org)')).toMatchSnapshot();
+            });
+            test('markdown with linkify', () => {
+                expect(parse('http://example.org', { linkify:true })).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<a href="http://example.org">example</a>')).toMatchSnapshot();
+            });
         });
     });
     describe('nodes', () => {
-        test('paragraph', () => {
-            expect(nodes(parse('example1\n\nexample2'))).toMatchSnapshot();
-            expect(nodes(parse('<p>example1</p><p>example2</p>'))).toMatchSnapshot('html');
+        describe('paragraph', () => {
+            test('markdown', () => {
+                expect(parse('example1\n\nexample2')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<p>example1</p><p>example2</p>')).toMatchSnapshot();
+            });
         });
-        test('headings', () => {
-            expect(node(parse('# example'))).toMatchSnapshot('h1');
-            expect(node(parse('## example'))).toMatchSnapshot('h2');
-            expect(node(parse('### example'))).toMatchSnapshot('h3');
-            expect(node(parse('#### example'))).toMatchSnapshot('h4');
-            expect(node(parse('##### example'))).toMatchSnapshot('h5');
-            expect(node(parse('###### example'))).toMatchSnapshot('h6');
-            expect(node(parse('<h1>example</h1>'))).toMatchSnapshot('h1 html');
+        describe('headings', () => {
+            test('markdown h1', () => {
+                expect(parse('# example')).toMatchSnapshot();
+            });
+            test('markdown h2', () => {
+                expect(parse('## example')).toMatchSnapshot();
+            });
+            test('markdown h3', () => {
+                expect(parse('### example')).toMatchSnapshot();
+            });
+            test('markdown h4', () => {
+                expect(parse('#### example')).toMatchSnapshot();
+            });
+            test('markdown h5', () => {
+                expect(parse('##### example')).toMatchSnapshot();
+            });
+            test('markdown h6', () => {
+                expect(parse('###### example')).toMatchSnapshot();
+            });
+            test('html h1', () => {
+                expect(parse('<h1>example</h1>')).toMatchSnapshot();
+            });
         });
-        test('bullet list', () => {
-            expect(node(parse('- example1\n\n- example2'))).toMatchSnapshot();
-            expect(node(parse('* example1\n\n* example2'))).toMatchSnapshot();
-            expect(node(parse('<ul><li>example1</li><li>example2</li></ul>'))).toMatchSnapshot('html');
+        describe('bullet list', () => {
+            test('markdown marker `-`', () => {
+                expect(parse('- example1\n\n- example2')).toMatchSnapshot();
+            });
+            test('markdown marker `*`', () => {
+                expect(parse('* example1\n\n* example2')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<ul><li>example1</li><li>example2</li></ul>')).toMatchSnapshot();
+            });
         });
-        test('ordered list', () => {
-            expect(node(parse('1. example1\n2. example2'))).toMatchSnapshot();
-            expect(node(parse('<ol><li>example1</li><li>example2</li></ol>'))).toMatchSnapshot('html');
+        describe('ordered list', () => {
+            test('markdown', () => {
+                expect(parse('1. example1\n2. example2')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<ol><li>example1</li><li>example2</li></ol>')).toMatchSnapshot();
+            });
         });
-        test('fence', () => {
-            expect(node(parse('```\nexample\n```'))).toMatchSnapshot();
-            expect(node(parse('```js\nexample\n```'))).toMatchSnapshot('lang');
+        describe('fence', () => {
+            test('markdown', () => {
+                expect(parse('```\nexample\n```')).toMatchSnapshot();
+            });
+            test('markdown with lang', () => {
+                expect(parse('```js\nexample\n```')).toMatchSnapshot();
+            });
+            test('markdown with languageClassPrefix', () => {
+                expect(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang-' } })).toMatchSnapshot();
+            })
         });
-        test('fence with languageClassPrefix', () => {
-            expect(node(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang-' } }))).toMatchSnapshot();
-        })
-        test('code block', () => {
-            expect(node(parse('    example'))).toMatchSnapshot();
-            expect(node(parse('<pre><code>example</code></pre>'))).toMatchSnapshot('html');
+        describe('code block', () => {
+            test('markdown', () => {
+                expect(parse('    example')).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<pre><code>example</code></pre>')).toMatchSnapshot();
+            });
         });
-        test('image', () => {
-            expect(node(parse('![example](example.jpg)'))).toMatchSnapshot();
-            expect(node(parse('![example](example.jpg)', { image: { inline: true } }))).toMatchSnapshot('inline');
-            expect(node(parse('<img src="example.jpg" alt="example">'))).toMatchSnapshot('html');
+        describe('image', () => {
+            test('markdown', () => {
+                expect(parse('![example](example.jpg)')).toMatchSnapshot();
+            });
+            test('markdown inline', () => {
+                expect(parse('![example](example.jpg)', { image: { inline: true } })).toMatchSnapshot();
+            });
+            test('html', () => {
+                expect(parse('<img src="example.jpg" alt="example">')).toMatchSnapshot();
+            });
         });
-        test('hr', () => {
-            expect(node(parse('---'))).toMatchSnapshot();
-            expect(node(parse('<hr>'))).toMatchSnapshot('html');
+        describe('hr', () => {
+            test('markdown', () => {
+                expect(parse('---')).toMatchSnapshot();
+            })
+            test('html', () => {
+                expect(parse('<hr>')).toMatchSnapshot();
+            });
         });
-        test('hard break', () => {
-            expect(node(parse('example1  \nexample2'))).toMatchSnapshot();
-            expect(node(parse('example1<br>example2'))).toMatchSnapshot('html');
+        describe('hard break', () => {
+            test('markdown', () => {
+                expect(parse('example1  \nexample2')).toMatchSnapshot();
+            })
+            test('html', () => {
+                expect(parse('example1<br>example2')).toMatchSnapshot();
+            });
         });
-        test('table', () => {
-            expect(node(parse(dedent`
-                example1 | example2
-                --- | ---
-                example3 | example4
-            `))).toMatchSnapshot();
+        describe('table', () => {
+            test('markdown', () => {
+                expect(parse(dedent`
+                    example1 | example2
+                    --- | ---
+                    example3 | example4
+                `)).toMatchSnapshot();
+            });
 
-            expect(node(parse(dedent`
-                <table>
-                <thead>
-                    <tr>
-                        <th>example1</th>
-                        <th>example2</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>example3</td>
-                        <td>example4</td>
-                    </tr>
-                </tbody>
-                </table>
-            `))).toMatchSnapshot('html');
+            test('html', () => {
+                expect(parse(dedent`
+                    <table>
+                    <thead>
+                        <tr>
+                            <th>example1</th>
+                            <th>example2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>example3</td>
+                            <td>example4</td>
+                        </tr>
+                    </tbody>
+                    </table>
+                `)).toMatchSnapshot();
+            });
         });
-        test('html', () => {
-            expect(node(parse('<custom-element>example</custom-element>', {
-                htmlNode: {
-                    group: 'block',
-                    content: 'inline*',
-                    parseHTML: () => [{
-                        tag: 'custom-element',
-                    }],
-                },
-            }))).toMatchSnapshot();
+        describe('html', () => {
+            test('block', () => {
+                expect(parse('<custom-element>example</custom-element>', {
+                    htmlNode: {
+                        group: 'block',
+                        content: 'inline*',
+                        parseHTML: () => [{
+                            tag: 'custom-element',
+                        }],
+                    },
+                })).toMatchSnapshot();
+            });
+            test('inline', () => {
+                expect(parse('<custom-element></custom-element>', {
+                    htmlNode: {
+                        group: 'inline',
+                        inline: true,
+                        parseHTML: () => [{
+                            tag: 'custom-element',
+                        }],
+                    },
+                })).toMatchSnapshot();
+            });
+            test('disabled', () => {
+                expect(parse('<custom-element></custom-element>', {
+                    html: false,
+                    htmlNode: {
+                        group: 'block',
+                        parseHTML: () => [{
+                            tag: 'custom-element',
+                        }],
+                    },
+                })).toMatchSnapshot();
+            })
         });
-        test('html inline', () => {
-            expect(node(parse('<custom-element></custom-element>', {
-                htmlNode: {
-                    group: 'inline',
-                    inline: true,
-                    parseHTML: () => [{
-                        tag: 'custom-element',
-                    }],
-                },
-            }))).toMatchSnapshot();
-        });
-        test('html disabled', () => {
-            expect(node(parse('<custom-element></custom-element>', {
-                html: false,
-                htmlNode: {
-                    group: 'block',
-                    parseHTML: () => [{
-                        tag: 'custom-element',
-                    }],
-                },
-            }))).toMatchSnapshot();
+    });
+    describe('options', () => {
+        test('inline', () => {
+            expect(parse('example', { inline: true })).toMatchSnapshot();
         });
     });
 });

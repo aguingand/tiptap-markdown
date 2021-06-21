@@ -15,37 +15,19 @@ export function extractElement(node) {
         prepend.appendChild(parent.firstChild);
     }
 
-    parent.parentElement.insertBefore(prepend, parent);
+    if(prepend.childNodes.length > 0) {
+        parent.parentElement.insertBefore(prepend, parent);
+    }
     parent.parentElement.insertBefore(node, parent);
+    if(parent.childNodes.length === 0) {
+        parent.remove();
+    }
 }
 
-export function isVoidElement(tagName) {
-    if(!tagName) {
-        return false;
-    }
-    return [
-        'area',
-        'base',
-        'basefont',
-        'bgsound',
-        'br',
-        'col',
-        'command',
-        'embed',
-        'frame',
-        'hr',
-        'image',
-        'img',
-        'input',
-        'isindex',
-        'keygen',
-        'link',
-        'menuitem',
-        'meta',
-        'nextid',
-        'param',
-        'source',
-        'track',
-        'wbr'
-    ].includes(tagName.toLowerCase());
+export function unwrapElement(node) {
+    const parent = node.parentNode;
+
+    while (node.firstChild) parent.insertBefore(node.firstChild, node);
+
+    parent.removeChild(node);
 }

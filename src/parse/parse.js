@@ -1,5 +1,4 @@
 import markdownit from "markdown-it";
-import { DOMParser } from "prosemirror-model";
 import { elementFromString } from "../util/dom";
 import { normalizeDOM } from "./helpers";
 
@@ -8,6 +7,7 @@ export function parse(schema, content, { extensions, ...options }) {
         html,
         linkify,
         languageClassPrefix,
+        inline,
     } = options;
 
     if(typeof content === 'string') {
@@ -22,11 +22,10 @@ export function parse(schema, content, { extensions, ...options }) {
         const element = elementFromString(renderedHTML);
 
         extensions.forEach(extension => extension.parse?.updateDOM?.call({ schema, options }, element));
-        normalizeDOM(schema, element);
 
-        return DOMParser.fromSchema(schema)
-            .parse(element)
-            .toJSON();
+        normalizeDOM(schema, element, { inline });
+
+        return element.innerHTML;
     }
     return content;
 }

@@ -1,10 +1,13 @@
-import { extractElement } from "../util/dom";
+import { extractElement, unwrapElement } from "../util/dom";
 
-export function normalizeDOM(schema, node) {
+export function normalizeDOM(schema, node, { inline } = {}) {
     normalizeBlocks(schema, node);
-    [...node.querySelectorAll('p')]
-        .filter(p => !p.innerHTML.trim())
-        .forEach(p => p.remove());
+    normalizeNewLines(node);
+
+    if(inline && node.firstElementChild.matches('p')) {
+        unwrapElement(node.firstElementChild);
+    }
+
     return node;
 }
 
@@ -27,4 +30,23 @@ function normalizeBlocks(schema, node) {
             extractElement(el);
         }
     });
+}
+
+function normalizeNewLines(node) {
+    [...node.querySelectorAll('*')]
+        .filter(node => {
+            if(node.closest('pre') && !node.matches('pre')) {
+                return false;
+            }
+            return true;
+        })
+        .forEach(node => {
+            const { previousSibling, nextSibling } = node;
+            if(previousSibling?.nodeType === Node.TEXT_NODE) {
+                previousSibling.textContent = previousSibling.textContent.replace(/\n$/, '');
+            }
+            if(nextSibling?.nodeType === Node.TEXT_NODE) {
+                nextSibling.textContent = nextSibling.textContent.replace(/^\n/, '');
+            }
+        });
 }

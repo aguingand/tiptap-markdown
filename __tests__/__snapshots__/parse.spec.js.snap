@@ -1,653 +1,798 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parse marks bold 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "bold",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse marks bold: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "bold",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse marks code 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "code",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse marks code: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "code",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse marks italic 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "italic",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse marks italic: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "italic",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
-`;
-
-exports[`parse marks link 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "attrs": Object {
-        "href": "http://example.org",
-        "target": "_blank",
+exports[`parse marks bold html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "bold",
+          },
+        ],
+        "text": "example",
+        "type": "text",
       },
-      "type": "link",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse marks link with linkify 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "attrs": Object {
-        "href": "http://example.org",
-        "target": "_blank",
+exports[`parse marks bold markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "bold",
+          },
+        ],
+        "text": "example",
+        "type": "text",
       },
-      "type": "link",
-    },
-  ],
-  "text": "http://example.org",
-  "type": "text",
-}
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse marks link: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "attrs": Object {
-        "href": "http://example.org",
-        "target": "_blank",
+exports[`parse marks code html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "code",
+          },
+        ],
+        "text": "example",
+        "type": "text",
       },
-      "type": "link",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse marks strike 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "strike",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
+exports[`parse marks code markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "code",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse marks strike: html 1`] = `
-Object {
-  "marks": Array [
-    Object {
-      "type": "strike",
-    },
-  ],
-  "text": "example",
-  "type": "text",
-}
+exports[`parse marks italic html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "italic",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse marks text 1`] = `
-Object {
-  "text": "example",
-  "type": "text",
-}
+exports[`parse marks italic markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "italic",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse marks text: link 1`] = `
-Object {
-  "text": "http://example.org",
-  "type": "text",
-}
-`;
-
-exports[`parse nodes bullet list 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example1",
-              "type": "text",
+exports[`parse marks link html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "attrs": Object {
+              "href": "http://example.org",
+              "target": "_blank",
             },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example2",
-              "type": "text",
+            "type": "link",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse marks link markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "attrs": Object {
+              "href": "http://example.org",
+              "target": "_blank",
             },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-  ],
-  "type": "bulletList",
-}
+            "type": "link",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse nodes bullet list 2`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example1",
-              "type": "text",
+exports[`parse marks link markdown with linkify 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "attrs": Object {
+              "href": "http://example.org",
+              "target": "_blank",
             },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example2",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-  ],
-  "type": "bulletList",
-}
-`;
-
-exports[`parse nodes bullet list: html 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example1",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example2",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-  ],
-  "type": "bulletList",
-}
-`;
-
-exports[`parse nodes code block 1`] = `
-Object {
-  "attrs": Object {
-    "language": null,
+            "type": "link",
+          },
+        ],
+        "text": "http://example.org",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "codeBlock",
-}
+]
 `;
 
-exports[`parse nodes code block: html 1`] = `
-Object {
-  "attrs": Object {
-    "language": null,
+exports[`parse marks strike html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "strike",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "codeBlock",
-}
+]
 `;
 
-exports[`parse nodes fence 1`] = `
-Object {
-  "attrs": Object {
-    "language": null,
+exports[`parse marks strike markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "marks": Array [
+          Object {
+            "type": "strike",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "codeBlock",
-}
+]
 `;
 
-exports[`parse nodes fence with languageClassPrefix 1`] = `
-Object {
-  "attrs": Object {
-    "language": "js",
+exports[`parse marks text  1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "codeBlock",
-}
+]
 `;
 
-exports[`parse nodes fence: lang 1`] = `
-Object {
-  "attrs": Object {
-    "language": "js",
+exports[`parse marks text link 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "http://example.org",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "codeBlock",
-}
+]
 `;
 
-exports[`parse nodes hard break 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "text": "example1",
-      "type": "text",
-    },
-    Object {
-      "type": "hardBreak",
-    },
-    Object {
-      "text": "example2",
-      "type": "text",
-    },
-  ],
-  "type": "paragraph",
-}
-`;
-
-exports[`parse nodes hard break: html 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "text": "example1",
-      "type": "text",
-    },
-    Object {
-      "type": "hardBreak",
-    },
-    Object {
-      "text": "example2",
-      "type": "text",
-    },
-  ],
-  "type": "paragraph",
-}
-`;
-
-exports[`parse nodes headings: h1 1`] = `
-Object {
-  "attrs": Object {
-    "level": 1,
+exports[`parse nodes bullet list html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "heading",
-}
+]
 `;
 
-exports[`parse nodes headings: h1 html 1`] = `
-Object {
-  "attrs": Object {
-    "level": 1,
+exports[`parse nodes bullet list markdown marker \`*\` 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "heading",
-}
+]
 `;
 
-exports[`parse nodes headings: h2 1`] = `
-Object {
-  "attrs": Object {
-    "level": 2,
+exports[`parse nodes bullet list markdown marker \`-\` 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "heading",
-}
+]
 `;
 
-exports[`parse nodes headings: h3 1`] = `
-Object {
-  "attrs": Object {
-    "level": 3,
+exports[`parse nodes code block html 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "language": null,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "heading",
-}
+]
 `;
 
-exports[`parse nodes headings: h4 1`] = `
-Object {
-  "attrs": Object {
-    "level": 4,
+exports[`parse nodes code block markdown 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "language": null,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "heading",
-}
+]
 `;
 
-exports[`parse nodes headings: h5 1`] = `
-Object {
-  "attrs": Object {
-    "level": 5,
+exports[`parse nodes fence markdown 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "language": null,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
-    },
-  ],
-  "type": "heading",
-}
+]
 `;
 
-exports[`parse nodes headings: h6 1`] = `
-Object {
-  "attrs": Object {
-    "level": 6,
+exports[`parse nodes fence markdown with lang 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "language": "js",
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
   },
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
+]
+`;
+
+exports[`parse nodes fence markdown with languageClassPrefix 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "language": "js",
     },
-  ],
-  "type": "heading",
-}
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
+  },
+]
 `;
 
-exports[`parse nodes hr 1`] = `
-Object {
-  "type": "horizontalRule",
-}
+exports[`parse nodes hard break html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example1",
+        "type": "text",
+      },
+      Object {
+        "type": "hardBreak",
+      },
+      Object {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse nodes hr: html 1`] = `
-Object {
-  "type": "horizontalRule",
-}
+exports[`parse nodes hard break markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example1",
+        "type": "text",
+      },
+      Object {
+        "type": "hardBreak",
+      },
+      Object {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
-exports[`parse nodes html 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "text": "example",
-      "type": "text",
+exports[`parse nodes headings html h1 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 1,
     },
-  ],
-  "type": "html-node",
-}
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes headings markdown h1 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 1,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes headings markdown h2 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 2,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes headings markdown h3 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 3,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes headings markdown h4 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 4,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes headings markdown h5 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 5,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes headings markdown h6 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "level": 6,
+    },
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse nodes hr html 1`] = `
+Array [
+  Object {
+    "type": "horizontalRule",
+  },
+]
+`;
+
+exports[`parse nodes hr markdown 1`] = `
+Array [
+  Object {
+    "type": "horizontalRule",
+  },
+]
+`;
+
+exports[`parse nodes html block 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "html-node",
+  },
+]
 `;
 
 exports[`parse nodes html disabled 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "text": "<custom-element></custom-element>",
-      "type": "text",
-    },
-  ],
-  "type": "paragraph",
-}
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "<custom-element></custom-element>",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
 `;
 
 exports[`parse nodes html inline 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "type": "html-node",
-    },
-  ],
-  "type": "paragraph",
-}
-`;
-
-exports[`parse nodes image 1`] = `
-Object {
-  "attrs": Object {
-    "alt": "example",
-    "src": "example.jpg",
-    "title": null,
-  },
-  "type": "image",
-}
-`;
-
-exports[`parse nodes image: html 1`] = `
-Object {
-  "attrs": Object {
-    "alt": "example",
-    "src": "example.jpg",
-    "title": null,
-  },
-  "type": "image",
-}
-`;
-
-exports[`parse nodes image: inline 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
-        "alt": "example",
-        "src": "example.jpg",
-        "title": null,
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "type": "html-node",
       },
-      "type": "image",
-    },
-  ],
-  "type": "paragraph",
-}
-`;
-
-exports[`parse nodes ordered list 1`] = `
-Object {
-  "attrs": Object {
-    "start": 1,
+    ],
+    "type": "paragraph",
   },
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example1",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example2",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-  ],
-  "type": "orderedList",
-}
+]
 `;
 
-exports[`parse nodes ordered list: html 1`] = `
-Object {
-  "attrs": Object {
-    "start": 1,
+exports[`parse nodes image html 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "alt": "example",
+      "src": "example.jpg",
+      "title": null,
+    },
+    "type": "image",
   },
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example1",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "text": "example2",
-              "type": "text",
-            },
-          ],
-          "type": "paragraph",
-        },
-      ],
-      "type": "listItem",
-    },
-  ],
-  "type": "orderedList",
-}
+]
 `;
 
-exports[`parse nodes paragraph 1`] = `
+exports[`parse nodes image markdown 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "alt": "example",
+      "src": "example.jpg",
+      "title": null,
+    },
+    "type": "image",
+  },
+]
+`;
+
+exports[`parse nodes image markdown inline 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "attrs": Object {
+          "alt": "example",
+          "src": "example.jpg",
+          "title": null,
+        },
+        "type": "image",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse nodes ordered list html 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "start": 1,
+    },
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "orderedList",
+  },
+]
+`;
+
+exports[`parse nodes ordered list markdown 1`] = `
+Array [
+  Object {
+    "attrs": Object {
+      "start": 1,
+    },
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "content": Array [
+              Object {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "orderedList",
+  },
+]
+`;
+
+exports[`parse nodes paragraph html 1`] = `
 Array [
   Object {
     "content": Array [
@@ -670,7 +815,7 @@ Array [
 ]
 `;
 
-exports[`parse nodes paragraph: html 1`] = `
+exports[`parse nodes paragraph markdown 1`] = `
 Array [
   Object {
     "content": Array [
@@ -693,190 +838,203 @@ Array [
 ]
 `;
 
-exports[`parse nodes table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
-          },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example1",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+exports[`parse nodes table html 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableHeader",
-        },
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example1",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableHeader",
           },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example2",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableHeader",
-        },
-      ],
-      "type": "tableRow",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example2",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableHeader",
           },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example3",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+        ],
+        "type": "tableRow",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableCell",
-        },
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example3",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableCell",
           },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example4",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableCell",
-        },
-      ],
-      "type": "tableRow",
-    },
-  ],
-  "type": "table",
-}
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example4",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableCell",
+          },
+        ],
+        "type": "tableRow",
+      },
+    ],
+    "type": "table",
+  },
+]
 `;
 
-exports[`parse nodes table: html 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
-          },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example1",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+exports[`parse nodes table markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableHeader",
-        },
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example1",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableHeader",
           },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example2",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableHeader",
-        },
-      ],
-      "type": "tableRow",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example2",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableHeader",
           },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example3",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+        ],
+        "type": "tableRow",
+      },
+      Object {
+        "content": Array [
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableCell",
-        },
-        Object {
-          "attrs": Object {
-            "colspan": 1,
-            "colwidth": null,
-            "rowspan": 1,
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example3",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableCell",
           },
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "text": "example4",
-                  "type": "text",
-                },
-              ],
-              "type": "paragraph",
+          Object {
+            "attrs": Object {
+              "colspan": 1,
+              "colwidth": null,
+              "rowspan": 1,
             },
-          ],
-          "type": "tableCell",
-        },
-      ],
-      "type": "tableRow",
-    },
-  ],
-  "type": "table",
-}
+            "content": Array [
+              Object {
+                "content": Array [
+                  Object {
+                    "text": "example4",
+                    "type": "text",
+                  },
+                ],
+                "type": "paragraph",
+              },
+            ],
+            "type": "tableCell",
+          },
+        ],
+        "type": "tableRow",
+      },
+    ],
+    "type": "table",
+  },
+]
+`;
+
+exports[`parse options inline 1`] = `
+Array [
+  Object {
+    "text": "example",
+    "type": "text",
+  },
+]
 `;
