@@ -24,7 +24,8 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
         super.render(node, parent, index);
         const top = this.inlines[this.inlines.length - 1];
         if(top?.start && top?.end) {
-            this.out = trimInline(this.out, top.delimiter, top.start, top.end);
+            const { delimiter, start, end } = this.normalizeInline(top);
+            this.out = trimInline(this.out, delimiter, start, end);
             this.inlines.pop();
         }
     }
@@ -46,6 +47,17 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
             }
         }
         return super.markString(mark, open, parent, index);
+    }
+
+    normalizeInline(inline) {
+        let { start, end } = inline;
+        while(this.out.charAt(start).match(/\s/)) {
+            start++;
+        }
+        return {
+            ...inline,
+            start,
+        }
     }
 
     /**
