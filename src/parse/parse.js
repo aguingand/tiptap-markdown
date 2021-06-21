@@ -23,7 +23,7 @@ export function parse(schema, content, { extensions, ...options }) {
 
         extensions.forEach(extension => extension.parse?.updateDOM?.call({ schema, options }, element));
 
-        normalizeDOM(schema, element, { inline });
+        normalizeDOM(schema, element, { inline, content });
 
         return element.innerHTML;
     }

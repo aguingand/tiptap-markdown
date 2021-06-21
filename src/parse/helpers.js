@@ -1,11 +1,10 @@
 import { extractElement, unwrapElement } from "../util/dom";
 
-export function normalizeDOM(schema, node, { inline } = {}) {
+export function normalizeDOM(schema, node, { inline, content } = {}) {
     normalizeBlocks(schema, node);
-    normalizeNewLines(node);
 
-    if(inline && node.firstElementChild.matches('p')) {
-        unwrapElement(node.firstElementChild);
+    if(inline) {
+        normalizeInline(node, content);
     }
 
     return node;
@@ -32,21 +31,26 @@ function normalizeBlocks(schema, node) {
     });
 }
 
-function normalizeNewLines(node) {
-    [...node.querySelectorAll('*')]
-        .filter(node => {
-            if(node.closest('pre') && !node.matches('pre')) {
-                return false;
-            }
-            return true;
-        })
-        .forEach(node => {
-            const { previousSibling, nextSibling } = node;
-            if(previousSibling?.nodeType === Node.TEXT_NODE) {
-                previousSibling.textContent = previousSibling.textContent.replace(/\n$/, '');
-            }
-            if(nextSibling?.nodeType === Node.TEXT_NODE) {
-                nextSibling.textContent = nextSibling.textContent.replace(/^\n/, '');
-            }
-        });
+function normalizeInline(node, content) {
+    if(node.firstElementChild.matches('p')) {
+        const firstParagraph = node.firstElementChild;
+        const { nextSibling, nextElementSibling } = firstParagraph;
+        const startSpaces = content.match(/^\s+/)?.[0] ?? '';
+        const endSpaces = !nextElementSibling
+            ? content.match(/\s+$/)?.[0] ?? ''
+            : '';
+
+        if(nextSibling?.nodeType === Node.TEXT_NODE) {
+            nextSibling.textContent = nextSibling.textContent.replace(/^\n/, '');
+        }
+
+        if(content.match(/^\n\n/)) {
+            firstParagraph.innerHTML = `${firstParagraph.innerHTML}${endSpaces}`;
+            return;
+        }
+
+        unwrapElement(firstParagraph);
+
+        node.innerHTML = `${startSpaces}${node.innerHTML}${endSpaces}`;
+    }
 }

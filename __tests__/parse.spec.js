@@ -218,8 +218,13 @@ describe('parse', () => {
         });
     });
     describe('options', () => {
-        test('inline', () => {
-            expect(parse('example', { inline: true })).toMatchSnapshot();
+        describe('inline', () => {
+            test('text', () => {
+                expect(parse('example', { inline: true })).toMatchSnapshot();
+            });
+            test('text with spaces', () => {
+                expect(parse('  example ', { inline: true })).toMatchSnapshot();
+            });
         });
     });
 });
