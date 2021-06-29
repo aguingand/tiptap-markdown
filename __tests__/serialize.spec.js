@@ -140,7 +140,7 @@ describe('serialize', () => {
             `);
         });
         test('html', () => {
-            expect(serialize('<block-element>example1</block-element> <block-element>example2</block-element>', {
+            expect(serialize('<block-element></block-element> <block-element>example2</block-element>', {
                 html: true,
                 htmlNode: {
                     group: 'block',
@@ -153,7 +153,7 @@ describe('serialize', () => {
                         0,
                     ],
                 },
-            })).toEqual('<block-element>example1</block-element>\n\n<block-element>example2</block-element>');
+            })).toEqual('<block-element>\n\n\n</block-element>\n\n<block-element>\nexample2\n</block-element>');
         });
         test('html inline', () => {
             expect(serialize('<p> <inline-element>example1</inline-element> <inline-element>example2</inline-element> </p>', {
