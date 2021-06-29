@@ -14,6 +14,8 @@ export default createMarkdownExtension(HTML, {
             const dom = elementFromString(rendered);
             const element = dom.firstElementChild;
             element.innerHTML = '\n' + (element.innerHTML || '\n') + '\n';
+            // todo only wrap if block
+            // todo check if not inside a block parent
             state.write(dom.innerHTML);
         } else {
             console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
