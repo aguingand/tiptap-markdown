@@ -8,15 +8,9 @@ const HTML = Node.create({
 });
 
 export default createMarkdownExtension(HTML, {
-    serialize(state, node) {
+    serialize(state, node, parent) {
         if(this.markdownOptions.html) {
-            const rendered = getHTMLFromFragment(Fragment.from(node), node.type.schema);
-            const dom = elementFromString(rendered);
-            const element = dom.firstElementChild;
-            element.innerHTML = '\n' + (element.innerHTML || '\n') + '\n';
-            // todo only wrap if block
-            // todo check if not inside a block parent
-            state.write(dom.innerHTML);
+            state.write(serializeHTML(node, parent));
         } else {
             console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
             state.write(`[${node.type.name}]`);
@@ -29,3 +23,26 @@ export default createMarkdownExtension(HTML, {
         // handled by markdown-it
     },
 });
+
+function serializeHTML(node, parent) {
+    const schema = node.type.schema;
+    const html = getHTMLFromFragment(Fragment.from(node), schema);
+
+    if(node.isBlock && parent.type.name === schema.topNodeType.name) {
+        return formatBlock(html);
+    }
+
+    return html;
+}
+
+/**
+ * format html block as per the commonmark spec
+ */
+function formatBlock(html) {
+    const dom = elementFromString(html);
+    const element = dom.firstElementChild;
+
+    element.innerHTML = `\n${element.innerHTML}\n`;
+
+    return element.outerHTML;
+}
