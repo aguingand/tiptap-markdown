@@ -5,6 +5,7 @@ import defaultExtensions from './extensions';
 const defaultMarkdownOptions = {
     html: true,
     tightLists: true,
+    tightListClass: 'tight',
     bulletListMarker: '-',
     linkify: false,
 }
@@ -22,6 +23,7 @@ export function createMarkdownEditor(Editor) {
             this.commandManager.commands.insertContentAt = (range, content) => (props) => {
                 return insertContentAt(range, this.parseMarkdown(content, { inline: true }))(props);
             }
+
         }
 
         setOptions(options) {
@@ -31,6 +33,20 @@ export function createMarkdownEditor(Editor) {
                 ...this.options.markdown,
                 ...options?.markdown,
             }
+        }
+
+        createExtensionManager() {
+            this.options.extensions = this.options.extensions.map(extension => {
+                const markdownExtension = this.markdownExtensions
+                    .find(markdownExtension => markdownExtension.type.type === extension.type
+                        || markdownExtension.type.name === extension.name
+                    );
+                if(markdownExtension?.updateExtension) {
+                    return markdownExtension.updateExtension.call({ editor: this }, extension);
+                }
+                return extension;
+            });
+            super.createExtensionManager();
         }
 
         get markdownExtensions() {
@@ -64,11 +80,10 @@ export function createMarkdownEditor(Editor) {
         }
 
         getMarkdown() {
-            const { html, tightLists, bulletListMarker } = this.options.markdown;
+            const { html, bulletListMarker } = this.options.markdown;
             return serialize(this.schema, this.state.doc, {
                 extensions: this.markdownExtensions,
                 html,
-                tightLists,
                 bulletListMarker,
             });
         }

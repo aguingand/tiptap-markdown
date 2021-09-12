@@ -6,7 +6,6 @@ import { getNodes } from "./nodes";
 export function serialize(schema, content, {
     extensions,
     html,
-    tightLists = false,
     bulletListMarker = '*',
 } = {}) {
     const nodes = getNodes(schema, extensions, {
@@ -16,9 +15,7 @@ export function serialize(schema, content, {
     const marks = getMarks(schema, extensions, {
         html,
     });
-    const state = new MarkdownSerializerState(nodes, marks, {
-        tightLists,
-    });
+    const state = new MarkdownSerializerState(nodes, marks);
 
     state.renderContent(content);
 

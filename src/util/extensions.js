@@ -5,6 +5,7 @@ export function createMarkdownExtension(type, options) {
         type,
         serialize: options.serialize,
         parse: options.parse,
+        updateExtension: options.updateExtension,
         extend(extendOptions) {
             return createMarkdownExtension(type, {
                 ...options,
