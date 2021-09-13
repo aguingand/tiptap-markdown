@@ -14,7 +14,7 @@ export default createMarkdownExtension(BulletList, {
         // handled by markdown-it
     },
     updateExtension(BulletList) {
-        return BulletList.extends(
+        return BulletList.extend(
             getTightListExtension({ editor:this.editor })
         );
     },

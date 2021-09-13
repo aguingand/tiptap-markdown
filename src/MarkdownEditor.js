@@ -1,6 +1,8 @@
+import { getSchema } from "@tiptap/core";
 import { serialize } from "./serialize";
 import { parse } from "./parse";
 import defaultExtensions from './extensions';
+
 
 const defaultMarkdownOptions = {
     html: true,
@@ -23,7 +25,6 @@ export function createMarkdownEditor(Editor) {
             this.commandManager.commands.insertContentAt = (range, content) => (props) => {
                 return insertContentAt(range, this.parseMarkdown(content, { inline: true }))(props);
             }
-
         }
 
         setOptions(options) {
@@ -36,17 +37,18 @@ export function createMarkdownEditor(Editor) {
         }
 
         createExtensionManager() {
-            this.options.extensions = this.options.extensions.map(extension => {
+            super.createExtensionManager();
+            this.extensionManager.extensions = this.extensionManager.extensions.map(extension => {
                 const markdownExtension = this.markdownExtensions
                     .find(markdownExtension => markdownExtension.type.type === extension.type
-                        || markdownExtension.type.name === extension.name
+                        && markdownExtension.type.name === extension.name
                     );
                 if(markdownExtension?.updateExtension) {
                     return markdownExtension.updateExtension.call({ editor: this }, extension);
                 }
                 return extension;
             });
-            super.createExtensionManager();
+            this.extensionManager.schema = getSchema(this.extensionManager.extensions);
         }
 
         get markdownExtensions() {

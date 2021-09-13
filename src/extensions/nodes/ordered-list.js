@@ -14,7 +14,7 @@ export default createMarkdownExtension(OrderedList, {
         // handled by markdown-it
     },
     updateExtension(OrderedList) {
-        return OrderedList.extends(
+        return OrderedList.extend(
             getTightListExtension({ editor: this.editor })
         );
     },
