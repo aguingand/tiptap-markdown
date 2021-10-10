@@ -1,10 +1,13 @@
 import { serialize } from "./serialize";
 import { parse } from "./parse";
 import defaultExtensions from './extensions';
+import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
+
 
 const defaultMarkdownOptions = {
     html: true,
     tightLists: true,
+    tightListClass: 'tight',
     bulletListMarker: '-',
     linkify: false,
 }
@@ -14,6 +17,7 @@ export function createMarkdownEditor(Editor) {
     return class extends Editor {
 
         constructor(options) {
+            options = withDefaultTiptapExtensions(options);
             super(options);
             const { setContent, insertContentAt } = this.commandManager.commands;
             this.commandManager.commands.setContent = (content, emitUpdate, parseOptions) => (props) => {
@@ -64,13 +68,29 @@ export function createMarkdownEditor(Editor) {
         }
 
         getMarkdown() {
-            const { html, tightLists, bulletListMarker } = this.options.markdown;
+            const { html, bulletListMarker } = this.options.markdown;
             return serialize(this.schema, this.state.doc, {
                 extensions: this.markdownExtensions,
                 html,
-                tightLists,
                 bulletListMarker,
             });
         }
+    }
+}
+
+function withDefaultTiptapExtensions(options) {
+    const markdownOptions = {
+        ...defaultMarkdownOptions,
+        ...options?.markdown,
+    }
+    return {
+        ...options,
+        extensions: [
+            ...(options?.extensions ?? []),
+            MarkdownTightLists.configure({
+                tight: markdownOptions.tightLists,
+                tightClass: markdownOptions.tightListClass,
+            }),
+        ],
     }
 }

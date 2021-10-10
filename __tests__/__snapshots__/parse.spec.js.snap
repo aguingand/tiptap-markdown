@@ -221,20 +221,6 @@ Array [
 ]
 `;
 
-exports[`parse marks text  1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "text": "example",
-        "type": "text",
-      },
-    ],
-    "type": "paragraph",
-  },
-]
-`;
-
 exports[`parse marks text link 1`] = `
 Array [
   Object {
@@ -825,6 +811,10 @@ Array [
       },
     ],
     "type": "paragraph",
+  },
+  Object {
+    "text": " ",
+    "type": "text",
   },
   Object {
     "content": Array [

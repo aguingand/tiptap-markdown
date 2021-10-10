@@ -1,6 +1,6 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
 import { defaultMarkdownSerializer } from "prosemirror-markdown";
+import { createMarkdownExtension } from "../../util/extensions";
 
 const OrderedList = Node.create({
     name: 'orderedList',
