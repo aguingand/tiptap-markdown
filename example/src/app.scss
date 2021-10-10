@@ -46,9 +46,13 @@ $color-grey: #dddddd;
     ul,
     ol {
       padding-left: 1rem;
+
+      &.tight > li > p {
+        margin: 0;
+      }
     }
 
-    li > p,
+    li,
     li > ol,
     li > ul {
       margin: 0;

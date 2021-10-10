@@ -1,7 +1,7 @@
-import { getSchema } from "@tiptap/core";
 import { serialize } from "./serialize";
 import { parse } from "./parse";
 import defaultExtensions from './extensions';
+import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
 
 
 const defaultMarkdownOptions = {
@@ -17,6 +17,7 @@ export function createMarkdownEditor(Editor) {
     return class extends Editor {
 
         constructor(options) {
+            options = withDefaultTiptapExtensions(options);
             super(options);
             const { setContent, insertContentAt } = this.commandManager.commands;
             this.commandManager.commands.setContent = (content, emitUpdate, parseOptions) => (props) => {
@@ -34,21 +35,6 @@ export function createMarkdownEditor(Editor) {
                 ...this.options.markdown,
                 ...options?.markdown,
             }
-        }
-
-        createExtensionManager() {
-            super.createExtensionManager();
-            this.extensionManager.extensions = this.extensionManager.extensions.map(extension => {
-                const markdownExtension = this.markdownExtensions
-                    .find(markdownExtension => markdownExtension.type.type === extension.type
-                        && markdownExtension.type.name === extension.name
-                    );
-                if(markdownExtension?.updateExtension) {
-                    return markdownExtension.updateExtension.call({ editor: this }, extension);
-                }
-                return extension;
-            });
-            this.extensionManager.schema = getSchema(this.extensionManager.extensions);
         }
 
         get markdownExtensions() {
@@ -89,5 +75,22 @@ export function createMarkdownEditor(Editor) {
                 bulletListMarker,
             });
         }
+    }
+}
+
+function withDefaultTiptapExtensions(options) {
+    const markdownOptions = {
+        ...defaultMarkdownOptions,
+        ...options?.markdown,
+    }
+    return {
+        ...options,
+        extensions: [
+            ...(options?.extensions ?? []),
+            MarkdownTightLists.configure({
+                tight: markdownOptions.tightLists,
+                tightClass: markdownOptions.tightListClass,
+            }),
+        ],
     }
 }

@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <div class="editor card h-100">
-                    <div class="card-header">
+                    <div class="card-header sticky-top bg-white">
                         <MenuBar :editor="editor" />
                     </div>
 

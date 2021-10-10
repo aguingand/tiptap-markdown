@@ -1,22 +1,48 @@
+import { Extension } from "@tiptap/core";
 
-
-
-export function getTightListExtension({ editor }) {
-    return {
-        addAttributes() {
-            return {
-                ...this.parent?.(),
-                tight: {
-                    default: editor.options.markdown.tightLists,
-                    parseHTML: element => ({
-                        tight: element.getAttribute('data-tight') === 'true' || !element.querySelector('p'),
-                    }),
-                    renderHTML: attributes => ({
-                        class: attributes.tight ? editor.options.markdown.tightListClass : null,
-                        'data-tight': attributes.tight ? 'true' : null,
-                    }),
+export const MarkdownTightLists = Extension.create({
+    name: 'markdownTightLists',
+    defaultOptions: {
+        tight: true,
+        tightClass: 'tight',
+        listTypes: [
+            'bulletList',
+            'orderedList',
+        ],
+    },
+    addGlobalAttributes() {
+        return [
+            {
+                types: this.options.listTypes,
+                attributes: {
+                    tight: {
+                        default: this.options.tight,
+                        parseHTML: element =>
+                            element.getAttribute('data-tight') === 'true' || !element.querySelector('p'),
+                        renderHTML: attributes => ({
+                            class: attributes.tight ? this.options.tightClass : null,
+                            'data-tight': attributes.tight ? 'true' : null,
+                        }),
+                    },
+                },
+            },
+        ]
+    },
+    addCommands() {
+        return {
+            toggleTight: (tight = null) => ({ editor, commands }) => {
+                function toggleTight(name) {
+                    if(!editor.isActive(name)) {
+                        return false;
+                    }
+                    const attrs = editor.getAttributes(name);
+                    return commands.updateAttributes(name, {
+                        tight: tight ?? !attrs?.tight,
+                    });
                 }
+                return this.options.listTypes
+                    .some(name => toggleTight(name));
             }
         }
-    }
-}
+    },
+});

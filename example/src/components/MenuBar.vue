@@ -12,6 +12,9 @@
         <button @click="editor.chain().focus().toggleUnderline().run()" :class="{ 'is-active': editor.isActive('underline') }">
             underline
         </button>
+        <button @click="editor.chain().focus().toggleTight().run()" :class="{ 'is-active': editor.isActive({ tight:true }) }">
+            toggle tight
+        </button>
         <button @click="editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">
             insertTable
         </button>
