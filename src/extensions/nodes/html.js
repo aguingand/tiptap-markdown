@@ -42,7 +42,9 @@ function formatBlock(html) {
     const dom = elementFromString(html);
     const element = dom.firstElementChild;
 
-    element.innerHTML = `\n${element.innerHTML}\n`;
+    element.innerHTML = element.innerHTML.trim()
+        ? `\n${element.innerHTML}\n`
+        : `\n`;
 
     return element.outerHTML;
 }
