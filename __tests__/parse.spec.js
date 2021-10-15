@@ -11,6 +11,9 @@ describe('parse', () => {
             test('link', () => {
                 expect(parse('http://example.org')).toMatchSnapshot();
             });
+            test('soft break', () => {
+                expect(parse('example1\nexample2')).toMatchSnapshot();
+            });
         })
         describe('bold', () => {
             test('markdown', () => {
@@ -148,6 +151,9 @@ describe('parse', () => {
         describe('hard break', () => {
             test('markdown', () => {
                 expect(parse('example1  \nexample2')).toMatchSnapshot();
+            })
+            test('markdown with breaks option', () => {
+                expect(parse('example1\nexample2', { breaks: true })).toMatchSnapshot();
             })
             test('html', () => {
                 expect(parse('example1<br>example2')).toMatchSnapshot();

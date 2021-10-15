@@ -221,12 +221,40 @@ Array [
 ]
 `;
 
+exports[`parse marks text  1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
 exports[`parse marks text link 1`] = `
 Array [
   Object {
     "content": Array [
       Object {
         "text": "http://example.org",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse marks text soft break 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example1 example2",
         "type": "text",
       },
     ],
@@ -456,6 +484,27 @@ Array [
 `;
 
 exports[`parse nodes hard break markdown 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example1",
+        "type": "text",
+      },
+      Object {
+        "type": "hardBreak",
+      },
+      Object {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse nodes hard break markdown with breaks option 1`] = `
 Array [
   Object {
     "content": Array [

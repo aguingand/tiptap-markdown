@@ -6,14 +6,15 @@ export function parse(schema, content, { extensions, ...options }) {
     const {
         html,
         linkify,
-        languageClassPrefix,
         inline,
+        breaks,
     } = options;
 
     if(typeof content === 'string') {
         const renderer = markdownit({
             html,
             linkify,
+            breaks,
         });
 
         extensions.forEach(extension => extension.parse?.setup?.call({ schema, options }, renderer));

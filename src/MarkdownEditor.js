@@ -10,6 +10,7 @@ const defaultMarkdownOptions = {
     tightListClass: 'tight',
     bulletListMarker: '-',
     linkify: false,
+    breaks: false,
 }
 
 export function createMarkdownEditor(Editor) {
@@ -54,16 +55,14 @@ export function createMarkdownEditor(Editor) {
         }
 
         parseMarkdown(content, { inline } = {}) {
-            const { html, linkify } = this.options.markdown;
-            const codeBlockNode = this.options.extensions
-                .find(extension => extension.type === 'node' && extension.name === 'codeBlock');
+            const { html, linkify, breaks } = this.options.markdown;
 
             return parse(this.schema, content, {
                 extensions: this.markdownExtensions,
-                languageClassPrefix: codeBlockNode?.options.languageClassPrefix,
                 html,
                 linkify,
                 inline,
+                breaks,
             });
         }
 

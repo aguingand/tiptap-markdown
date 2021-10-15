@@ -8,6 +8,7 @@ export function parse(content, options = {}) {
     const {
         html = true,
         linkify,
+        breaks,
         inline,
         image,
         codeBlock,
@@ -24,6 +25,7 @@ export function parse(content, options = {}) {
         extensions,
         html,
         linkify,
+        breaks,
         languageClassPrefix: codeBlock?.languageClassPrefix,
         inline,
     });
