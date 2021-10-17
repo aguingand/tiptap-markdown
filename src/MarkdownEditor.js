@@ -2,6 +2,7 @@ import { serialize } from "./serialize";
 import { parse } from "./parse";
 import defaultExtensions from './extensions';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
+import { patchCommand } from "./util/editor";
 
 
 const defaultMarkdownOptions = {
@@ -20,13 +21,16 @@ export function createMarkdownEditor(Editor) {
         constructor(options) {
             options = withDefaultTiptapExtensions(options);
             super(options);
-            const { setContent, insertContentAt } = this.commandManager.commands;
-            this.commandManager.commands.setContent = (content, emitUpdate, parseOptions) => (props) => {
-                return setContent(this.parseMarkdown(content), emitUpdate, parseOptions)(props);
-            }
-            this.commandManager.commands.insertContentAt = (range, content) => (props) => {
-                return insertContentAt(range, this.parseMarkdown(content, { inline: true }))(props);
-            }
+            patchCommand(this, 'setContent', setContent =>
+                (content, emitUpdate, parseOptions) => (props) => {
+                    return setContent(this.parseMarkdown(content), emitUpdate, parseOptions)(props);
+                }
+            );
+            patchCommand(this, 'insertContentAt', insertContentAt =>
+                (range, content) => (props) => {
+                    return insertContentAt(range, this.parseMarkdown(content, { inline: true }))(props);
+                }
+            );
         }
 
         setOptions(options) {
