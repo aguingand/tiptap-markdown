@@ -53,6 +53,7 @@
     "babel-jest": "^27.0.2",
     "install": "^0.13.0",
     "jest": "^27.0.4",
+    "jest-serializer-html": "^7.1.0",
     "npm": "^7.16.0",
     "prosemirror-model": "^1.14.1",
     "rollup": "^2.51.1",

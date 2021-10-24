@@ -104,41 +104,115 @@ describe('serialize', () => {
         test('hard break with mark wrap', () => {
             expect(serialize('example1<strong><br></strong>example2')).toEqual('example1\\\nexample2');
         });
-        test('table', () => {
-            expect(serialize(dedent`
-                <table>
-                    <tr>
-                        <th>example1</th>
-                        <th>example2</th>
-                    </tr>
-                    <tr>
-                        <td>example3</td>
-                        <td>example4</td>
-                    </tr>
-                </table>
-            `)).toEqual(dedent`
-                example1 | example2
-                --- | ---
-                example3 | example4
-            `);
-
-            expect(serialize(dedent`
-                <table>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            `)).toEqual(dedent`
-                |  |  |
-                --- | ---
-                |  |  |
-            `);
-        });
+        describe('table', () => {
+            test('filled', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th>example1</th>
+                            <th>example2</th>
+                        </tr>
+                        <tr>
+                            <td>example3</td>
+                            <td>example4</td>
+                        </tr>
+                    </table>
+                `)).toEqual(dedent`
+                    | example1 | example2 |
+                    | --- | --- |
+                    | example3 | example4 |
+                `);
+            });
+            test('empty', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                `)).toEqual(dedent`
+                    |  |  |
+                    | --- | --- |
+                    |  |  |
+                `);
+            });
+            test('single column', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th>example1</th>
+                        </tr>
+                        <tr>
+                            <td>example3</td>
+                        </tr>
+                    </table>
+                `)).toEqual(dedent`
+                    | example1 |
+                    | --- |
+                    | example3 |
+                `);
+            });
+            test('header only', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th>example1</th>
+                            <th>example2</th>
+                        </tr>
+                    </table>
+                `)).toEqual(dedent`
+                    | example1 | example2 |
+                    | --- | --- |
+                `);
+            });
+            test('no header', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <td>example1</td>
+                        </tr>
+                        <tr>
+                            <td>example3</td>
+                        </tr>
+                    </table>
+                `, { html: true })).toMatchSnapshot();
+            });
+            test('header in body', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th>example1</th>
+                        </tr>
+                        <tr>
+                            <th>example3</th>
+                        </tr>
+                    </table>
+                `, { html: true })).toMatchSnapshot();
+            });
+            test('with colspan', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th colspan="2">example1</th>
+                        </tr>
+                    </table>
+                `, { html: true })).toMatchSnapshot();
+            });
+            test('with rowspan', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th rowspan="2">example1</th>
+                        </tr>
+                    </table>
+                `, { html: true })).toMatchSnapshot();
+            });
+        })
         test('html', () => {
             expect(serialize('<block-element></block-element> <block-element>example2</block-element>', {
                 html: true,

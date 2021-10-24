@@ -1,13 +1,20 @@
 import { Node } from "@tiptap/core";
 import { createMarkdownExtension } from "../../util/extensions";
+import { childNodes } from "../../util/prosemirror";
+import Html from './html';
 
 const Table = Node.create({
     name: 'table',
 });
 
 export default createMarkdownExtension(Table, {
-    serialize(state, node) {
+    serialize(state, node, parent) {
+        if(!isMarkdownSerializable(node)) {
+            Html.serialize.call(this, state, node, parent);
+            return;
+        }
         node.forEach((row, p, i) => {
+            state.write('| ');
             row.forEach((col, p, j) => {
                 if(j) {
                     state.write(' | ');
@@ -15,18 +22,13 @@ export default createMarkdownExtension(Table, {
                 const cellContent = col.firstChild;
                 if(cellContent.textContent.trim()) {
                     state.renderInline(cellContent);
-                } else {
-                    if(!j) {
-                        state.write('| ');
-                    } else if(j === row.childCount - 1) {
-                        state.write(' |')
-                    }
                 }
             });
+            state.write(' |')
             state.ensureNewLine();
             if(!i) {
                 const delimiterRow = Array.from({ length:row.childCount }).map(() => '---').join(' | ');
-                state.write(delimiterRow);
+                state.write(`| ${delimiterRow} |`);
                 state.ensureNewLine();
             }
         });
@@ -36,3 +38,26 @@ export default createMarkdownExtension(Table, {
         // handled by markdown-it
     },
 })
+
+
+function hasSpan(node) {
+    return node.attrs.colspan > 1 || node.attrs.rowspan > 1;
+}
+
+function isMarkdownSerializable(node) {
+    const rows = childNodes(node);
+    const firstRow = rows[0];
+    const bodyRows = rows.slice(1);
+
+    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' || hasSpan(cell))) {
+        return false;
+    }
+
+    if(bodyRows.some(row =>
+        childNodes(row).some(cell => cell.type.name === 'tableHeader' || hasSpan(cell))
+    )) {
+        return false;
+    }
+
+    return true;
+}
