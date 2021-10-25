@@ -1,6 +1,7 @@
-import { Node } from "@tiptap/core";
+import { getHTMLFromFragment, Node } from "@tiptap/core";
+import { Fragment } from "prosemirror-model";
 import { createMarkdownExtension } from "../../util/extensions";
-import { childNodes } from "../../util/prosemirror";
+import { elementFromString } from "../../util/dom";
 import Html from './html';
 
 const Table = Node.create({
@@ -40,22 +41,20 @@ export default createMarkdownExtension(Table, {
 })
 
 
-function hasSpan(node) {
-    return node.attrs.colspan > 1 || node.attrs.rowspan > 1;
-}
-
 function isMarkdownSerializable(node) {
-    const rows = childNodes(node);
-    const firstRow = rows[0];
-    const bodyRows = rows.slice(1);
+    const html = getHTMLFromFragment(Fragment.from(node), node.type.schema);
+    const dom = elementFromString(html);
+    const rows = [...dom.querySelectorAll('tr')];
 
-    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' || hasSpan(cell))) {
+    if(dom.querySelector('[colspan]:not([colspan="1"]), [rowspan]:not([rowspan="1"])')) {
         return false;
     }
 
-    if(bodyRows.some(row =>
-        childNodes(row).some(cell => cell.type.name === 'tableHeader' || hasSpan(cell))
-    )) {
+    if(rows[0]?.querySelector('td')) {
+        return false;
+    }
+
+    if(rows.slice(1).some(row => row.querySelector('th'))) {
         return false;
     }
 
