@@ -7,7 +7,7 @@ function getSerialize(serialize, options) {
 export function getNodes(schema, extensions, options) {
     const nodes = Object.fromEntries(
         extensions
-            ?.filter(extension => extension.type.type === 'node')
+            ?.filter(extension => extension.type.type === 'node' && extension.serialize)
             .map(extension => [
                 extension.type.name,
                 getSerialize(extension.serialize, options)
