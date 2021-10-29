@@ -221,20 +221,6 @@ Array [
 ]
 `;
 
-exports[`parse marks text  1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "text": "example",
-        "type": "text",
-      },
-    ],
-    "type": "paragraph",
-  },
-]
-`;
-
 exports[`parse marks text link 1`] = `
 Array [
   Object {
@@ -679,7 +665,8 @@ Array [
   Object {
     "content": Array [
       Object {
-        "text": "<custom-element></custom-element>",
+        "text": <custom-element>
+</custom-element>,
         "type": "text",
       },
     ],

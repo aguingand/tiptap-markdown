@@ -2,14 +2,14 @@ import { Extension } from "@tiptap/core";
 
 export const MarkdownTightLists = Extension.create({
     name: 'markdownTightLists',
-    defaultOptions: {
+    addOptions: () => ({
         tight: true,
         tightClass: 'tight',
         listTypes: [
             'bulletList',
             'orderedList',
         ],
-    },
+    }),
     addGlobalAttributes() {
         return [
             {
