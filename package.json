@@ -26,7 +26,6 @@
   "license": "MIT",
   "dependencies": {
     "markdown-it": "^12.0.6",
-    "markdown-it-mark": "^3.0.1",
     "markdown-it-task-lists": "^2.1.1",
     "prosemirror-markdown": "^1.6.0"
   },

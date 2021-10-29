@@ -15,7 +15,6 @@ import Text from "./nodes/text";
 
 import Bold from "./marks/bold";
 import Code from "./marks/code";
-import Highlight from "./marks/highlight";
 import Italic from "./marks/italic";
 import Link from "./marks/link";
 import Strike from "./marks/strike";
@@ -39,7 +38,6 @@ export default [
 
     Bold,
     Code,
-    Highlight,
     Italic,
     Link,
     Strike,
