@@ -249,6 +249,20 @@ Array [
 ]
 `;
 
+exports[`parse marks text text 1`] = `
+Array [
+  Object {
+    "content": Array [
+      Object {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
 exports[`parse nodes bullet list html 1`] = `
 Array [
   Object {

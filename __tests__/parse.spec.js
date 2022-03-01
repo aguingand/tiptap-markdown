@@ -5,7 +5,7 @@ import { parse } from "./utils/parse";
 describe('parse', () => {
     describe('marks', () => {
         describe('text', () => {
-            test('', () => {
+            test('text', () => {
                 expect(parse('example')).toMatchSnapshot();
             });
             test('link', () => {
