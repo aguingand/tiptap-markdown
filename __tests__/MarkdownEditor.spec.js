@@ -57,4 +57,27 @@ describe('MarkdownEditor', () => {
             });
         });
     });
+    describe('setOptions', () => {
+        test('merge', () => {
+            const editor = new MarkdownEditor({
+                content: '',
+                extensions: [StarterKit],
+                markdown: {
+                    bulletListMarker: '->',
+                },
+            });
+            editor.setOptions({
+                markdown: {
+                    extensions: [],
+                },
+            })
+            expect(editor.options).toMatchObject({
+                markdown: {
+                    html: true,
+                    bulletListMarker: '->',
+                    extensions: [],
+                },
+            });
+        });
+    });
 });

@@ -34,10 +34,11 @@ export function createMarkdownEditor(Editor) {
         }
 
         setOptions(options) {
+            const markdownOptions = this.options.markdown;
             super.setOptions(options);
             this.options.markdown = {
                 ...defaultMarkdownOptions,
-                ...this.options.markdown,
+                ...markdownOptions,
                 ...options?.markdown,
             }
         }
