@@ -7,6 +7,12 @@ export function elementFromString(value) {
     return new window.DOMParser().parseFromString(wrappedValue, 'text/html').body
 }
 
+export function escapeHTML(value) {
+    return value
+        ?.replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
 export function extractElement(node) {
     const parent = node.parentElement;
     const prepend = parent.cloneNode();

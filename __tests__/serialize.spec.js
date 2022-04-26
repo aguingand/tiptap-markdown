@@ -19,6 +19,9 @@ describe('serialize', () => {
         test('text', () => {
             expect(serialize('example')).toEqual('example');
         });
+        test('text escaped', () => {
+            expect(serialize('example <><>')).toEqual('example &lt;&gt;&lt;&gt;');
+        });
         test('bold', () => {
             expect(serialize('<b>example</b>')).toEqual('**example**');
         });

@@ -1,6 +1,6 @@
 import { Node } from "@tiptap/core";
-import { defaultMarkdownSerializer } from "prosemirror-markdown";
 import { createMarkdownExtension } from "../../util/extensions";
+import { escapeHTML } from "../../util/dom";
 
 
 const Text = Node.create({
@@ -8,7 +8,9 @@ const Text = Node.create({
 });
 
 export default createMarkdownExtension(Text, {
-    serialize: defaultMarkdownSerializer.nodes.text,
+    serialize(state, node) {
+        state.text(escapeHTML(node.text));
+    },
     parse: {
         // handled by markdown-it
     },
