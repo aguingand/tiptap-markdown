@@ -23,12 +23,14 @@
   "bugs": {
     "url": "https://github.com/aguingand/tiptap-markdown/issues"
   },
+  "types": "./index.d.ts",
   "author": "Antoine Guingand",
   "license": "MIT",
   "dependencies": {
+    "@types/markdown-it": "^12.2.3",
     "markdown-it": "^12.0.6",
     "markdown-it-task-lists": "^2.1.1",
-    "prosemirror-markdown": "^1.8.0"
+    "prosemirror-markdown": "^1.9.3"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",

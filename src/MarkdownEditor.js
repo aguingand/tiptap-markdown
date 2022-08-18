@@ -16,8 +16,7 @@ const defaultMarkdownOptions = {
 
 export function createMarkdownEditor(Editor) {
 
-    return class extends Editor {
-
+    class MarkdownEditor extends Editor {
         constructor(options) {
             options = withDefaultTiptapExtensions(options);
             super(options);
@@ -80,6 +79,8 @@ export function createMarkdownEditor(Editor) {
             });
         }
     }
+
+    return MarkdownEditor;
 }
 
 function withDefaultTiptapExtensions(options) {
