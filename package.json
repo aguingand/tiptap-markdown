@@ -14,7 +14,8 @@
   "module": "dist/tiptap-markdown.esm.js",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -23,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/aguingand/tiptap-markdown/issues"
   },
-  "types": "./index.d.ts",
+  "types": "index.d.ts",
   "author": "Antoine Guingand",
   "license": "MIT",
   "dependencies": {
