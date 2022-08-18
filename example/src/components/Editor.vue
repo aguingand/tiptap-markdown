@@ -31,7 +31,7 @@
     import TaskList from '@tiptap/extension-task-list'
     import TaskItem from '@tiptap/extension-task-item'
     import CodeBlock from "@tiptap/extension-code-block";
-    import { createMarkdownEditor } from "../../../src";
+    import { createMarkdownEditor } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../content.md?raw';
 
