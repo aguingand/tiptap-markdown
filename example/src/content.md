@@ -91,7 +91,7 @@ Sample text here...
 
 Syntax highlighting
 
-``` js
+```js
 var foo = function (bar) {
   return bar++;
 };
