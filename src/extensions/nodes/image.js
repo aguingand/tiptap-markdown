@@ -1,13 +1,13 @@
 import { Node } from "@tiptap/core";
 import { defaultMarkdownSerializer } from "prosemirror-markdown";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 
 
 const Image = Node.create({
     name: 'image',
 });
 
-export default createMarkdownExtension(Image, {
+export default MarkdownNode.create(Image, {
     serialize: defaultMarkdownSerializer.nodes.image,
     parse: {
         // handled by markdown-it

@@ -1,22 +1,22 @@
 import { getHTMLFromFragment, Mark } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownMark } from "../../util/extensions";
 import { Fragment } from "prosemirror-model";
 
 const HTML = Mark.create({
     name: 'html',
 });
 
-export default createMarkdownExtension(HTML, {
+export default MarkdownMark.create(HTML, {
     serialize: {
         open(state, mark)  {
-            if(!this.markdownOptions.html) {
+            if(!this.editor.options.markdown.html) {
                 console.warn(`Tiptap Markdown: "${mark.type.name}" mark is only available in html mode`);
                 return '';
             }
             return getMarkTags(mark)?.[0] ?? '';
         },
         close(state, mark) {
-            if(!this.markdownOptions.html) {
+            if(!this.editor.options.markdown.html) {
                 return '';
             }
             return getMarkTags(mark)?.[1] ?? '';

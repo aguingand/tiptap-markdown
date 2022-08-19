@@ -17,12 +17,12 @@ export function parse(schema, content, { extensions, ...options }) {
             breaks,
         });
 
-        extensions.forEach(extension => extension.parse?.setup?.call({ schema, options }, renderer));
+        extensions.forEach(extension => extension.parse.setup?.(renderer));
 
         const renderedHTML = renderer.render(content);
         const element = elementFromString(renderedHTML);
 
-        extensions.forEach(extension => extension.parse?.updateDOM?.call({ schema, options }, element));
+        extensions.forEach(extension => extension.parse.updateDOM?.(element));
 
         normalizeDOM(schema, element, { inline, content });
 

@@ -1,43 +1,25 @@
-import Html from '../extensions/marks/html';
+import HTMLMark from '../extensions/marks/html';
 
-
-function getSerializeOptions(serialize, markdownOptions) {
-    const options = { ...serialize };
-    if(typeof serialize?.open === 'function') {
-        options.open = options.open.bind({ markdownOptions });
-    }
-    if(typeof serialize?.close === 'function') {
-        options.close = options.close.bind({ markdownOptions });
-    }
-    return options;
-}
-
-export function getMarks(schema, extensions, options) {
+export function getMarks(schema, extensions) {
     const marks = Object.fromEntries(
         extensions
-            ?.filter(extension => extension.type.type === 'mark')
-            .map(extension => [
-                extension.type.name,
-                getSerializeOptions(extension.serialize, options)
-            ])
+            ?.filter(extension => extension.type === 'mark')
+            .map(extension => [extension.name, extension.serialize])
         ?? []
     );
     return {
-        ...getDefaultMarks(schema, extensions, options),
+        ...getDefaultMarks(schema, extensions),
         ...marks,
     }
 }
 
-export function getDefaultMarks(schema, extensions, options) {
-    const htmlExtension = extensions.find(extension =>
-        extension.type.type === 'mark' &&
-        extension.type.name === 'html'
-    ) ?? Html;
+export function getDefaultMarks(schema, extensions) {
+    const htmlMark = extensions.find(extension => extension.is(HTMLMark));
 
     return Object.fromEntries(
         Object.entries(schema.marks).map(([name, markType]) => [
             name,
-            getSerializeOptions(htmlExtension.serialize, options)
+            htmlMark.serialize
         ])
     )
 }

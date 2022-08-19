@@ -1,35 +1,26 @@
-import Html from "../extensions/nodes/html";
+import HTMLNode from "../extensions/nodes/html";
 
-function getSerialize(serialize, options) {
-    return serialize.bind({ markdownOptions: options });
-}
 
-export function getNodes(schema, extensions, options) {
+export function getNodes(schema, extensions) {
     const nodes = Object.fromEntries(
         extensions
-            ?.filter(extension => extension.type.type === 'node' && extension.serialize)
-            .map(extension => [
-                extension.type.name,
-                getSerialize(extension.serialize, options)
-            ])
+            ?.filter(extension => extension.type === 'node' && extension.serialize)
+            .map(extension => [extension.name, extension.serialize])
         ?? []
     );
     return {
-        ...getDefaultNodes(schema, extensions, options),
+        ...getDefaultNodes(schema, extensions),
         ...nodes
     }
 }
 
-export function getDefaultNodes(schema, extensions, options) {
-    const htmlExtension = extensions.find(extension =>
-        extension.type.type === 'node' &&
-        extension.type.name === 'html'
-    ) ?? Html;
+export function getDefaultNodes(schema, extensions) {
+    const htmlNode = extensions.find(extension => extension.is(HTMLNode));
 
     return Object.fromEntries(
         Object.entries(schema.nodes).map(([name, markType]) => [
             name,
-            getSerialize(htmlExtension.serialize, options)
+            htmlNode.serialize
         ])
     )
 }

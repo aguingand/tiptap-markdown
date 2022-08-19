@@ -1,11 +1,11 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 
 const CodeBlock = Node.create({
     name: 'codeBlock',
 });
 
-export default createMarkdownExtension(CodeBlock, {
+export default MarkdownNode.create(CodeBlock, {
     serialize(state, node) {
         state.write("```" + (node.attrs.language || "") + "\n");
         state.text(node.textContent, false);
@@ -16,7 +16,7 @@ export default createMarkdownExtension(CodeBlock, {
     parse: {
         setup(markdownit) {
             markdownit.set({
-                langPrefix: this.options.languageClassPrefix ?? 'language-',
+                langPrefix: this.options?.languageClassPrefix ?? 'language-',
             });
         },
         updateDOM(element) {

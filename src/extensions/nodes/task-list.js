@@ -1,6 +1,6 @@
 import taskListPlugin from "markdown-it-task-lists";
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 import BulletList from "./bullet-list";
 
 
@@ -8,7 +8,7 @@ const TaskList = Node.create({
     name: 'taskList',
 });
 
-export default createMarkdownExtension(TaskList, {
+export default MarkdownNode.create(TaskList, {
     serialize: BulletList.serialize,
     parse: {
         setup(markdownit) {

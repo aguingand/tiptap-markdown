@@ -1,4 +1,3 @@
-import extensions from "../src/extensions";
 import { serialize as baseSerialize } from '../src/serialize/serialize';
 import { dedent, createEditor } from "./utils";
 
@@ -7,10 +6,10 @@ function serialize(content, { htmlNode, htmlMark, ...options } = {}) {
         content,
         htmlNode,
         htmlMark,
+        markdown: options,
     });
     return baseSerialize(editor.schema, editor.state.doc, {
-        extensions,
-        ...options,
+        extensions: editor.markdownExtensions,
     });
 }
 
@@ -74,19 +73,13 @@ describe('serialize', () => {
         });
         test('bullet list', () => {
             expect(serialize('<ul><li>example1</li><li>example2</li></ul>'))
-                .toEqual('* example1\n\n* example2');
+                .toEqual('- example1\n- example2');
 
-            expect(serialize('<ul><li>example1</li><li>example2</li></ul>', { bulletListMarker: '-' }))
-                .toEqual('- example1\n\n- example2');
-
-            expect(serialize('<ul><li>example1</li><li>example2</li></ul>', { tightLists: true }))
+            expect(serialize('<ul><li>example1</li><li>example2</li></ul>', { bulletListMarker: '*' }))
                 .toEqual('* example1\n* example2');
         });
         test('ordered list', () => {
             expect(serialize('<ol><li>example1</li><li>example2</li></ol>'))
-                .toEqual('1. example1\n\n2. example2');
-
-            expect(serialize('<ol><li>example1</li><li>example2</li></ol>', { tightLists: true }))
                 .toEqual('1. example1\n2. example2');
         });
         test('fence', () => {

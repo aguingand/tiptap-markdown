@@ -1,16 +1,16 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 import { childNodes } from "../../util/prosemirror";
-import Html from './html';
+import HTMLNode from './html';
 
 const Table = Node.create({
     name: 'table',
 });
 
-export default createMarkdownExtension(Table, {
+export default MarkdownNode.create(Table, {
     serialize(state, node, parent) {
         if(!isMarkdownSerializable(node)) {
-            Html.serialize.call(this, state, node, parent);
+            HTMLNode.serialize.call(this, state, node, parent);
             return;
         }
         node.forEach((row, p, i) => {

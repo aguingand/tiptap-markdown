@@ -1,5 +1,5 @@
 import { getHTMLFromFragment, Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 import { elementFromString } from "../../util/dom";
 import { Fragment } from "prosemirror-model";
 
@@ -7,9 +7,9 @@ const HTML = Node.create({
     name: 'html',
 });
 
-export default createMarkdownExtension(HTML, {
+export default MarkdownNode.create(HTML, {
     serialize(state, node, parent) {
-        if(this.markdownOptions.html) {
+        if(this.editor.options.markdown.html) {
             state.write(serializeHTML(node, parent));
         } else {
             console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);

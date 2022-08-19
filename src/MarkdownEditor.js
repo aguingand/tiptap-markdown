@@ -43,10 +43,12 @@ export function createMarkdownEditor(Editor) {
         }
 
         get markdownExtensions() {
-            return [
+            const extensions = [
                 ...defaultExtensions,
                 ...(this.options.markdown.extensions ?? []),
-            ]
+            ];
+
+            return extensions.map(extension => extension.setEditor(this));
         }
 
         createView() {
@@ -71,11 +73,8 @@ export function createMarkdownEditor(Editor) {
         }
 
         getMarkdown() {
-            const { html, bulletListMarker } = this.options.markdown;
             return serialize(this.schema, this.state.doc, {
                 extensions: this.markdownExtensions,
-                html,
-                bulletListMarker,
             });
         }
     }

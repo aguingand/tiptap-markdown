@@ -1,11 +1,11 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 
 const TaskItem = Node.create({
     name: 'taskItem',
 });
 
-export default createMarkdownExtension(TaskItem, {
+export default MarkdownNode.create(TaskItem, {
     serialize(state, node) {
         const check = node.attrs.checked ? '[x]' : '[ ]';
         state.write(`${check} `);

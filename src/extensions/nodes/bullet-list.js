@@ -1,13 +1,13 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+import { MarkdownNode } from "../../util/extensions";
 
 const BulletList = Node.create({
     name: 'bulletList',
 });
 
-export default createMarkdownExtension(BulletList, {
+export default MarkdownNode.create(BulletList, {
     serialize(state, node)  {
-        return state.renderList(node, "  ", () => (this.markdownOptions.bulletListMarker || "*") + " ");
+        return state.renderList(node, "  ", () => (this.editor.options.markdown.bulletListMarker || "-") + " ");
     },
     parse: {
         // handled by markdown-it
