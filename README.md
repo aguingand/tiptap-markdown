@@ -58,7 +58,7 @@ const MarkdownEditor = createMarkdownEditor(Editor);
 
 ### Options
 ```js
-new MarkdownEditor({
+const editor = new MarkdownEditor({
     content: '...',
     markdown: {
         html: true,              // Allow HTML input/output
@@ -69,6 +69,12 @@ new MarkdownEditor({
         breaks: false,           // New lines (\n) in markdown input are converted to <br>
     }
 })
+```
+
+### Methods
+```js
+editor.setContent('**test**') // setContent supports markdown format
+editor.getMarkdown(); // get current content as markdown
 ```
 
 ## Contributing
