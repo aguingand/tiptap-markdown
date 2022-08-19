@@ -34,6 +34,7 @@
     import { createMarkdownEditor } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../content.md?raw';
+    import { Container, containerMarkdownExtension } from "../extensions/container";
 
 
     export default {
@@ -79,7 +80,13 @@
                     CodeBlock.configure({
                         languageClassPrefix: 'lang-',
                     }),
+                    Container,
                 ],
+                markdown: {
+                    extensions: [
+                        containerMarkdownExtension(Container),
+                    ],
+                },
                 content,
                 onUpdate: () => {
                     this.updateMarkdownOutput();

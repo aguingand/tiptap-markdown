@@ -144,3 +144,9 @@ With a reference later in the document defining the URL location:
 ### [\<mark>](https://github.com/markdown-it/markdown-it-mark)
 
 ==Marked text==
+
+### [Custom containers](https://github.com/markdown-it/markdown-it-container)
+
+::: warning
+*here be dragons*
+:::

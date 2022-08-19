@@ -14,3 +14,12 @@ export function createMarkdownExtension(type, options) {
     }
 }
 
+export function withMarkdown(options) {
+    return {
+        onBeforeCreate() {
+            this.editor.setOptions({
+                
+            });
+        }
+    }
+}
