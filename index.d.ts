@@ -20,8 +20,8 @@ export type MarkdownEditorOptions = EditorOptions & {
 export type MarkdownExtension = {};
 export type MarkdownExtensionOptions = {
     parse?: {
-        setup(markdownit: MarkdownIt): void,
-        updateDOM(element: HTMLElement): void
+        setup?(markdownit: MarkdownIt): void,
+        updateDOM?(element: HTMLElement): void
     },
     serialize:
         (state: MarkdownSerializerState, node: Prosemirror.Node, parent: Prosemirror.Node, index: number) => void
