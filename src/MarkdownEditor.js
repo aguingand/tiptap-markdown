@@ -1,8 +1,8 @@
-import { serialize } from "./serialize";
-import { parse } from "./parse";
 import defaultExtensions from './extensions';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
 import { patchCommand } from "./util/editor";
+import { MarkdownParser } from "./parse/MarkdownParser";
+import { MarkdownSerializer } from "./serialize/MarkdownSerializer";
 
 
 const defaultMarkdownOptions = {
@@ -17,17 +17,29 @@ const defaultMarkdownOptions = {
 export function createMarkdownEditor(Editor) {
 
     class MarkdownEditor extends Editor {
+        /**
+         * @type {MarkdownParser}
+         */
+        markdownParser;
+        /**
+         * @type {MarkdownSerializer}
+         */
+        markdownSerializer;
+
         constructor(options) {
             options = withDefaultTiptapExtensions(options);
             super(options);
+            this.createMarkdownParser();
+            this.createMarkdownSerializer();
+
             patchCommand(this, 'setContent', setContent =>
                 (content, emitUpdate, parseOptions) => (props) => {
-                    return setContent(this.parseMarkdown(content), emitUpdate, parseOptions)(props);
+                    return setContent(this.markdownParser.parse(content), emitUpdate, parseOptions)(props);
                 }
             );
             patchCommand(this, 'insertContentAt', insertContentAt =>
                 (range, content) => (props) => {
-                    return insertContentAt(range, this.parseMarkdown(content, { inline: true }))(props);
+                    return insertContentAt(range, this.markdownParser.parse(content, { inline: true }))(props);
                 }
             );
         }
@@ -52,30 +64,28 @@ export function createMarkdownEditor(Editor) {
         }
 
         createView() {
+            if(!this.markdownParser) {
+                this.createMarkdownParser();
+            }
+
             const originalContent = this.options.content;
-            this.options.content = this.parseMarkdown(this.options.content);
+            this.options.content = this.markdownParser.parse(this.options.content);
 
             super.createView();
 
             this.options.content = originalContent;
         }
 
-        parseMarkdown(content, { inline } = {}) {
-            const { html, linkify, breaks } = this.options.markdown;
+        createMarkdownParser() {
+            this.markdownParser = new MarkdownParser(this);
+        }
 
-            return parse(this.schema, content, {
-                extensions: this.markdownExtensions,
-                html,
-                linkify,
-                inline,
-                breaks,
-            });
+        createMarkdownSerializer() {
+            this.markdownSerializer = new MarkdownSerializer(this);
         }
 
         getMarkdown() {
-            return serialize(this.schema, this.state.doc, {
-                extensions: this.markdownExtensions,
-            });
+            return this.markdownSerializer.serialize(this.state.doc);
         }
     }
 

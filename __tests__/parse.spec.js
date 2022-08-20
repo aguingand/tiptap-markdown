@@ -1,6 +1,4 @@
-import { dedent } from "./utils";
-import { parse } from "./utils/parse";
-
+import { parse, dedent } from './utils';
 
 describe('parse', () => {
     describe('marks', () => {

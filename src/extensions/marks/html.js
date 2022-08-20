@@ -3,7 +3,7 @@ import { MarkdownMark } from "../../util/extensions";
 import { Fragment } from "prosemirror-model";
 
 const HTML = Mark.create({
-    name: 'html',
+    name: 'htmlMark',
 });
 
 export default MarkdownMark.create(HTML, {

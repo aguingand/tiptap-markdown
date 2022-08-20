@@ -4,7 +4,7 @@ import { elementFromString } from "../../util/dom";
 import { Fragment } from "prosemirror-model";
 
 const HTML = Node.create({
-    name: 'html',
+    name: 'htmlNode',
 });
 
 export default MarkdownNode.create(HTML, {

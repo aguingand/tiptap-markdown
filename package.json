@@ -53,6 +53,7 @@
     "@tiptap/extension-underline": "^2.0.0-beta.17",
     "@tiptap/starter-kit": "^2.0.0-beta.131",
     "@tiptap/vue-3": "^2.0.0-beta.73",
+    "@types/jest": "^28.1.7",
     "babel-jest": "^27.0.2",
     "jest": "^27.0.4",
     "jest-serializer-html": "^7.1.0",

@@ -1,35 +1,24 @@
-import { createEditor } from "./index";
-import { parse as baseParse } from "../../src";
+import { createEditor } from "./editor";
 import { DOMParser } from "prosemirror-model";
 import { elementFromString } from "../../src/util/dom";
 
 export function parse(content, options = {}) {
     const {
-        html = true,
-        linkify,
-        breaks,
         inline,
         image,
         codeBlock,
         htmlNode,
+        ...markdown
     } = options;
 
     const editor = createEditor({
         image,
         htmlNode,
         codeBlock,
-        markdown: {
-            html,
-        },
+        markdown,
     });
 
-    const parsed = baseParse(editor.schema, content, {
-        extensions: editor.markdownExtensions,
-        html,
-        linkify,
-        breaks,
-        inline,
-    });
+    const parsed = editor.markdownParser.parse(content, { inline });
 
     return DOMParser.fromSchema(editor.schema)
         .parseSlice(elementFromString(parsed), {

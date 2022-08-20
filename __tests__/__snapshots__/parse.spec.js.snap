@@ -266,6 +266,9 @@ Array [
 exports[`parse nodes bullet list html 1`] = `
 Array [
   Object {
+    "attrs": Object {
+      "tight": true,
+    },
     "content": Array [
       Object {
         "content": Array [
@@ -304,6 +307,9 @@ Array [
 exports[`parse nodes bullet list markdown marker \`*\` 1`] = `
 Array [
   Object {
+    "attrs": Object {
+      "tight": false,
+    },
     "content": Array [
       Object {
         "content": Array [
@@ -342,6 +348,9 @@ Array [
 exports[`parse nodes bullet list markdown marker \`-\` 1`] = `
 Array [
   Object {
+    "attrs": Object {
+      "tight": false,
+    },
     "content": Array [
       Object {
         "content": Array [
@@ -751,6 +760,7 @@ Array [
   Object {
     "attrs": Object {
       "start": 1,
+      "tight": true,
     },
     "content": Array [
       Object {
@@ -792,6 +802,7 @@ Array [
   Object {
     "attrs": Object {
       "start": 1,
+      "tight": true,
     },
     "content": Array [
       Object {

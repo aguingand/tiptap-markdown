@@ -1,17 +1,4 @@
-import { serialize as baseSerialize } from '../src/serialize/serialize';
-import { dedent, createEditor } from "./utils";
-
-function serialize(content, { htmlNode, htmlMark, ...options } = {}) {
-    const editor = createEditor({
-        content,
-        htmlNode,
-        htmlMark,
-        markdown: options,
-    });
-    return baseSerialize(editor.schema, editor.state.doc, {
-        extensions: editor.markdownExtensions,
-    });
-}
+import { serialize, dedent } from './utils';
 
 describe('serialize', () => {
     describe('marks', () => {

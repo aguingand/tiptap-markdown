@@ -57,8 +57,7 @@ class MarkdownExtension {
     }
 
     is(extension) {
-        return extension.type === this.type
-            && extension.name === this.name;
+        return extension.name === this.name;
     }
 }
 
