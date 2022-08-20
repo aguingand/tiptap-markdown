@@ -116,7 +116,8 @@ describe('parse', () => {
                 expect(parse('```js\nexample\n```')).toMatchSnapshot();
             });
             test('markdown with languageClassPrefix', () => {
-                expect(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang-' } })).toMatchSnapshot();
+                expect(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang--' } }, true))
+                    .toMatchSnapshot();
             })
         });
         describe('code block', () => {

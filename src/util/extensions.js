@@ -1,10 +1,6 @@
 
 class MarkdownExtension {
-    serialize = null;
-    parse = {
-        setup() {},
-        updateDOM() {},
-    };
+    spec = null;
     /**
      * @type {import('@tiptap/core').Editor}
      */
@@ -14,16 +10,20 @@ class MarkdownExtension {
      */
     baseExtension = null;
 
-    constructor(spec) {
-        this.parse = {
-            setup: spec.parse?.setup?.bind(this),
-            updateDOM: spec.parse?.updateDOM?.bind(this),
-        };
-        this.serialize = spec.serialize;
+    constructor(baseExtension, spec) {
+        this.baseExtension = baseExtension;
+        this.spec = spec;
     }
 
     static create(baseExtension, spec) {
-        return new this(spec).setBaseExtension(baseExtension);
+        return new this(baseExtension, spec);
+    }
+
+    get parse() {
+        return {
+            setup: this.spec.parse?.setup?.bind(this),
+            updateDOM: this.spec.parse?.updateDOM?.bind(this),
+        };
     }
 
     get name() {
@@ -35,7 +35,7 @@ class MarkdownExtension {
     }
 
     get options() {
-        return this.resolvedExtension.options;
+        return this.resolvedExtension?.options;
     }
 
     get schema() {
@@ -43,17 +43,13 @@ class MarkdownExtension {
     }
 
     get resolvedExtension() {
-        return this.editor.extensionManager.extensions.find(extension => extension.name === this.name);
+        return this.editor?.extensionManager.extensions.find(extension => extension.name === this.name);
     }
 
-    setBaseExtension(extension) {
-        this.baseExtension = extension;
-        return this;
-    }
-
-    setEditor(editor) {
-        this.editor = editor;
-        return this;
+    forEditor(editor) {
+        const extension = new this.constructor(this.baseExtension, this.spec);
+        extension.editor = editor;
+        return extension;
     }
 
     is(extension) {
@@ -62,28 +58,18 @@ class MarkdownExtension {
 }
 
 export class MarkdownNode extends MarkdownExtension {
-    serialize = () => null;
-
-    constructor(spec) {
-        super(spec);
-        this.serialize = spec.serialize.bind(this);
+    get serialize() {
+        return this.spec.serialize.bind(this);
     }
 }
 
 export class MarkdownMark extends MarkdownExtension {
-    serialize = {
-        open: null,
-        close: null,
-    }
-
-    constructor(spec) {
-        super(spec);
-        this.serialize = spec.serialize;
-        if(typeof this.serialize.open === 'function') {
-            this.serialize.open = this.serialize.open.bind(this);
-        }
-        if(typeof this.serialize.close === 'function') {
-            this.serialize.close = this.serialize.close.bind(this);
+    get serialize() {
+        const { open, close } = this.spec.serialize;
+        return {
+            ...this.spec.serialize,
+            open: typeof open === 'function' ? open.bind(this) : open,
+            close: typeof close === 'function' ? close.bind(this) : close,
         }
     }
 }

@@ -10,7 +10,7 @@ const Table = Node.create({
 export default MarkdownNode.create(Table, {
     serialize(state, node, parent) {
         if(!isMarkdownSerializable(node)) {
-            HTMLNode.serialize.call(this, state, node, parent);
+            HTMLNode.spec.serialize.call(this, state, node, parent);
             return;
         }
         node.forEach((row, p, i) => {

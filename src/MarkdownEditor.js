@@ -25,12 +25,17 @@ export function createMarkdownEditor(Editor) {
          * @type {MarkdownSerializer}
          */
         markdownSerializer;
+        /**
+         * @type {(MarkdownMark|MarkdownNode)[]}
+         */
+        markdownExtensions;
 
         constructor(options) {
             options = withDefaultTiptapExtensions(options);
             super(options);
             this.createMarkdownParser();
             this.createMarkdownSerializer();
+            this.markdownExtensions = this.getMarkdownExtensions();
 
             patchCommand(this, 'setContent', setContent =>
                 (content, emitUpdate, parseOptions) => (props) => {
@@ -51,16 +56,16 @@ export function createMarkdownEditor(Editor) {
                 ...defaultMarkdownOptions,
                 ...markdownOptions,
                 ...options?.markdown,
-            }
+            };
+            this.markdownExtensions = this.getMarkdownExtensions();
         }
 
-        get markdownExtensions() {
+        getMarkdownExtensions() {
             const extensions = [
                 ...defaultExtensions,
                 ...(this.options.markdown.extensions ?? []),
             ];
-
-            return extensions.map(extension => extension.setEditor(this));
+            return extensions.map(extension => extension.forEditor(this));
         }
 
         createView() {

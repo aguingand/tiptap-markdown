@@ -1,6 +1,6 @@
 
 
-import { Editor, EditorOptions, Node, Mark } from "@tiptap/core";
+import { Editor, EditorOptions, Node, Mark, Extension } from "@tiptap/core";
 import { MarkdownSerializerState } from "prosemirror-markdown";
 import * as Prosemirror from "prosemirror-model";
 import * as MarkdownIt from "markdown-it";
@@ -17,8 +17,7 @@ export type MarkdownEditorOptions = EditorOptions & {
     }
 }
 
-export type MarkdownExtension = {};
-export type MarkdownExtensionOptions = {
+export type MarkdownExtensionSpec = {
     parse?: {
         setup?(markdownit: MarkdownIt): void,
         updateDOM?(element: HTMLElement): void
@@ -45,4 +44,6 @@ export class MarkdownEditor extends Editor {
 
 export function createMarkdownEditor(editor: typeof Editor): typeof MarkdownEditor;
 
-export function createMarkdownExtension(type: Node | Mark, options: MarkdownExtensionOptions): MarkdownExtension;
+export class MarkdownExtension {
+    static create<T extends typeof MarkdownExtension>(baseExtension: Extension, spec: MarkdownExtensionSpec): InstanceType<T>
+}
