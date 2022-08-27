@@ -455,20 +455,11 @@ Array [
 `;
 
 exports[`parse nodes fence markdown with languageClassPrefix 1`] = `
-Array [
-  Object {
-    "attrs": Object {
-      "language": "js",
-    },
-    "content": Array [
-      Object {
-        "text": "example",
-        "type": "text",
-      },
-    ],
-    "type": "codeBlock",
-  },
-]
+<pre>
+  <code class="lang--js">
+    example
+  </code>
+</pre>
 `;
 
 exports[`parse nodes hard break html 1`] = `
