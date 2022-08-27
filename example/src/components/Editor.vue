@@ -31,10 +31,12 @@
     import TaskList from '@tiptap/extension-task-list'
     import TaskItem from '@tiptap/extension-task-item'
     import CodeBlock from "@tiptap/extension-code-block";
-    import { createMarkdownEditor } from "../../../src";
+    import { createMarkdownEditor } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../content.md?raw';
-    import { Container, containerMarkdownExtension } from "../extensions/container";
+    import { MarkdownHighlight } from "../extensions/highlight/markdown";
+    import { MarkdownContainer } from "../extensions/container/markdown";
+    import { Container } from "../extensions/container/container";
 
 
     export default {
@@ -80,19 +82,25 @@
                     CodeBlock.configure({
                         languageClassPrefix: 'lang-',
                     }),
+                    Node,
                     Container,
                 ],
                 markdown: {
                     extensions: [
-                        containerMarkdownExtension(Container),
+                        MarkdownContainer,
+                        MarkdownHighlight,
                     ],
                 },
                 content,
                 onUpdate: () => {
                     this.updateMarkdownOutput();
                 },
+                editorProps: {
+                    attributes: {
+                        class: 'card-body form-control h-100',
+                    }
+                }
             });
-            this.editor.view.dom.classList.add('card-body', 'form-control', 'h-100');
             this.updateMarkdownOutput();
         },
     }

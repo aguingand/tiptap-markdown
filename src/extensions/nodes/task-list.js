@@ -9,7 +9,7 @@ const TaskList = Node.create({
 });
 
 export default MarkdownNode.create(TaskList, {
-    serialize: BulletList.serialize,
+    serialize: BulletList.spec.serialize,
     parse: {
         setup(markdownit) {
             markdownit.use(taskListPlugin);
