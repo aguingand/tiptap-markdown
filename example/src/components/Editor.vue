@@ -82,7 +82,6 @@
                     CodeBlock.configure({
                         languageClassPrefix: 'lang-',
                     }),
-                    Node,
                     Container,
                 ],
                 markdown: {
