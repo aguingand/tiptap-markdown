@@ -73,13 +73,3 @@ export class MarkdownMark extends MarkdownExtension {
         }
     }
 }
-
-export function withMarkdown(options) {
-    return {
-        onBeforeCreate() {
-            this.editor.setOptions({
-                
-            });
-        }
-    }
-}

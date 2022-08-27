@@ -1,6 +1,4 @@
 import { Node } from '@tiptap/core';
-import markdownitContainer from 'markdown-it-container';
-import { createMarkdownExtension } from 'tiptap-markdown';
 
 export const Container = Node.create({
     name: 'container',
@@ -44,27 +42,3 @@ export const Container = Node.create({
         return ['div', HTMLAttributes, 0]
     },
 });
-
-/**
- * @param {Node} Container
- * @returns {MarkdownExtension}
- */
-export function containerMarkdownExtension(Container) {
-    return createMarkdownExtension(Container, {
-        serialize(state, node) {
-            state.write("::: " + (node.attrs.containerClass || "") + "\n")
-            state.renderContent(node)
-            state.ensureNewLine()
-            state.write(":::")
-            state.closeBlock(node)
-        },
-        parse: {
-            setup(markdownit) {
-                console.log(this);
-                Container.options.classes.forEach(className => {
-                    markdownit.use(markdownitContainer, className);
-                });
-            },
-        }
-    });
-}

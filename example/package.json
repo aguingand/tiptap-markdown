@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "bootstrap": "^5.0.0-beta3",
     "markdown-it-container": "^3.0.0",
+    "markdown-it-mark": "^3.0.1",
     "tiptap-markdown": "file:..",
     "vue": "^3.0.11"
   },

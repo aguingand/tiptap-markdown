@@ -1,11 +1,11 @@
 
 
-import { Editor, EditorOptions, Node, Mark, Extension } from "@tiptap/core";
+import { Editor, EditorOptions, Node, Mark } from "@tiptap/core";
 import { MarkdownSerializerState } from "prosemirror-markdown";
 import * as Prosemirror from "prosemirror-model";
 import * as MarkdownIt from "markdown-it";
 
-export type MarkdownEditorOptions = EditorOptions & {
+export interface MarkdownEditorOptions extends EditorOptions {
     markdown?: {
         html?: Boolean,
         tightLists?: Boolean,
@@ -13,25 +13,9 @@ export type MarkdownEditorOptions = EditorOptions & {
         bulletListMarker?: String,
         linkify?: Boolean,
         breaks?: Boolean,
-        extensions?: MarkdownExtension[]
+        extensions?: (MarkdownMark|MarkdownNode)[]
     }
 }
-
-export type MarkdownExtensionSpec = {
-    parse?: {
-        setup?(markdownit: MarkdownIt): void,
-        updateDOM?(element: HTMLElement): void
-    },
-    serialize:
-        (state: MarkdownSerializerState, node: Prosemirror.Node, parent: Prosemirror.Node, index: number) => void
-        | {
-            open: string | ((state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string),
-            close: string | ((state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string),
-            mixable?: boolean,
-            expelEnclosingWhitespace?: boolean,
-            escape?: boolean
-        },
-};
 
 export class MarkdownEditor extends Editor {
     options: MarkdownEditorOptions;
@@ -44,6 +28,39 @@ export class MarkdownEditor extends Editor {
 
 export function createMarkdownEditor(editor: typeof Editor): typeof MarkdownEditor;
 
-export class MarkdownExtension {
-    static create<T extends typeof MarkdownExtension>(baseExtension: Extension, spec: MarkdownExtensionSpec): InstanceType<T>
+
+export type MarkdownNodeSpec<O = any> = {
+    serialize(this: MarkdownNode<O>, state: MarkdownSerializerState, node: Prosemirror.Node, parent: Prosemirror.Node, index: number): void,
+    parse?: {
+        setup?(this: MarkdownNode<O>, markdownit: MarkdownIt): void,
+        updateDOM?(this: MarkdownNode<O>, element: HTMLElement): void
+    },
+}
+
+export type MarkdownMarkSpec<O = any> = {
+    serialize: {
+        open: string | ((this: MarkdownMark<O>, state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string),
+        close: string | ((this: MarkdownMark<O>, state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string),
+        mixable?: boolean,
+        expelEnclosingWhitespace?: boolean,
+        escape?: boolean
+    },
+    parse?: {
+        setup?(this: MarkdownMark<O>, markdownit: MarkdownIt): void,
+        updateDOM?(this: MarkdownMark<O>, element: HTMLElement): void
+    },
+}
+
+declare class MarkdownExtension<Options = any> {
+    get options(): Options
+    get name(): string
+    get schema(): Prosemirror.Schema
+}
+
+export class MarkdownNode<O = any> extends MarkdownExtension<O> {
+    static create<O = any>(tiptapNode: Node<O>, spec: MarkdownNodeSpec<O>): MarkdownNode<O>
+}
+
+export class MarkdownMark<O = any> extends MarkdownExtension<O> {
+    static create<O = any>(tiptapMark: Mark<O>, spec: MarkdownMarkSpec<O>): MarkdownMark<O>
 }
