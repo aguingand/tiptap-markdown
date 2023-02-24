@@ -20,10 +20,6 @@ concurrency:
   group: 'pages'
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: ./example
-
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -40,8 +36,14 @@ jobs:
           node-version: 18
           cache: 'npm'
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build
+        run: npm run build
+      - name: Install example dependencies
+        working-directory: ./example
+        run: npm ci
+      - name: Build example
+        working-directory: ./example
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -49,7 +51,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload dist repository
-          path: './dist'
+          path: './example/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
