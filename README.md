@@ -60,7 +60,7 @@ const editor = new MarkdownEditor({
     markdown: {
         html: true,              // Allow HTML input/output
         tightLists: true,        // No <p> inside <li> in markdown output
-        tightListClass: 'tight', // Add class to <ul> that allows you to remove <p> margins when tight
+        tightListClass: 'tight', // Add class to <ul> allowing you to remove <p> margins when tight
         bulletListMarker: '-',   // <li> prefix in markdown output
         linkify: false,          // Create links from "https://..." text
         breaks: false,           // New lines (\n) in markdown input are converted to <br>
