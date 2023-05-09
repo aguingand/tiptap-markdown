@@ -6,6 +6,12 @@ import analyzer from 'rollup-plugin-visualizer';
 export default defineConfig({
     base: '/tiptap-markdown',
     plugins: [vue()],
+    server: {
+        fs: {
+            // Allow serving files from one level up to the project root
+            allow: ['..'],
+        },
+    },
     build: {
         rollupOptions: {
             plugins: [
