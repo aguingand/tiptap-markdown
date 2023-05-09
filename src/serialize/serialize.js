@@ -1,6 +1,7 @@
 import { MarkdownSerializerState } from './state';
 import { getMarks } from "./marks";
 import { getNodes } from "./nodes";
+import HardBreak from "../extensions/nodes/hard-break";
 
 
 export function serialize(schema, content, {
@@ -18,6 +19,7 @@ export function serialize(schema, content, {
     });
     const state = new MarkdownSerializerState(nodes, marks, {
         tightLists,
+        hardBreakNodeName: HardBreak.type.name,
     });
 
     state.renderContent(content);

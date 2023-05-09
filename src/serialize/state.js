@@ -1,24 +1,16 @@
 import { MarkdownSerializerState as BaseMarkdownSerializerState } from "prosemirror-markdown";
 import { trimInline } from "../util/markdown";
-import { withSchemaHardBreakFix } from "./helpers";
 
 
 /**
  * Override default MarkdownSerializerState to:
  * - handle commonmark delimiters (https://spec.commonmark.org/0.29/#left-flanking-delimiter-run)
- * - update schema due to serializer looking at specific node names
  */
 export class MarkdownSerializerState extends BaseMarkdownSerializerState {
 
     constructor(nodes, marks, options) {
         super(nodes, marks, options);
         this.inlines = [];
-    }
-
-    renderContent(parent) {
-        this.withSerializableSchema(parent.type.schema, () => {
-            super.renderContent(parent);
-        });
     }
 
     render(node, parent, index) {
@@ -59,14 +51,5 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
             ...inline,
             start,
         }
-    }
-
-    /**
-     * update some nodes name due to serializer requiring on it
-     */
-    withSerializableSchema(schema, render) {
-        this.nodes.hard_break = this.nodes.hardBreak;
-
-        withSchemaHardBreakFix(schema, () => render());
     }
 }
