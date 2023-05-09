@@ -1,6 +1,6 @@
+import { Fragment } from "prosemirror-model";
 import { getHTMLFromFragment, Mark } from "@tiptap/core";
 import { createMarkdownExtension } from "../../util/extensions";
-import { Fragment } from "prosemirror-model";
 
 const HTML = Mark.create({
     name: 'html',

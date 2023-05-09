@@ -232,6 +232,22 @@ describe('serialize', () => {
                 },
             })).toEqual('<block-element>\n</block-element>\n\n<block-element>\nexample2\n</block-element>');
         });
+        test('html with hard break', () => {
+            expect(serialize('<block-element>a<br>b</block-element>', {
+                html: true,
+                htmlNode: {
+                    group: 'block',
+                    content: 'inline*',
+                    parseHTML: () => [{
+                        tag: 'block-element',
+                    }],
+                    renderHTML: () => [
+                        'block-element',
+                        0,
+                    ],
+                },
+            })).toEqual('<block-element>\na<br>b\n</block-element>');
+        });
         test('html inline', () => {
             expect(serialize('<p> <inline-element>example1</inline-element> <inline-element>example2</inline-element> </p>', {
                 html: true,

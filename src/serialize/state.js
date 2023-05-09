@@ -1,5 +1,6 @@
 import { MarkdownSerializerState as BaseMarkdownSerializerState } from "prosemirror-markdown";
 import { trimInline } from "../util/markdown";
+import { withSchemaHardBreakFix } from "./helpers";
 
 
 /**
@@ -64,17 +65,8 @@ export class MarkdownSerializerState extends BaseMarkdownSerializerState {
      * update some nodes name due to serializer requiring on it
      */
     withSerializableSchema(schema, render) {
-        const { hardBreak } = schema.nodes;
+        this.nodes.hard_break = this.nodes.hardBreak;
 
-        if(hardBreak) {
-            hardBreak.name = 'hard_break';
-            this.nodes.hard_break = this.nodes.hardBreak;
-        }
-
-        render();
-
-        if(hardBreak) {
-            hardBreak.name = 'hardBreak';
-        }
+        withSchemaHardBreakFix(schema, () => render());
     }
 }
