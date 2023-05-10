@@ -22,7 +22,7 @@ export class MarkdownSerializer {
     }
 
     get nodes() {
-        const htmlNode = this.editor.markdownExtensions.find(extension => extension.is(HTMLNode));
+        const htmlNode = this.editor.storage.markdown.getExtensions().find(extension => extension.is(HTMLNode));
 
         return {
             ...Object.fromEntries(
@@ -39,7 +39,7 @@ export class MarkdownSerializer {
     }
 
     get marks() {
-        const htmlMark = this.editor.markdownExtensions.find(extension => extension.is(HTMLMark));
+        const htmlMark = this.editor.storage.markdown.getExtensions().find(extension => extension.is(HTMLMark));
 
         return {
             ...Object.fromEntries(

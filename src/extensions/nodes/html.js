@@ -9,7 +9,7 @@ const HTML = Node.create({
 
 export default MarkdownNode.create(HTML, {
     serialize(state, node, parent) {
-        if(this.editor.options.markdown.html) {
+        if(this.editor.storage.markdown.options.html) {
             state.write(serializeHTML(node, parent));
         } else {
             console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);

@@ -3,6 +3,9 @@ import { elementFromString, extractElement, unwrapElement } from "../util/dom";
 
 
 export class MarkdownParser {
+    /**
+     * @type {MarkdownEditor}
+     */
     editor = null;
 
     constructor(editor) {
@@ -14,7 +17,7 @@ export class MarkdownParser {
             html,
             linkify,
             breaks,
-        } = this.editor.options.markdown;
+        } = this.editor.storage.markdown.options;
 
         if(typeof content === 'string') {
             const renderer = markdownit({
@@ -23,12 +26,14 @@ export class MarkdownParser {
                 breaks,
             });
 
-            this.editor.markdownExtensions.forEach(extension => extension.parse.setup?.(renderer));
+            const markdownExtensions = this.editor.storage.markdown.getExtensions();
+
+            markdownExtensions.forEach(extension => extension.parse.setup?.(renderer));
 
             const renderedHTML = renderer.render(content);
             const element = elementFromString(renderedHTML);
 
-            this.editor.markdownExtensions.forEach(extension => extension.parse.updateDOM?.(element));
+            markdownExtensions.forEach(extension => extension.parse.updateDOM?.(element));
 
             this.normalizeDOM(element, { inline, content });
 

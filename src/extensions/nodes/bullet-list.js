@@ -7,7 +7,7 @@ const BulletList = Node.create({
 
 export default MarkdownNode.create(BulletList, {
     serialize(state, node)  {
-        return state.renderList(node, "  ", () => (this.editor.options.markdown.bulletListMarker || "-") + " ");
+        return state.renderList(node, "  ", () => (this.editor.storage.markdown.options.bulletListMarker || "-") + " ");
     },
     parse: {
         // handled by markdown-it

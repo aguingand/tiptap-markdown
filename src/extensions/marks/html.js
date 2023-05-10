@@ -9,14 +9,14 @@ const HTML = Mark.create({
 export default MarkdownMark.create(HTML, {
     serialize: {
         open(state, mark)  {
-            if(!this.editor.options.markdown.html) {
+            if(!this.editor.storage.markdown.options.html) {
                 console.warn(`Tiptap Markdown: "${mark.type.name}" mark is only available in html mode`);
                 return '';
             }
             return getMarkTags(mark)?.[0] ?? '';
         },
         close(state, mark) {
-            if(!this.editor.options.markdown.html) {
+            if(!this.editor.storage.markdown.options.html) {
                 return '';
             }
             return getMarkTags(mark)?.[1] ?? '';
