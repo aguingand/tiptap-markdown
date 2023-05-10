@@ -122,6 +122,7 @@ Array [
         "marks": Array [
           Object {
             "attrs": Object {
+              "class": null,
               "href": "http://example.org",
               "target": "_blank",
             },
@@ -145,6 +146,7 @@ Array [
         "marks": Array [
           Object {
             "attrs": Object {
+              "class": null,
               "href": "http://example.org",
               "target": "_blank",
             },
@@ -168,6 +170,7 @@ Array [
         "marks": Array [
           Object {
             "attrs": Object {
+              "class": null,
               "href": "http://example.org",
               "target": "_blank",
             },
