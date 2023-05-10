@@ -1,15 +1,20 @@
-import { Node } from "@tiptap/core";
 import { defaultMarkdownSerializer } from "prosemirror-markdown";
-import { MarkdownNode } from "../../util/extensions";
+import { LazyNode } from "../../util/extensions";
 
 
-const Paragraph = Node.create({
+const Paragraph = LazyNode.create({
     name: 'paragraph',
 });
 
-export default MarkdownNode.create(Paragraph, {
-    serialize: defaultMarkdownSerializer.nodes.paragraph,
-    parse: {
-        // handled by markdown-it
-    },
+export default Paragraph.extend({
+    addStorage() {
+        return {
+            markdown: {
+                serialize: defaultMarkdownSerializer.nodes.paragraph,
+                parse: {
+                    // handled by markdown-it
+                },
+            },
+        }
+    }
 });

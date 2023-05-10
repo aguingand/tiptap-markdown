@@ -1,3 +1,4 @@
+import {Mark, Node} from "@tiptap/core";
 
 class MarkdownExtension {
     spec = null;
@@ -71,5 +72,33 @@ export class MarkdownMark extends MarkdownExtension {
             open: typeof open === 'function' ? open.bind(this) : open,
             close: typeof close === 'function' ? close.bind(this) : close,
         }
+    }
+}
+
+
+export function resolveLazyExtensionName(extensionName) {
+    return extensionName.replace(/^markdownLazy_/, '');
+}
+
+export class LazyMark extends Mark {
+    static create(config) {
+        return new this({
+            ...config,
+            name: `markdownLazy_${config.name}`,
+            priority: 1000,
+        });
+    }
+}
+
+export class LazyNode extends Node {
+    static create(config) {
+        return new this({
+            ...config,
+            name: `markdownLazy_${config.name}`,
+            priority: 1000,
+            onBeforeCreate() {
+                // this.storage.serialize = this.storage.serialize.bind(this);
+            },
+        });
     }
 }

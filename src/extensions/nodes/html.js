@@ -4,25 +4,31 @@ import { MarkdownNode } from "../../util/extensions";
 import { elementFromString } from "../../util/dom";
 import { withInitialSchema } from "../../serialize/helpers";
 
-const HTML = Node.create({
-    name: 'htmlNode',
+const HTMLNode = Node.create({
+    name: 'markdownHTMLNode',
 });
 
-export default MarkdownNode.create(HTML, {
-    serialize(state, node, parent) {
-        if(this.editor.storage.markdown.options.html) {
-            state.write(serializeHTML(node, parent));
-        } else {
-            console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
-            state.write(`[${node.type.name}]`);
+export default HTMLNode.extend({
+    addStorage() {
+        return {
+            markdown: {
+                serialize(state, node, parent) {
+                    if(this.editor.storage.markdown.options.html) {
+                        state.write(serializeHTML(node, parent));
+                    } else {
+                        console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
+                        state.write(`[${node.type.name}]`);
+                    }
+                    if(node.isBlock) {
+                        state.closeBlock(node);
+                    }
+                },
+                parse: {
+                    // handled by markdown-it
+                },
+            },
         }
-        if(node.isBlock) {
-            state.closeBlock(node);
-        }
-    },
-    parse: {
-        // handled by markdown-it
-    },
+    }
 });
 
 function serializeHTML(node, parent) {

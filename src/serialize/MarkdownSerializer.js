@@ -1,6 +1,7 @@
 import { MarkdownSerializerState } from './state';
 import HTMLMark from "../extensions/marks/html";
 import HTMLNode from "../extensions/nodes/html";
+import {resolveLazyExtensionName} from "../util/extensions";
 
 
 export class MarkdownSerializer {
@@ -22,39 +23,54 @@ export class MarkdownSerializer {
     }
 
     get nodes() {
-        const markdownExtensions = this.editor.storage.markdown.getExtensions();
-        const htmlNode = markdownExtensions.find(extension => extension.is(HTMLNode));
-
-        return {
+        return this.bindNodes({
             ...Object.fromEntries(
                 Object.keys(this.editor.schema.nodes)
-                    .map(name => [name, htmlNode.serialize])
+                    .map(name => [name, this.editor.storage.markdownHTMLNode.markdown.serialize.bind({ editor: this.editor })])
             ),
             ...Object.fromEntries(
-                markdownExtensions
-                    .filter(extension => extension.type === 'node' && extension.serialize)
-                    .map(extension => [extension.name, extension.serialize])
+                this.editor.extensionManager.extensions
+                    .filter(extension => extension.type === 'node' && extension.storage?.markdown?.serialize)
+                    .map(extension => [resolveLazyExtensionName(extension.name), extension.storage.markdown.serialize])
                 ?? []
             ),
-        }
+        });
     }
 
     get marks() {
-        const markdownExtensions = this.editor.storage.markdown.getExtensions();
-        const htmlMark = markdownExtensions.find(extension => extension.is(HTMLMark));
-
-        return {
+        return this.bindMarks({
             ...Object.fromEntries(
                 Object.keys(this.editor.schema.marks)
-                    .map(name => [name, htmlMark.serialize])
+                    .map(name => [name, this.editor.storage.markdownHTMLMark.markdown.serialize])
             ),
             ...Object.fromEntries(
-                markdownExtensions
-                    .filter(extension => extension.type === 'mark')
-                    .map(extension => [extension.name, extension.serialize])
+                this.editor.extensionManager.extensions
+                    .filter(extension => extension.type === 'mark' && extension.storage?.markdown?.serialize)
+                    .map(extension => [resolveLazyExtensionName(extension.name), extension.storage.markdown.serialize])
                 ?? []
             ),
-        }
+        });
+    }
+
+    bindNodes(nodes) {
+        return Object.fromEntries(
+            Object.entries(nodes).map(([name, serialize]) => [
+                name,
+                serialize.bind({ editor: this.editor })
+            ])
+        );
+    }
+
+    bindMarks(marks) {
+        return Object.fromEntries(
+            Object.entries(marks).map(([name, serialize]) => [
+                name,
+                {
+                    open: typeof serialize.open === 'function' ? serialize.open.bind({ editor: this.editor }) : serialize.open,
+                    close: typeof serialize.close === 'function' ? serialize.close.bind({ editor: this.editor }) : serialize.close,
+                }
+            ])
+        );
     }
 }
 

@@ -4,6 +4,10 @@ import {MarkdownSerializer} from "./serialize/MarkdownSerializer";
 import {MarkdownParser} from "./parse/MarkdownParser";
 import defaultExtensions from "./extensions";
 import { extensions } from '@tiptap/core';
+import markdownExtensions from './extensions';
+import Bold from "./extensions/marks/bold";
+import HTMLMark from "./extensions/marks/html";
+import HTMLNode from "./extensions/nodes/html";
 
 export const Markdown = Extension.create({
     name: 'markdown',
@@ -24,7 +28,7 @@ export const Markdown = Extension.create({
         return {
             options: this.options,
             getContent: () => {},
-            getExtensions: () => {},
+            // getExtensions: () => {},
         }
     },
     onBeforeCreate() {
@@ -33,16 +37,15 @@ export const Markdown = Extension.create({
         this.storage.getContent = () => {
             return this.options.serializer.serialize(this.editor.state.doc);
         }
-        this.storage.getExtensions = () => {
-            const extensions = [
-                ...defaultExtensions,
-                ...(this.options.extensions ?? []),
-            ];
-            return extensions.map(extension => extension.forEditor(this.editor));
-        }
+        // this.storage.getExtensions = () => {
+        //     const extensions = [
+        //         ...defaultExtensions,
+        //         ...(this.options.extensions ?? []),
+        //     ];
+        //     return extensions.map(extension => extension.forEditor(this.editor));
+        // }
         this.editor.options.initialContent = this.editor.options.content;
         this.editor.options.content = this.options.parser.parse(this.editor.options.content);
-
     },
     onCreate() {
         this.editor.options.content = this.editor.options.initialContent;
@@ -61,6 +64,7 @@ export const Markdown = Extension.create({
     },
     addExtensions() {
         return [
+            ...markdownExtensions,
             MarkdownTightLists.configure({
                 tight: this.options.tightLists,
                 tightClass: this.options.tightListClass,

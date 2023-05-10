@@ -2,28 +2,34 @@ import { Fragment } from "prosemirror-model";
 import { getHTMLFromFragment, Mark } from "@tiptap/core";
 import { MarkdownMark } from "../../util/extensions";
 
-const HTML = Mark.create({
-    name: 'htmlMark',
+const HTMLMark = Mark.create({
+    name: 'markdownHTMLMark',
 });
 
-export default MarkdownMark.create(HTML, {
-    serialize: {
-        open(state, mark)  {
-            if(!this.editor.storage.markdown.options.html) {
-                console.warn(`Tiptap Markdown: "${mark.type.name}" mark is only available in html mode`);
-                return '';
+export default HTMLMark.extend({
+    addStorage() {
+        return {
+            markdown: {
+                serialize: {
+                    open(state, mark)  {
+                        if(!this.editor.storage.markdown.options.html) {
+                            console.warn(`Tiptap Markdown: "${mark.type.name}" mark is only available in html mode`);
+                            return '';
+                        }
+                        return getMarkTags(mark)?.[0] ?? '';
+                    },
+                    close(state, mark) {
+                        if(!this.editor.storage.markdown.options.html) {
+                            return '';
+                        }
+                        return getMarkTags(mark)?.[1] ?? '';
+                    },
+                },
+                parse: {
+                    // handled by markdown-it
+                }
             }
-            return getMarkTags(mark)?.[0] ?? '';
-        },
-        close(state, mark) {
-            if(!this.editor.storage.markdown.options.html) {
-                return '';
-            }
-            return getMarkTags(mark)?.[1] ?? '';
-        },
-    },
-    parse: {
-        // handled by markdown-it
+        }
     }
 });
 

@@ -1,15 +1,19 @@
-import { Mark } from "@tiptap/core";
 import { defaultMarkdownSerializer } from "prosemirror-markdown";
-import { MarkdownMark } from "../../util/extensions";
+import { LazyMark } from "../../util/extensions";
 
-
-const Bold = Mark.create({
+const Bold = LazyMark.create({
     name: 'bold',
 });
 
-export default MarkdownMark.create(Bold, {
-    serialize: defaultMarkdownSerializer.marks.strong,
-    parse: {
-        // handled by markdown-it
+export default Bold.extend({
+    addStorage() {
+        return {
+            markdown: {
+                serialize: defaultMarkdownSerializer.marks.strong,
+                parse: {
+                    // handled by markdown-it
+                }
+            },
+        }
     }
-})
+});

@@ -23,26 +23,33 @@ import Strike from "./marks/strike";
 
 
 export default [
-    Blockquote,
-    BulletList,
-    CodeBlock,
-    HardBreak,
-    Heading,
-    HorizontalRule,
     HTMLNode,
-    Image,
-    ListItem,
-    OrderedList,
-    Paragraph,
-    Table,
-    TaskItem,
-    TaskList,
-    Text,
-
+    // HTMLMark,
     Bold,
-    Code,
-    HTMLMark,
-    Italic,
-    Link,
-    Strike,
+    Paragraph,
 ]
+
+// export default [
+//     Blockquote,
+//     BulletList,
+//     CodeBlock,
+//     HardBreak,
+//     Heading,
+//     HorizontalRule,
+//     HTMLNode,
+//     Image,
+//     ListItem,
+//     OrderedList,
+//     Paragraph,
+//     Table,
+//     TaskItem,
+//     TaskList,
+//     Text,
+//
+//     Bold,
+//     Code,
+//     HTMLMark,
+//     Italic,
+//     Link,
+//     Strike,
+// ]
