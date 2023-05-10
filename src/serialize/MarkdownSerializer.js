@@ -22,7 +22,8 @@ export class MarkdownSerializer {
     }
 
     get nodes() {
-        const htmlNode = this.editor.storage.markdown.getExtensions().find(extension => extension.is(HTMLNode));
+        const markdownExtensions = this.editor.storage.markdown.getExtensions();
+        const htmlNode = markdownExtensions.find(extension => extension.is(HTMLNode));
 
         return {
             ...Object.fromEntries(
@@ -30,7 +31,7 @@ export class MarkdownSerializer {
                     .map(name => [name, htmlNode.serialize])
             ),
             ...Object.fromEntries(
-                this.editor.markdownExtensions
+                markdownExtensions
                     .filter(extension => extension.type === 'node' && extension.serialize)
                     .map(extension => [extension.name, extension.serialize])
                 ?? []
@@ -39,7 +40,8 @@ export class MarkdownSerializer {
     }
 
     get marks() {
-        const htmlMark = this.editor.storage.markdown.getExtensions().find(extension => extension.is(HTMLMark));
+        const markdownExtensions = this.editor.storage.markdown.getExtensions();
+        const htmlMark = markdownExtensions.find(extension => extension.is(HTMLMark));
 
         return {
             ...Object.fromEntries(
@@ -47,7 +49,7 @@ export class MarkdownSerializer {
                     .map(name => [name, htmlMark.serialize])
             ),
             ...Object.fromEntries(
-                this.editor.markdownExtensions
+                markdownExtensions
                     .filter(extension => extension.type === 'mark')
                     .map(extension => [extension.name, extension.serialize])
                 ?? []

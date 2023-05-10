@@ -1,20 +1,21 @@
 import { Editor } from "@tiptap/core";
-import { createMarkdownEditor } from "../src/MarkdownEditor";
 import StarterKit from "@tiptap/starter-kit";
-
-const MarkdownEditor = createMarkdownEditor(Editor);
+import { Markdown } from "../src/Markdown";
+import Link from "@tiptap/extension-link";
 
 function getParsedNode(content) {
-    const editor = new MarkdownEditor({
+    const editor = new Editor({
         content,
         extensions: [
             StarterKit,
+            Markdown.configure({
+            }),
         ],
     });
     return editor.state.doc.firstChild;
 }
 
-describe('MarkdownEditor', () => {
+describe('extension', () => {
     describe('bullet list', () => {
         test('tight', () => {
             expect(getParsedNode(`* example1\n* example2`).attrs)
@@ -57,27 +58,17 @@ describe('MarkdownEditor', () => {
             });
         });
     });
-    describe('setOptions', () => {
-        test('merge', () => {
-            const editor = new MarkdownEditor({
-                content: '',
-                extensions: [StarterKit],
-                markdown: {
-                    bulletListMarker: '->',
-                },
+    describe('commands', () => {
+        test('setContent', () => {
+            const editor = new Editor({
+                extensions: [
+                    StarterKit,
+                    Link.configure({ HTMLAttributes: { target: null, rel: null } }),
+                    Markdown,
+                ],
             });
-            editor.setOptions({
-                markdown: {
-                    extensions: [],
-                },
-            })
-            expect(editor.options).toMatchObject({
-                markdown: {
-                    html: true,
-                    bulletListMarker: '->',
-                    extensions: [],
-                },
-            });
-        });
+            editor.commands.setContent('[example](http://example.org)');
+            expect(editor.getHTML()).toBe('<p><a href="http://example.org">example</a></p>');
+        })
     });
 });

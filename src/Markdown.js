@@ -3,10 +3,13 @@ import {MarkdownTightLists} from "./extensions/tiptap/tight-lists";
 import {MarkdownSerializer} from "./serialize/MarkdownSerializer";
 import {MarkdownParser} from "./parse/MarkdownParser";
 import defaultExtensions from "./extensions";
+import { extensions } from '@tiptap/core';
 
 export const Markdown = Extension.create({
     name: 'markdown',
+    priority: 50,
     addOptions: () => ({
+        content: null,
         html: true,
         tightLists: true,
         tightListClass: 'tight',
@@ -24,7 +27,7 @@ export const Markdown = Extension.create({
             getExtensions: () => {},
         }
     },
-    onCreate() {
+    onBeforeCreate() {
         this.options.serializer ??= new MarkdownSerializer(this.editor);
         this.options.parser ??= new MarkdownParser(this.editor);
         this.storage.getContent = () => {
@@ -37,14 +40,22 @@ export const Markdown = Extension.create({
             ];
             return extensions.map(extension => extension.forEditor(this.editor));
         }
+        this.editor.options.initialContent = this.editor.options.content;
+        this.editor.options.content = this.options.parser.parse(this.editor.options.content);
+
+    },
+    onCreate() {
+        this.editor.options.content = this.editor.options.initialContent;
+        delete this.editor.options.initialContent;
     },
     addCommands() {
+        const commands = extensions.Commands.config.addCommands();
         return {
-            setMarkdownContent: (content) => ({ commands }) => {
-                return commands.setContent(this.options.parser.parse(content));
+            setContent: (content, emitUpdate, parseOptions) => (props) => {
+                return commands.setContent(this.options.parser.parse(content), emitUpdate, parseOptions)(props);
             },
-            insertMarkdownContentAt: (range, content, options) => ({ commands }) => {
-                return commands.insertContentAt(range, this.options.parser.parse(content, { inline: true }), options);
+            insertContentAt: (range, content, options) => (props) => {
+                return commands.insertContentAt(range, this.options.parser.parse(content, { inline: true }), options)(props);
             },
         }
     },

@@ -8,19 +8,20 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import Underline from '@tiptap/extension-underline';
 import CodeBlock from "@tiptap/extension-code-block";
-import { createMarkdownEditor } from "../../src/MarkdownEditor";
-
-const MarkdownEditor = createMarkdownEditor(Editor);
+import { Markdown } from "../../src/Markdown";
 
 export function createEditor({
     image,
     codeBlock,
     htmlNode,
     htmlMark,
-    ...options
+    markdownOptions,
 } = {}) {
-    return new MarkdownEditor({
+    return new Editor({
         extensions: [
+            Markdown.configure({
+                ...markdownOptions,
+            }),
             StarterKit.configure({
                 codeBlock: false,
             }),
@@ -45,6 +46,5 @@ export function createEditor({
                 ...htmlMark,
             }),
         ],
-        ...options,
     });
 }

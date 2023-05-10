@@ -9,17 +9,17 @@ export function parse(content, options = {}, asHTML = false) {
         image,
         codeBlock,
         htmlNode,
-        ...markdown
+        ...markdownOptions
     } = options;
 
     const editor = createEditor({
         image,
         htmlNode,
         codeBlock,
-        markdown,
+        markdownOptions,
     });
 
-    const parsed = editor.markdownParser.parse(content, { inline });
+    const parsed = editor.storage.markdown.options.parser.parse(content, { inline });
     const fragment = DOMParser.fromSchema(editor.schema)
         .parseSlice(elementFromString(parsed), {
             preserveWhitespace: inline ? 'full' : false,
