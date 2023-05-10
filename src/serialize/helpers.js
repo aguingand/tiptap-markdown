@@ -14,7 +14,7 @@ export function withSchemaHardBreakFix(schema, render) {
     const result = render(schema);
 
     if(hardBreak) {
-        hardBreak.name = HardBreak.type.name;
+        hardBreak.name = HardBreak.name;
     }
 
     return result;
@@ -25,7 +25,7 @@ export function withInitialSchema(schema, render) {
     const hardBreakNodeName = hardBreak?.name;
 
     if(hardBreak) {
-        hardBreak.name = HardBreak.type.name;
+        hardBreak.name = HardBreak.name;
     }
 
     const result = render(schema);
