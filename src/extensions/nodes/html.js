@@ -1,7 +1,8 @@
+import { Fragment } from "prosemirror-model";
 import { getHTMLFromFragment, Node } from "@tiptap/core";
 import { MarkdownNode } from "../../util/extensions";
 import { elementFromString } from "../../util/dom";
-import { Fragment } from "prosemirror-model";
+import { withInitialSchema } from "../../serialize/helpers";
 
 const HTML = Node.create({
     name: 'htmlNode',
@@ -26,7 +27,9 @@ export default MarkdownNode.create(HTML, {
 
 function serializeHTML(node, parent) {
     const schema = node.type.schema;
-    const html = getHTMLFromFragment(Fragment.from(node), schema);
+    const html = withInitialSchema(schema, schema => {
+        return getHTMLFromFragment(Fragment.from(node), schema);
+    });
 
     if(node.isBlock && parent.type.name === schema.topNodeType.name) {
         return formatBlock(html);

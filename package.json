@@ -1,6 +1,6 @@
 {
   "name": "tiptap-markdown",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Edit markdown content in tiptap editor.",
   "scripts": {
     "test": "jest",
@@ -31,7 +31,7 @@
     "@types/markdown-it": "^12.2.3",
     "markdown-it": "^12.0.6",
     "markdown-it-task-lists": "^2.1.1",
-    "prosemirror-markdown": "^1.9.3"
+    "prosemirror-markdown": "^1.10.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
