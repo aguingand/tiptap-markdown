@@ -64,7 +64,6 @@ export const Markdown = Extension.create({
     },
     addExtensions() {
         return [
-            ...markdownExtensions,
             MarkdownTightLists.configure({
                 tight: this.options.tightLists,
                 tightClass: this.options.tightListClass,

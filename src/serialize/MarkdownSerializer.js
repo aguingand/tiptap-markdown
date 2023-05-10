@@ -2,7 +2,12 @@ import { MarkdownSerializerState } from './state';
 import HTMLMark from "../extensions/marks/html";
 import HTMLNode from "../extensions/nodes/html";
 import {resolveLazyExtensionName} from "../util/extensions";
+import markdownExtensions from "../extensions";
 
+function getSerialize(extension) {
+    return extension.storage?.markdown?.serialize
+        ?? markdownExtensions.find(e => e.name === extension.name)?.storage.markdown.serialize;
+}
 
 export class MarkdownSerializer {
     /**
@@ -26,12 +31,12 @@ export class MarkdownSerializer {
         return this.bindNodes({
             ...Object.fromEntries(
                 Object.keys(this.editor.schema.nodes)
-                    .map(name => [name, this.editor.storage.markdownHTMLNode.markdown.serialize.bind({ editor: this.editor })])
+                    .map(name => [name, HTMLNode.storage.markdown.serialize])
             ),
             ...Object.fromEntries(
                 this.editor.extensionManager.extensions
-                    .filter(extension => extension.type === 'node' && extension.storage?.markdown?.serialize)
-                    .map(extension => [resolveLazyExtensionName(extension.name), extension.storage.markdown.serialize])
+                    .filter(extension => extension.type === 'node' && getSerialize(extension))
+                    .map(extension => [extension.name, getSerialize(extension)])
                 ?? []
             ),
         });
@@ -41,12 +46,12 @@ export class MarkdownSerializer {
         return this.bindMarks({
             ...Object.fromEntries(
                 Object.keys(this.editor.schema.marks)
-                    .map(name => [name, this.editor.storage.markdownHTMLMark.markdown.serialize])
+                    .map(name => [name, HTMLMark.storage.markdown.serialize])
             ),
             ...Object.fromEntries(
                 this.editor.extensionManager.extensions
-                    .filter(extension => extension.type === 'mark' && extension.storage?.markdown?.serialize)
-                    .map(extension => [resolveLazyExtensionName(extension.name), extension.storage.markdown.serialize])
+                    .filter(extension => extension.type === 'mark' && getSerialize(extension))
+                    .map(extension => [extension.name, getSerialize(extension)])
                 ?? []
             ),
         });

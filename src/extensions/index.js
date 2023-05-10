@@ -24,8 +24,9 @@ import Strike from "./marks/strike";
 
 export default [
     HTMLNode,
-    // HTMLMark,
+    HTMLMark,
     Bold,
+    Text,
     Paragraph,
 ]
 
