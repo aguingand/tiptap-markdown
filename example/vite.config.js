@@ -9,7 +9,12 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {
         alias: {
-            'tiptap-markdown': path.resolve(__dirname, '../src'),
+            'tiptap-markdown': path.resolve(__dirname, '..'),
+        }
+    },
+    server: {
+        fs: {
+            strict: false
         }
     },
     build: {
