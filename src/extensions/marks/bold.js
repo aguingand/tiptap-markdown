@@ -1,6 +1,6 @@
+import { Mark } from "@tiptap/core";
 import { defaultMarkdownSerializer } from "prosemirror-markdown";
-import { LazyMark } from "../../util/extensions";
-import {Mark} from "@tiptap/core";
+
 
 const Bold = Mark.create({
     name: 'bold',

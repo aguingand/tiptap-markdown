@@ -27,17 +27,14 @@
     import Underline from '@tiptap/extension-underline';
     import Image from '@tiptap/extension-image';
     import Link from '@tiptap/extension-link';
-    import Highlight from '@tiptap/extension-highlight';
     import TaskList from '@tiptap/extension-task-list'
     import TaskItem from '@tiptap/extension-task-item'
     import CodeBlock from "@tiptap/extension-code-block";
-    import { createMarkdownEditor } from "tiptap-markdown";
+    import { Markdown } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../content.md?raw';
-    import { MarkdownHighlight } from "../extensions/highlight/markdown";
-    import { MarkdownContainer } from "../extensions/container/markdown";
-    import { Container } from "../extensions/container/container";
-
+    import Highlight from "../extensions/highlight";
+    import Container from "../extensions/container";
 
     export default {
         components: {
@@ -52,16 +49,18 @@
         },
         methods: {
             updateMarkdownOutput() {
-                this.markdown = this.editor.getMarkdown();
+                console.log(this.editor.storage.markdown);
+                this.markdown = this.editor.storage.markdown.getMarkdown();
             },
             handleInput() {
                 this.editor.commands.setContent(this.markdown);
             },
         },
         mounted() {
-            const MarkdownEditor = createMarkdownEditor(Editor);
-            this.editor = new MarkdownEditor({
+            this.editor = new Editor({
                 extensions: [
+                    Markdown.configure({
+                    }),
                     StarterKit.configure({
                         codeBlock: false,
                     }),
@@ -84,12 +83,6 @@
                     }),
                     Container,
                 ],
-                markdown: {
-                    extensions: [
-                        MarkdownContainer,
-                        MarkdownHighlight,
-                    ],
-                },
                 content,
                 onUpdate: () => {
                     this.updateMarkdownOutput();

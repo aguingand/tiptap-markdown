@@ -1,5 +1,4 @@
 import { Node } from "@tiptap/core";
-import { LazyNode } from "../../util/extensions";
 import { escapeHTML } from "../../util/dom";
 
 

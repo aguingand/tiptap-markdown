@@ -2,9 +2,10 @@ import markdownit from "markdown-it";
 import { elementFromString, extractElement, unwrapElement } from "../util/dom";
 import markdownExtensions from "../extensions";
 
-function getParse(extension) {
-    return extension.storage?.markdown?.parse
-        ?? markdownExtensions.find(e => e.name === extension.name)?.storage.markdown.parse;
+
+function getMarkdownConfig(extension) {
+    return extension.storage?.markdown
+        ?? markdownExtensions.find(e => e.name === extension.name)?.storage.markdown;
 }
 
 export class MarkdownParser {
@@ -31,20 +32,16 @@ export class MarkdownParser {
                 breaks,
             });
 
-            // Object.values(this.editor.storage).forEach(extensionStorage => extensionStorage?.markdown?.parse?.setup?.(renderer));
-
-            // const markdownExtensions = this.editor.storage.markdown.getExtensions();
-            //
-            // markdownExtensions.forEach(extension => extension.parse.setup?.(renderer));
-            this.editor.extensionManager.extensions.forEach(extension => getParse(extension)?.setup?.(renderer));
+            this.editor.extensionManager.extensions.forEach(extension =>
+                getMarkdownConfig(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, renderer)
+            );
 
             const renderedHTML = renderer.render(content);
             const element = elementFromString(renderedHTML);
 
-            // Object.values(this.editor.storage).forEach(extensionStorage => extensionStorage?.markdown?.parse?.updateDOM?.(renderer));
-            // markdownExtensions.forEach(extension => extension.parse.updateDOM?.(element));
-
-            this.editor.extensionManager.extensions.forEach(extension => getParse(extension)?.updateDOM?.(renderer));
+            this.editor.extensionManager.extensions.forEach(extension =>
+                getMarkdownConfig(extension)?.parse?.updateDOM?.call({ editor:this.editor, options:extension.options }, element)
+            );
 
             this.normalizeDOM(element, { inline, content });
 

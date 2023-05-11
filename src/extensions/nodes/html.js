@@ -1,14 +1,11 @@
 import { Fragment } from "prosemirror-model";
 import { getHTMLFromFragment, Node } from "@tiptap/core";
-import { MarkdownNode } from "../../util/extensions";
 import { elementFromString } from "../../util/dom";
 import { withInitialSchema } from "../../serialize/helpers";
 
-const HTMLNode = Node.create({
-    name: 'markdownHTMLNode',
-});
 
-export default HTMLNode.extend({
+export default Node.create({
+    name: 'markdownHTMLNode',
     addStorage() {
         return {
             markdown: {

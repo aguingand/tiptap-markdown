@@ -1,12 +1,9 @@
 import { Fragment } from "prosemirror-model";
 import { getHTMLFromFragment, Mark } from "@tiptap/core";
-import { MarkdownMark } from "../../util/extensions";
 
-const HTMLMark = Mark.create({
+
+export default Mark.create({
     name: 'markdownHTMLMark',
-});
-
-export default HTMLMark.extend({
     addStorage() {
         return {
             markdown: {

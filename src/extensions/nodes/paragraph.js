@@ -1,6 +1,5 @@
+import { Node } from "@tiptap/core";
 import { defaultMarkdownSerializer } from "prosemirror-markdown";
-import { LazyNode } from "../../util/extensions";
-import {Node} from "@tiptap/core";
 
 
 const Paragraph = Node.create({

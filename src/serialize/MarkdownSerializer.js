@@ -1,13 +1,8 @@
 import { MarkdownSerializerState } from './state';
 import HTMLMark from "../extensions/marks/html";
 import HTMLNode from "../extensions/nodes/html";
-import {resolveLazyExtensionName} from "../util/extensions";
-import markdownExtensions from "../extensions";
+import { getMarkdownConfig } from "../util/extensions";
 
-function getSerialize(extension) {
-    return extension.storage?.markdown?.serialize
-        ?? markdownExtensions.find(e => e.name === extension.name)?.storage.markdown.serialize;
-}
 
 export class MarkdownSerializer {
     /**
@@ -28,54 +23,47 @@ export class MarkdownSerializer {
     }
 
     get nodes() {
-        return this.bindNodes({
+        return {
             ...Object.fromEntries(
                 Object.keys(this.editor.schema.nodes)
-                    .map(name => [name, HTMLNode.storage.markdown.serialize])
+                    .map(name => [name, this.serializeNode(HTMLNode)])
             ),
             ...Object.fromEntries(
                 this.editor.extensionManager.extensions
-                    .filter(extension => extension.type === 'node' && getSerialize(extension))
-                    .map(extension => [extension.name, getSerialize(extension)])
+                    .filter(extension => extension.type === 'node' && this.serializeNode(extension))
+                    .map(extension => [extension.name, this.serializeNode(extension)])
                 ?? []
             ),
-        });
+        };
     }
 
     get marks() {
-        return this.bindMarks({
+        return {
             ...Object.fromEntries(
                 Object.keys(this.editor.schema.marks)
-                    .map(name => [name, HTMLMark.storage.markdown.serialize])
+                    .map(name => [name, this.serializeMark(HTMLMark)])
             ),
             ...Object.fromEntries(
                 this.editor.extensionManager.extensions
-                    .filter(extension => extension.type === 'mark' && getSerialize(extension))
-                    .map(extension => [extension.name, getSerialize(extension)])
+                    .filter(extension => extension.type === 'mark' && this.serializeMark(extension))
+                    .map(extension => [extension.name, this.serializeMark(extension)])
                 ?? []
             ),
-        });
+        };
     }
 
-    bindNodes(nodes) {
-        return Object.fromEntries(
-            Object.entries(nodes).map(([name, serialize]) => [
-                name,
-                serialize.bind({ editor: this.editor })
-            ])
-        );
+    serializeNode(node) {
+        return getMarkdownConfig(node)?.serialize?.bind({ editor: this.editor, options: node.options });
     }
 
-    bindMarks(marks) {
-        return Object.fromEntries(
-            Object.entries(marks).map(([name, serialize]) => [
-                name,
-                {
-                    open: typeof serialize.open === 'function' ? serialize.open.bind({ editor: this.editor }) : serialize.open,
-                    close: typeof serialize.close === 'function' ? serialize.close.bind({ editor: this.editor }) : serialize.close,
-                }
-            ])
-        );
+    serializeMark(mark) {
+        const serialize = getMarkdownConfig(mark)?.serialize;
+        return serialize
+            ? {
+                open: typeof serialize.open === 'function' ? serialize.open.bind({ editor: this.editor, options: mark.options }) : serialize.open,
+                close: typeof serialize.close === 'function' ? serialize.close.bind({ editor: this.editor, options: mark.options }) : serialize.close,
+            }
+            : null
     }
 }
 
