@@ -27,7 +27,7 @@ export const Markdown = Extension.create({
         }
     },
     addCommands() {
-        const commands = extensions.Commands.config.@addCommands();
+        const commands = extensions.Commands.config.addCommands();
         return {
             setContent: (content, emitUpdate, parseOptions) => (props) => {
                 return commands.setContent(this.options.parser.parse(content), emitUpdate, parseOptions)(props);
