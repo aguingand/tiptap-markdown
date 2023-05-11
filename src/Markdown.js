@@ -21,9 +21,7 @@ export const Markdown = Extension.create({
     addStorage() {
         return {
             options: this.options,
-            getMarkdown() {
-                return this.options.serializer.serialize(this.editor.state.doc);
-            }
+            getMarkdown: () => {},
         }
     },
     addCommands() {

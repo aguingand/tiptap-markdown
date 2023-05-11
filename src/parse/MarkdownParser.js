@@ -1,12 +1,7 @@
 import markdownit from "markdown-it";
 import { elementFromString, extractElement, unwrapElement } from "../util/dom";
-import markdownExtensions from "../extensions";
+import { getMarkdownSpec } from "../util/extensions";
 
-
-function getMarkdownConfig(extension) {
-    return extension.storage?.markdown
-        ?? markdownExtensions.find(e => e.name === extension.name)?.storage.markdown;
-}
 
 export class MarkdownParser {
     /**
@@ -33,14 +28,14 @@ export class MarkdownParser {
             });
 
             this.editor.extensionManager.extensions.forEach(extension =>
-                getMarkdownConfig(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, renderer)
+                getMarkdownSpec(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, renderer)
             );
 
             const renderedHTML = renderer.render(content);
             const element = elementFromString(renderedHTML);
 
             this.editor.extensionManager.extensions.forEach(extension =>
-                getMarkdownConfig(extension)?.parse?.updateDOM?.call({ editor:this.editor, options:extension.options }, element)
+                getMarkdownSpec(extension)?.parse?.updateDOM?.call({ editor:this.editor, options:extension.options }, element)
             );
 
             this.normalizeDOM(element, { inline, content });

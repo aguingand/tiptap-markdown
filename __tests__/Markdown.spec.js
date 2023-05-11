@@ -1,7 +1,7 @@
 import { Editor } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "../src/Markdown";
-import Link from "@tiptap/extension-link";
+import Bold from "@tiptap/extension-bold";
 
 
 describe('Markdown', () => {
@@ -11,14 +11,13 @@ describe('Markdown', () => {
                 extensions: [
                     Markdown,
                     StarterKit,
-                    Link.configure({ HTMLAttributes: { target: null, rel: null } }),
                 ],
             });
-            editor.commands.setContent('[example](http://example.org)');
-            expect(editor.getHTML()).toBe('<p><a href="http://example.org">example</a></p>');
+            editor.commands.setContent('**example**');
+            expect(editor.getHTML()).toBe('<p><strong>example</strong></p>');
         })
     });
-    describe('getMarkdown', () => {
+    test('getMarkdown', () => {
         const editor = new Editor({
             content: '<p><strong>example</strong></p>',
             extensions: [
@@ -27,5 +26,24 @@ describe('Markdown', () => {
             ],
         });
         expect(editor.storage.markdown.getMarkdown()).toBe('**example**');
+    });
+    test('override default extension', () => {
+        const editor = new Editor({
+            content: '<p><strong>example</strong></p>',
+            extensions: [
+                Markdown,
+                StarterKit.configure({ bold: false }),
+                Bold.extend({
+                    addStorage() {
+                        return {
+                            markdown: {
+                                serialize: { open: '***', close: '***' },
+                            }
+                        }
+                    }
+                }),
+            ],
+        });
+        expect(editor.storage.markdown.getMarkdown()).toBe('***example***');
     });
 });

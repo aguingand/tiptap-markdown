@@ -29,6 +29,7 @@ export default [
     HardBreak,
     Heading,
     HorizontalRule,
+    HTMLNode,
     Image,
     ListItem,
     OrderedList,
@@ -40,6 +41,7 @@ export default [
 
     Bold,
     Code,
+    HTMLMark,
     Italic,
     Link,
     Strike,

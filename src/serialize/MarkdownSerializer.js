@@ -1,7 +1,7 @@
 import { MarkdownSerializerState } from './state';
 import HTMLMark from "../extensions/marks/html";
 import HTMLNode from "../extensions/nodes/html";
-import { getMarkdownConfig } from "../util/extensions";
+import { getMarkdownSpec } from "../util/extensions";
 
 
 export class MarkdownSerializer {
@@ -53,11 +53,11 @@ export class MarkdownSerializer {
     }
 
     serializeNode(node) {
-        return getMarkdownConfig(node)?.serialize?.bind({ editor: this.editor, options: node.options });
+        return getMarkdownSpec(node)?.serialize?.bind({ editor: this.editor, options: node.options });
     }
 
     serializeMark(mark) {
-        const serialize = getMarkdownConfig(mark)?.serialize;
+        const serialize = getMarkdownSpec(mark)?.serialize;
         return serialize
             ? {
                 open: typeof serialize.open === 'function' ? serialize.open.bind({ editor: this.editor, options: mark.options }) : serialize.open,
