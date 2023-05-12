@@ -16,6 +16,27 @@ export default Node.create({
         }
     },
 
+    addStorage() {
+        return {
+            markdown: {
+                serialize(state, node) {
+                    state.write("::: " + (node.attrs.containerClass || "") + "\n");
+                    state.renderContent(node);
+                    state.flushClose(1);
+                    state.write(":::");
+                    state.closeBlock(node);
+                },
+                parse: {
+                    setup(markdownit) {
+                        this.options.classes.forEach(className => {
+                            markdownit.use(markdownitContainer, className);
+                        });
+                    },
+                }
+            }
+        }
+    },
+
     addAttributes() {
         return {
             containerClass: {
@@ -41,26 +62,5 @@ export default Node.create({
 
     renderHTML({ HTMLAttributes }) {
         return ['div', HTMLAttributes, 0]
-    },
-
-    addStorage() {
-        return {
-            markdown: {
-                serialize(state, node) {
-                    state.write("::: " + (node.attrs.containerClass || "") + "\n");
-                    state.renderContent(node);
-                    state.flushClose(1);
-                    state.write(":::");
-                    state.closeBlock(node);
-                },
-                parse: {
-                    setup(markdownit) {
-                        this.options.classes.forEach(className => {
-                            markdownit.use(markdownitContainer, className);
-                        });
-                    },
-                }
-            }
-        }
     },
 });
