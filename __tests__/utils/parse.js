@@ -19,7 +19,7 @@ export function parse(content, options = {}, asHTML = false) {
         markdownOptions,
     });
 
-    const parsed = editor.storage.markdown.options.parser.parse(content, { inline });
+    const parsed = editor.storage.markdown.parser.parse(content, { inline });
     const fragment = DOMParser.fromSchema(editor.schema)
         .parseSlice(elementFromString(parsed), {
             preserveWhitespace: inline ? 'full' : false,

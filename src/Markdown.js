@@ -18,33 +18,45 @@ export const Markdown = Extension.create({
             breaks: false,
         }
     },
-    addStorage() {
-        return {
-            options: this.options,
-            getMarkdown: () => {},
-        }
-    },
     addCommands() {
         const commands = extensions.Commands.config.addCommands();
         return {
             setContent: (content, emitUpdate, parseOptions) => (props) => {
-                return commands.setContent(this.options.parser.parse(content), emitUpdate, parseOptions)(props);
+                return commands.setContent(
+                    props.editor.storage.markdown.parser.parse(content),
+                    emitUpdate,
+                    parseOptions
+                )(props);
             },
             insertContentAt: (range, content, options) => (props) => {
-                return commands.insertContentAt(range, this.options.parser.parse(content, { inline: true }), options)(props);
+                return commands.insertContentAt(
+                    range,
+                    props.editor.storage.markdown.parser.parse(content, { inline: true }),
+                    options
+                )(props);
             },
         }
     },
     onBeforeCreate() {
-        this.options.parser ??= new MarkdownParser(this.editor);
-        this.options.serializer ??= new MarkdownSerializer(this.editor);
-        this.storage.getMarkdown = this.storage.getMarkdown.bind(this);
+        this.editor.storage.markdown = {
+            options: { ...this.options },
+            parser: new MarkdownParser(this.editor),
+            serializer: new MarkdownSerializer(this.editor),
+            getMarkdown: () => {
+                return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
+            },
+        }
         this.editor.options.initialContent = this.editor.options.content;
-        this.editor.options.content = this.options.parser.parse(this.editor.options.content);
+        this.editor.options.content = this.editor.storage.markdown.parser.parse(this.editor.options.content);
     },
     onCreate() {
         this.editor.options.content = this.editor.options.initialContent;
         delete this.editor.options.initialContent;
+    },
+    addStorage() {
+        return {
+            /// storage will be defined in onBeforeCreate() to prevent initial object overriding
+        }
     },
     addExtensions() {
         return [

@@ -11,5 +11,5 @@ export function serialize(content, { htmlNode, htmlMark, ...markdownOptions } = 
     const doc = DOMParser.fromSchema(editor.schema)
         .parse(elementFromString(content));
 
-    return editor.storage.markdown.options.serializer.serialize(doc);
+    return editor.storage.markdown.serializer.serialize(doc);
 }
