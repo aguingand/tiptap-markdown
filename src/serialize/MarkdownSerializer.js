@@ -6,7 +6,7 @@ import { getMarkdownSpec } from "../util/extensions";
 
 export class MarkdownSerializer {
     /**
-     * @type {MarkdownEditor}
+     * @type {import('@tiptap/core').Editor}
      */
     editor = null;
 

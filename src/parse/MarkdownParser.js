@@ -5,7 +5,7 @@ import { getMarkdownSpec } from "../util/extensions";
 
 export class MarkdownParser {
     /**
-     * @type {Editor}
+     * @type {import('@tiptap/core').Editor}
      */
     editor = null;
 
