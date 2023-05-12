@@ -7,6 +7,9 @@ const HardBreak = Node.create({
 });
 
 export default HardBreak.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

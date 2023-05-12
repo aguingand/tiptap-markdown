@@ -4,6 +4,9 @@ import { getHTMLFromFragment, Mark } from "@tiptap/core";
 
 export default Mark.create({
     name: 'markdownHTMLMark',
+    /**
+     * @return {{markdown: MarkdownMarkSpec}}
+     */
     addStorage() {
         return {
             markdown: {

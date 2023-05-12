@@ -7,6 +7,9 @@ const OrderedList = Node.create({
 });
 
 export default OrderedList.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

@@ -7,6 +7,9 @@ const HorizontalRule = Node.create({
 });
 
 export default HorizontalRule.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

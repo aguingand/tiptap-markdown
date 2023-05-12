@@ -8,6 +8,9 @@ const TaskList = Node.create({
 });
 
 export default TaskList.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

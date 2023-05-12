@@ -6,6 +6,9 @@ const Strike = Mark.create({
 });
 
 export default Strike.extend({
+    /**
+     * @return {{markdown: MarkdownMarkSpec}}
+     */
     addStorage() {
         return {
             markdown: {

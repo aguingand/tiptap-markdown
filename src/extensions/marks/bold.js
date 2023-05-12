@@ -7,6 +7,9 @@ const Bold = Mark.create({
 });
 
 export default Bold.extend({
+    /**
+     * @return {{markdown: MarkdownMarkSpec}}
+     */
     addStorage() {
         return {
             markdown: {

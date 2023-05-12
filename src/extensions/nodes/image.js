@@ -7,6 +7,9 @@ const Image = Node.create({
 });
 
 export default Image.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

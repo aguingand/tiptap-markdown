@@ -1,66 +1,47 @@
 
 
-import { Editor, EditorOptions, Node, Mark } from "@tiptap/core";
-import { MarkdownSerializerState } from "prosemirror-markdown";
+import { Editor, Extension } from "@tiptap/core";
+import { MarkdownSerializer, MarkdownSerializerState } from "prosemirror-markdown";
 import * as Prosemirror from "prosemirror-model";
 import * as MarkdownIt from "markdown-it";
 
-export interface MarkdownEditorOptions extends EditorOptions {
-    markdown?: {
-        html?: Boolean,
-        tightLists?: Boolean,
-        tightListClass?: String,
-        bulletListMarker?: String,
-        linkify?: Boolean,
-        breaks?: Boolean,
-        extensions?: (MarkdownMark|MarkdownNode)[]
-    }
+export interface MarkdownOptions  {
+    html?: Boolean,
+    tightLists?: Boolean,
+    tightListClass?: String,
+    bulletListMarker?: String,
+    linkify?: Boolean,
+    breaks?: Boolean,
 }
 
-export class MarkdownEditor extends Editor {
-    options: MarkdownEditorOptions;
-    constructor(options?: Partial<MarkdownEditorOptions>);
-    /**
-     * Get the document as markdown
-     */
-    getMarkdown(): string;
+export interface MarkdownStorage {
+    options: MarkdownOptions,
+    getMarkdown(): string,
 }
 
-export function createMarkdownEditor(editor: typeof Editor): typeof MarkdownEditor;
-
+type SpecContext<Options> = {
+    options: Options,
+    editor: Editor,
+}
 
 export type MarkdownNodeSpec<O = any> = {
-    serialize(this: MarkdownNode<O>, state: MarkdownSerializerState, node: Prosemirror.Node, parent: Prosemirror.Node, index: number): void,
+    serialize(this: SpecContext<O>, state: MarkdownSerializerState, node: Prosemirror.Node, parent: Prosemirror.Node, index: number): void,
     parse?: {
-        setup?(this: MarkdownNode<O>, markdownit: MarkdownIt): void,
-        updateDOM?(this: MarkdownNode<O>, element: HTMLElement): void
+        setup?(this: SpecContext<O>, markdownit: MarkdownIt): void,
+        updateDOM?(this: SpecContext<O>, element: HTMLElement): void
     },
 }
 
 export type MarkdownMarkSpec<O = any> = {
-    serialize: {
-        open: string | ((this: MarkdownMark<O>, state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string),
-        close: string | ((this: MarkdownMark<O>, state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string),
-        mixable?: boolean,
-        expelEnclosingWhitespace?: boolean,
-        escape?: boolean
+    serialize: typeof MarkdownSerializer.prototype.marks[string] & {
+        open: string | ((this: SpecContext<O>, state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string);
+        close: string | ((this: SpecContext<O>, state: MarkdownSerializerState, mark: Prosemirror.Mark, parent: Prosemirror.Node, index: number) => string);
     },
     parse?: {
-        setup?(this: MarkdownMark<O>, markdownit: MarkdownIt): void,
-        updateDOM?(this: MarkdownMark<O>, element: HTMLElement): void
+        setup?(this: SpecContext<O>, markdownit: MarkdownIt): void,
+        updateDOM?(this: SpecContext<O>, element: HTMLElement): void
     },
 }
 
-declare class MarkdownExtension<Options = any> {
-    get options(): Options
-    get name(): string
-    get schema(): Prosemirror.Schema
-}
+export type Markdown = Extension<MarkdownOptions, MarkdownStorage>;
 
-export class MarkdownNode<O = any> extends MarkdownExtension<O> {
-    static create<O = any>(tiptapNode: Node<O>, spec: MarkdownNodeSpec<O>): MarkdownNode<O>
-}
-
-export class MarkdownMark<O = any> extends MarkdownExtension<O> {
-    static create<O = any>(tiptapMark: Mark<O>, spec: MarkdownMarkSpec<O>): MarkdownMark<O>
-}

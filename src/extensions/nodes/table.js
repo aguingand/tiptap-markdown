@@ -7,6 +7,9 @@ const Table = Node.create({
 });
 
 export default Table.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

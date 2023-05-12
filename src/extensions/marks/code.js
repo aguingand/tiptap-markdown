@@ -7,6 +7,9 @@ const Code = Mark.create({
 });
 
 export default Code.extend({
+    /**
+     * @return {{markdown: MarkdownMarkSpec}}
+     */
     addStorage() {
         return {
             markdown: {

@@ -7,6 +7,9 @@ const Italic = Mark.create({
 });
 
 export default Italic.extend({
+    /**
+     * @return {{markdown: MarkdownMarkSpec}}
+     */
     addStorage() {
         return {
             markdown: {

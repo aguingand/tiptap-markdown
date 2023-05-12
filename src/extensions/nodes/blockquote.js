@@ -7,6 +7,9 @@ const Blockquote = Node.create({
 });
 
 export default Blockquote.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

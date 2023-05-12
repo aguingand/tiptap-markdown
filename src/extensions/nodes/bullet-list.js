@@ -6,6 +6,9 @@ const BulletList = Node.create({
 });
 
 export default BulletList.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

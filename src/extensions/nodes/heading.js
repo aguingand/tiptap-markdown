@@ -7,6 +7,9 @@ const Heading = Node.create({
 });
 
 export default Heading.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

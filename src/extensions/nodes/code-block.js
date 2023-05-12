@@ -6,6 +6,9 @@ const CodeBlock = Node.create({
 });
 
 export default CodeBlock.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

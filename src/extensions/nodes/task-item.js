@@ -6,6 +6,9 @@ const TaskItem = Node.create({
 });
 
 export default TaskItem.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

@@ -7,6 +7,9 @@ const ListItem = Node.create({
 });
 
 export default ListItem.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

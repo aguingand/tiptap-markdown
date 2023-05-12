@@ -7,6 +7,9 @@ const Link = Mark.create({
 });
 
 export default Link.extend({
+    /**
+     * @return {{markdown: MarkdownMarkSpec}}
+     */
     addStorage() {
         return {
             markdown: {

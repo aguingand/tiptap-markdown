@@ -7,6 +7,9 @@ const Text = Node.create({
 });
 
 export default Text.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {

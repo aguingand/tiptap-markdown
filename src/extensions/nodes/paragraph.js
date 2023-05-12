@@ -7,6 +7,9 @@ const Paragraph = Node.create({
 });
 
 export default Paragraph.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
     addStorage() {
         return {
             markdown: {
