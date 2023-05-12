@@ -2,6 +2,9 @@
 
 Edit markdown content in [tiptap editor](https://www.tiptap.dev/).
 
+> **Warning**  
+> Since 0.7.0, `createMarkdownEditor` as been removed in favor of a more friendly `Markdown` Tiptap extension.
+
 ## Installation
 
 ```bash
