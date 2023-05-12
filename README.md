@@ -12,51 +12,27 @@ npm install tiptap-markdown
 Support all frameworks handled by tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
 
 ## Usage
-Vue 3 example:
+Basic example:
 
 ```js
-import { Editor } from '@tiptap/vue-3';
+import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from 'tiptap-markdown';
 
-export default {
-    // ...
-    mounted() {
-        this.editor = new Editor({
-            content: "# Title",
-            extensions: [
-                StarterKit,
-                Markdown,
-            ],
-        });
-        const markdownOutput = this.editor.storage.markdown.getMarkdown();
-    }
-}
-```
-
-React example
-
-```js
-import { useEditor } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import { Markdown } from 'tiptap-markdown';
-
-export default () => {
-    const editor = useEditor({
-        content: "# Title",
-        extensions: [
-            StarterKit,
-            Markdown,
-        ],
-    });
-    const markdownOutput = editor.storage.markdown.getMarkdown();
-    // ...
-}
+const editor = new Editor({
+    content: "# Title",
+    extensions: [
+        StarterKit,
+        Markdown,
+    ],
+});
+const markdownOutput = editor.storage.markdown.getMarkdown();
 ```
 
 ## API
 
 ### Options
+Default options:
 ```js
 Markdown.configure({
   html: true,              // Allow HTML input/output
