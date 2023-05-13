@@ -1,6 +1,4 @@
-import { dedent } from "./utils";
-import { parse } from "./utils/parse";
-
+import { parse, dedent } from './utils';
 
 describe('parse', () => {
     describe('marks', () => {
@@ -118,7 +116,8 @@ describe('parse', () => {
                 expect(parse('```js\nexample\n```')).toMatchSnapshot();
             });
             test('markdown with languageClassPrefix', () => {
-                expect(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang-' } })).toMatchSnapshot();
+                expect(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang--' } }, true))
+                    .toMatchSnapshot();
             })
         });
         describe('code block', () => {

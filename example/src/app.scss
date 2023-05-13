@@ -19,6 +19,18 @@ $color-grey: #dddddd;
       caret-color: currentColor;
     }
 
+    .warning {
+      color: #664d03;
+      background: #fff3cd;
+      border: 1px solid #ffecb5;
+      padding: .75rem 1.25rem;
+      border-radius: .25rem;
+
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+
     pre {
       padding: 0.7rem 1rem;
       border-radius: 5px;

@@ -11,7 +11,7 @@ import { withSchemaHardBreakFix } from "./helpers";
 export class MarkdownSerializerState extends BaseMarkdownSerializerState {
 
     constructor(nodes, marks, options) {
-        super(nodes, marks, options);
+        super(nodes, marks, options ?? {});
         this.inlines = [];
     }
 

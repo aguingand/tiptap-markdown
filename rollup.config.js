@@ -2,7 +2,6 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
-import autoExternal from 'rollup-plugin-auto-external';
 
 const name = 'tiptap-markdown';
 
@@ -28,6 +27,9 @@ export default {
             sourcemap: true,
         },
     ],
+    external: [
+        /node_modules/
+    ],
     plugins: [
         nodeResolve({
             preferBuiltins: false,
@@ -38,6 +40,5 @@ export default {
             babelHelpers: 'bundled',
             exclude: 'node_modules/**',
         }),
-        autoExternal(),
     ],
 }

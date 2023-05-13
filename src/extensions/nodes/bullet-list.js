@@ -1,15 +1,24 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
+
 
 const BulletList = Node.create({
     name: 'bulletList',
 });
 
-export default createMarkdownExtension(BulletList, {
-    serialize(state, node)  {
-        return state.renderList(node, "  ", () => (this.markdownOptions.bulletListMarker || "*") + " ");
-    },
-    parse: {
-        // handled by markdown-it
-    },
+export default BulletList.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
+    addStorage() {
+        return {
+            markdown: {
+                serialize(state, node) {
+                    return state.renderList(node, "  ", () => (this.editor.storage.markdown.options.bulletListMarker || "-") + " ");
+                },
+                parse: {
+                    // handled by markdown-it
+                },
+            }
+        }
+    }
 });
