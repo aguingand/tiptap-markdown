@@ -1,6 +1,9 @@
 # Tiptap markdown
 
-Edit markdown content in [tiptap editor](https://www.tiptap.dev/).
+The markdown extension for [Tiptap editor](https://www.tiptap.dev/).
+
+> **Warning**  
+> Since v0.7.0, `createMarkdownEditor` as been dropped in favor of a more friendly `Markdown` Tiptap extension. See the [migration guide](docs/migration.md).
 
 ## Installation
 
@@ -9,70 +12,50 @@ npm install tiptap-markdown
 ```
 
 ### Requirements
-Support all frameworks handled by tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
+Supports all frameworks handled by Tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
 
 ## Usage
-Vue 3 example:
+Basic example:
 
 ```js
-import { Editor } from '@tiptap/vue-3';
+import { Editor } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
-import { createMarkdownEditor } from 'tiptap-markdown';
+import { Markdown } from 'tiptap-markdown';
 
-const MarkdownEditor = createMarkdownEditor(Editor);
-
-export default {
-    // ...
-    mounted() {
-        this.editor = new MarkdownEditor({
-            content: "# Title",
-            extensions: [
-                StarterKit,
-            ],
-        });
-        const markdownOutput = this.editor.getMarkdown();
-    }
-}
+const editor = new Editor({
+    content: "# Title",
+    extensions: [
+        StarterKit,
+        Markdown,
+    ],
+});
+const markdownOutput = editor.storage.markdown.getMarkdown();
 ```
 
 ## API
 
-### `createMarkdownEditor`
-This function returns a class (`MarkdownEditor`) which extends the given base `Editor` class. This means all `Editor` methods + options are available.
-
-```js
-import { Editor } from '@tiptap/vue-3';
-
-// but also works with
-// import { Editor } from '@tiptap/vue-2';
-// import { Editor } from '@tiptap/react';
-// import { Editor } from '@tiptap/core';
-
-import { createMarkdownEditor } from 'tiptap-markdown';
-
-const MarkdownEditor = createMarkdownEditor(Editor);
-```
-
 ### Options
+Default options:
 ```js
-const editor = new MarkdownEditor({
-    content: '...',
-    markdown: {
-        html: true,              // Allow HTML input/output
-        tightLists: true,        // No <p> inside <li> in markdown output
-        tightListClass: 'tight', // Add class to <ul> that allows you to remove <p> margins when tight
-        bulletListMarker: '-',   // <li> prefix in markdown output
-        linkify: false,          // Create links from "https://..." text
-        breaks: false,           // New lines (\n) in markdown input are converted to <br>
-    }
+Markdown.configure({
+  html: true,              // Allow HTML input/output
+  tightLists: true,        // No <p> inside <li> in markdown output
+  tightListClass: 'tight', // Add class to <ul> allowing you to remove <p> margins when tight
+  bulletListMarker: '-',   // <li> prefix in markdown output
+  linkify: false,          // Create links from "https://..." text
+  breaks: false,           // New lines (\n) in markdown input are converted to <br>
 })
 ```
 
 ### Methods
 ```js
-editor.setContent('**test**') // setContent supports markdown format
-editor.getMarkdown(); // get current content as markdown
+editor.commands.setContent('**test**') // setContent supports markdown format
+editor.storage.markdown.getMarkdown(); // get current content as markdown
 ```
+
+### Custom extensions
+See [examples](https://github.com/aguingand/tiptap-markdown/tree/refactor-to-storage/example/src/extensions).  
+Check out prosemirror-markdown [default serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L66) for examples of serialize config. Check out markdown-it [plugins](https://github.com/markdown-it/markdown-it#syntax-extensions) for parsing.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

@@ -1,38 +1,34 @@
-import { createEditor } from "./index";
-import { parse as baseParse } from "../../src";
-import extensions from "../../src/extensions";
+import { createEditor } from "./editor";
 import { DOMParser } from "prosemirror-model";
 import { elementFromString } from "../../src/util/dom";
+import { getHTMLFromFragment } from "@tiptap/core";
 
-export function parse(content, options = {}) {
+export function parse(content, options = {}, asHTML = false) {
     const {
-        html = true,
-        linkify,
-        breaks,
         inline,
         image,
         codeBlock,
         htmlNode,
+        ...markdownOptions
     } = options;
 
     const editor = createEditor({
         image,
         htmlNode,
         codeBlock,
+        markdownOptions,
     });
 
-    const parsed = baseParse(editor.schema, content, {
-        extensions,
-        html,
-        linkify,
-        breaks,
-        languageClassPrefix: codeBlock?.languageClassPrefix,
-        inline,
-    });
-
-    return DOMParser.fromSchema(editor.schema)
+    const parsed = editor.storage.markdown.parser.parse(content, { inline });
+    const fragment = DOMParser.fromSchema(editor.schema)
         .parseSlice(elementFromString(parsed), {
             preserveWhitespace: inline ? 'full' : false,
         })
-        .content.toJSON();
+        .content;
+
+    if(asHTML) {
+        return getHTMLFromFragment(fragment, editor.schema);
+    }
+
+    return fragment.toJSON();
 }

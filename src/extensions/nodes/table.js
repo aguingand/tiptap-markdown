@@ -1,42 +1,50 @@
 import { Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
 import { childNodes } from "../../util/prosemirror";
-import Html from './html';
+import HTMLNode from './html';
 
 const Table = Node.create({
     name: 'table',
 });
 
-export default createMarkdownExtension(Table, {
-    serialize(state, node, parent) {
-        if(!isMarkdownSerializable(node)) {
-            Html.serialize.call(this, state, node, parent);
-            return;
-        }
-        node.forEach((row, p, i) => {
-            state.write('| ');
-            row.forEach((col, p, j) => {
-                if(j) {
-                    state.write(' | ');
-                }
-                const cellContent = col.firstChild;
-                if(cellContent.textContent.trim()) {
-                    state.renderInline(cellContent);
-                }
-            });
-            state.write(' |')
-            state.ensureNewLine();
-            if(!i) {
-                const delimiterRow = Array.from({ length:row.childCount }).map(() => '---').join(' | ');
-                state.write(`| ${delimiterRow} |`);
-                state.ensureNewLine();
+export default Table.extend({
+    /**
+     * @return {{markdown: MarkdownNodeSpec}}
+     */
+    addStorage() {
+        return {
+            markdown: {
+                serialize(state, node, parent) {
+                    if(!isMarkdownSerializable(node)) {
+                        HTMLNode.storage.markdown.serialize.call(this, state, node, parent);
+                        return;
+                    }
+                    node.forEach((row, p, i) => {
+                        state.write('| ');
+                        row.forEach((col, p, j) => {
+                            if(j) {
+                                state.write(' | ');
+                            }
+                            const cellContent = col.firstChild;
+                            if(cellContent.textContent.trim()) {
+                                state.renderInline(cellContent);
+                            }
+                        });
+                        state.write(' |')
+                        state.ensureNewLine();
+                        if(!i) {
+                            const delimiterRow = Array.from({length: row.childCount}).map(() => '---').join(' | ');
+                            state.write(`| ${delimiterRow} |`);
+                            state.ensureNewLine();
+                        }
+                    });
+                    state.closeBlock(node);
+                },
+                parse: {
+                    // handled by markdown-it
+                },
             }
-        });
-        state.closeBlock(node);
-    },
-    parse: {
-        // handled by markdown-it
-    },
+        }
+    }
 })
 
 

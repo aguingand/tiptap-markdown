@@ -1,27 +1,30 @@
-import { Fragment } from "prosemirror-model";
+import { Fragment } from "@tiptap/pm/model";
 import { getHTMLFromFragment, Node } from "@tiptap/core";
-import { createMarkdownExtension } from "../../util/extensions";
 import { elementFromString } from "../../util/dom";
 
-const HTML = Node.create({
-    name: 'html',
-});
 
-export default createMarkdownExtension(HTML, {
-    serialize(state, node, parent) {
-        if(this.markdownOptions.html) {
-            state.write(serializeHTML(node, parent));
-        } else {
-            console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
-            state.write(`[${node.type.name}]`);
+export default Node.create({
+    name: 'markdownHTMLNode',
+    addStorage() {
+        return {
+            markdown: {
+                serialize(state, node, parent) {
+                    if(this.editor.storage.markdown.options.html) {
+                        state.write(serializeHTML(node, parent));
+                    } else {
+                        console.warn(`Tiptap Markdown: "${node.type.name}" node is only available in html mode`);
+                        state.write(`[${node.type.name}]`);
+                    }
+                    if(node.isBlock) {
+                        state.closeBlock(node);
+                    }
+                },
+                parse: {
+                    // handled by markdown-it
+                },
+            },
         }
-        if(node.isBlock) {
-            state.closeBlock(node);
-        }
-    },
-    parse: {
-        // handled by markdown-it
-    },
+    }
 });
 
 function serializeHTML(node, parent) {

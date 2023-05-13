@@ -122,6 +122,7 @@ Array [
         "marks": Array [
           Object {
             "attrs": Object {
+              "class": null,
               "href": "http://example.org",
               "target": "_blank",
             },
@@ -145,6 +146,7 @@ Array [
         "marks": Array [
           Object {
             "attrs": Object {
+              "class": null,
               "href": "http://example.org",
               "target": "_blank",
             },
@@ -168,6 +170,7 @@ Array [
         "marks": Array [
           Object {
             "attrs": Object {
+              "class": null,
               "href": "http://example.org",
               "target": "_blank",
             },
@@ -266,6 +269,9 @@ Array [
 exports[`parse nodes bullet list html 1`] = `
 Array [
   Object {
+    "attrs": Object {
+      "tight": true,
+    },
     "content": Array [
       Object {
         "content": Array [
@@ -304,6 +310,9 @@ Array [
 exports[`parse nodes bullet list markdown marker \`*\` 1`] = `
 Array [
   Object {
+    "attrs": Object {
+      "tight": false,
+    },
     "content": Array [
       Object {
         "content": Array [
@@ -342,6 +351,9 @@ Array [
 exports[`parse nodes bullet list markdown marker \`-\` 1`] = `
 Array [
   Object {
+    "attrs": Object {
+      "tight": false,
+    },
     "content": Array [
       Object {
         "content": Array [
@@ -446,20 +458,11 @@ Array [
 `;
 
 exports[`parse nodes fence markdown with languageClassPrefix 1`] = `
-Array [
-  Object {
-    "attrs": Object {
-      "language": "js",
-    },
-    "content": Array [
-      Object {
-        "text": "example",
-        "type": "text",
-      },
-    ],
-    "type": "codeBlock",
-  },
-]
+<pre>
+  <code class="lang--js">
+    example
+  </code>
+</pre>
 `;
 
 exports[`parse nodes hard break html 1`] = `
@@ -751,6 +754,7 @@ Array [
   Object {
     "attrs": Object {
       "start": 1,
+      "tight": true,
     },
     "content": Array [
       Object {
@@ -792,6 +796,7 @@ Array [
   Object {
     "attrs": Object {
       "start": 1,
+      "tight": true,
     },
     "content": Array [
       Object {

@@ -1,20 +1,19 @@
 import { Editor } from "@tiptap/core";
-import { createMarkdownEditor } from "../src/MarkdownEditor";
 import StarterKit from "@tiptap/starter-kit";
-
-const MarkdownEditor = createMarkdownEditor(Editor);
+import { Markdown } from "../src";
 
 function getParsedNode(content) {
-    const editor = new MarkdownEditor({
+    const editor = new Editor({
         content,
         extensions: [
             StarterKit,
+            Markdown,
         ],
     });
     return editor.state.doc.firstChild;
 }
 
-describe('MarkdownEditor', () => {
+describe('Tight lists extension', () => {
     describe('bullet list', () => {
         test('tight', () => {
             expect(getParsedNode(`* example1\n* example2`).attrs)
@@ -57,27 +56,4 @@ describe('MarkdownEditor', () => {
             });
         });
     });
-    describe('setOptions', () => {
-        test('merge', () => {
-            const editor = new MarkdownEditor({
-                content: '',
-                extensions: [StarterKit],
-                markdown: {
-                    bulletListMarker: '->',
-                },
-            });
-            editor.setOptions({
-                markdown: {
-                    extensions: [],
-                },
-            })
-            expect(editor.options).toMatchObject({
-                markdown: {
-                    html: true,
-                    bulletListMarker: '->',
-                    extensions: [],
-                },
-            });
-        });
-    });
-});
+})

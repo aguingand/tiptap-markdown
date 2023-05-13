@@ -1,2 +1,0 @@
-
-export { serialize } from './serialize';
