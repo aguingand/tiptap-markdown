@@ -1,9 +1,9 @@
 # Tiptap markdown
 
-Edit markdown content in [tiptap editor](https://www.tiptap.dev/).
+The `Markdown` extension for [Tiptap editor](https://www.tiptap.dev/).
 
 > **Warning**  
-> Since 0.7.0, `createMarkdownEditor` as been removed in favor of a more friendly `Markdown` Tiptap extension.
+> Since 0.7.0, `createMarkdownEditor` as been dropped in favor of a more friendly `Markdown` Tiptap extension. See the [migration guide](docs/migration.md).
 
 ## Installation
 
@@ -12,7 +12,7 @@ npm install tiptap-markdown
 ```
 
 ### Requirements
-Support all frameworks handled by tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
+Supports all frameworks handled by Tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
 
 ## Usage
 Basic example:
@@ -55,7 +55,7 @@ editor.storage.markdown.getMarkdown(); // get current content as markdown
 
 ### Custom extensions
 See [examples](https://github.com/aguingand/tiptap-markdown/tree/refactor-to-storage/example/src/extensions).  
-Checkout prosemirror-markdown [default serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L66) for examples of config.
+Check out prosemirror-markdown [default serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L66) for examples of serialize config. Check out markdown-it [plugins](https://github.com/markdown-it/markdown-it#syntax-extensions) for parsing.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
