@@ -61,7 +61,6 @@
     "jest": "^27.0.4",
     "jest-serializer-html": "^7.1.0",
     "rollup": "^2.51.1",
-    "rollup-plugin-auto-external": "^2.0.0",
     "update-by-scope": "^1.1.3"
   }
 }
