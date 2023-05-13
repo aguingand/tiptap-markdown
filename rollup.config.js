@@ -28,6 +28,9 @@ export default {
             sourcemap: true,
         },
     ],
+    external: [
+        /node_modules/
+    ],
     plugins: [
         nodeResolve({
             preferBuiltins: false,
@@ -38,6 +41,5 @@ export default {
             babelHelpers: 'bundled',
             exclude: 'node_modules/**',
         }),
-        autoExternal(),
     ],
 }

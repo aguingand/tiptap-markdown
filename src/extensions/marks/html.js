@@ -1,4 +1,4 @@
-import { Fragment } from "prosemirror-model";
+import { Fragment } from "@tiptap/pm/model";
 import { getHTMLFromFragment, Mark } from "@tiptap/core";
 
 

@@ -1,4 +1,4 @@
-import { Fragment } from "prosemirror-model";
+import { Fragment } from "@tiptap/pm/model";
 import { getHTMLFromFragment, Node } from "@tiptap/core";
 import { elementFromString } from "../../util/dom";
 import { withInitialSchema } from "../../serialize/helpers";
