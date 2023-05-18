@@ -31,7 +31,7 @@
     "@types/markdown-it": "^12.2.3",
     "markdown-it": "^13.0.1",
     "markdown-it-task-lists": "^2.1.1",
-    "prosemirror-markdown": "^1.10.1"
+    "prosemirror-markdown": "^1.11.0"
   },
   "peerDependencies": {
     "@tiptap/core": "^2.0.3"
