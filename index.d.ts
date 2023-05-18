@@ -43,4 +43,4 @@ export type MarkdownMarkSpec<O = any> = {
     },
 }
 
-export declare const Markdown = Extension<MarkdownOptions, MarkdownStorage>;
+export declare const Markdown: Extension<MarkdownOptions, MarkdownStorage>;
