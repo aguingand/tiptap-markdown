@@ -1,6 +1,6 @@
 {
   "name": "tiptap-markdown",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Edit markdown content in tiptap editor.",
   "scripts": {
     "test": "jest",
