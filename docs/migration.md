@@ -9,10 +9,12 @@ import { Editor } from '@tiptap/core'
 - const MarkdownEditor = createMarkdownEditor(Editor)
 - const editor = new MarkdownEditor({
 + const editor = new Editor({
-   extensions: [
-+    Markdown,
-   ],
+    extensions: [
++     Markdown,
+    ],
 })
+- const markdownOutput = editor.getMarkdown()
++ const markdownOutput = editor.storage.markdown.getMarkdown()
 ```
 
 ### With options
