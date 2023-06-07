@@ -54,7 +54,7 @@ editor.storage.markdown.getMarkdown(); // get current content as markdown
 ```
 
 ### Custom extensions
-See [examples](https://github.com/aguingand/tiptap-markdown/tree/refactor-to-storage/example/src/extensions).  
+See [examples](https://github.com/aguingand/tiptap-markdown/tree/main/example/src/extensions).  
 Check out prosemirror-markdown [default serializer](https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L66) for examples of serialize config. Check out markdown-it [plugins](https://github.com/markdown-it/markdown-it#syntax-extensions) for parsing.
 
 ## Contributing
