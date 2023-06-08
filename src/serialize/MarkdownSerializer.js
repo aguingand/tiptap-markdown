@@ -1,4 +1,4 @@
-import { MarkdownSerializerState } from './state';
+import { MarkdownSerializerState } from "prosemirror-markdown";
 import HTMLMark from "../extensions/marks/html";
 import HTMLNode from "../extensions/nodes/html";
 import { getMarkdownSpec } from "../util/extensions";
@@ -63,6 +63,7 @@ export class MarkdownSerializer {
         const serialize = getMarkdownSpec(mark)?.serialize;
         return serialize
             ? {
+                ...serialize,
                 open: typeof serialize.open === 'function' ? serialize.open.bind({ editor: this.editor, options: mark.options }) : serialize.open,
                 close: typeof serialize.close === 'function' ? serialize.close.bind({ editor: this.editor, options: mark.options }) : serialize.close,
             }

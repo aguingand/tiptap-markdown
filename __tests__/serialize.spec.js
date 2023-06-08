@@ -45,6 +45,10 @@ describe('serialize', () => {
                 },
             })).toEqual('<sup>example</sup>');
         });
+        test('expels whitespaces', () => {
+            expect(serialize('My <strong> example </strong>')).toEqual('My  **example** ');
+            expect(serialize('My <em> example </em>')).toEqual('My  *example* ');
+        });
     });
     describe('nodes', () => {
         test('paragraph', () => {
@@ -229,7 +233,7 @@ describe('serialize', () => {
             })).toEqual('<block-element>\na<br>b\n</block-element>');
         });
         test('html inline', () => {
-            expect(serialize('<p> <inline-element>example1</inline-element> <inline-element>example2</inline-element> </p>', {
+            expect(serialize('<p><inline-element>example1</inline-element> <inline-element>example2</inline-element></p>', {
                 html: true,
                 htmlNode: {
                     group: 'inline',
