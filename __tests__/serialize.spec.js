@@ -49,6 +49,10 @@ describe('serialize', () => {
             expect(serialize('My <strong> example </strong>')).toEqual('My  **example** ');
             expect(serialize('My <em> example </em>')).toEqual('My  *example* ');
         });
+        test('trim inline', () => {
+            expect(serialize('My<strong>, example</strong>')).toEqual('My, **example**');
+            expect(serialize('My<em>. example</em>')).toEqual('My. *example*');
+        });
     });
     describe('nodes', () => {
         test('paragraph', () => {

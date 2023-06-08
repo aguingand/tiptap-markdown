@@ -1,4 +1,4 @@
-import { MarkdownSerializerState } from "prosemirror-markdown";
+import { MarkdownSerializerState } from './state';
 import HTMLMark from "../extensions/marks/html";
 import HTMLNode from "../extensions/nodes/html";
 import { getMarkdownSpec } from "../util/extensions";
