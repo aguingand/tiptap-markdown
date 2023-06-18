@@ -9,7 +9,6 @@ export const Markdown = Extension.create({
     priority: 50,
     addOptions() {
         return {
-            content: null,
             html: true,
             tightLists: true,
             tightListClass: 'tight',
