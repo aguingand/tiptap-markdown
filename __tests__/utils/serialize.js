@@ -9,7 +9,9 @@ export function serialize(content, { htmlNode, htmlMark, ...markdownOptions } = 
         markdownOptions,
     });
     const doc = DOMParser.fromSchema(editor.schema)
-        .parse(elementFromString(content));
+        .parse(elementFromString(content), {
+            preserveWhitespace: true, // to ensure whitespaces handling
+        });
 
     return editor.storage.markdown.serializer.serialize(doc);
 }
