@@ -49,7 +49,7 @@
         },
         methods: {
             updateMarkdownOutput() {
-                console.log(this.editor.storage.markdown);
+                // console.log(this.editor.storage.markdown);
                 this.markdown = this.editor.storage.markdown.getMarkdown();
             },
             handleInput() {
@@ -60,6 +60,8 @@
             this.editor = new Editor({
                 extensions: [
                     Markdown.configure({
+                        transformPastedText: true,
+                        transformCopiedText: true,
                     }),
                     StarterKit.configure({
                         codeBlock: false,

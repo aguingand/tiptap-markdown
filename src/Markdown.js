@@ -1,9 +1,8 @@
-import { Extension } from '@tiptap/core';
+import { Extension, extensions } from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
 import { MarkdownSerializer } from "./serialize/MarkdownSerializer";
 import { MarkdownParser } from "./parse/MarkdownParser";
-import { extensions } from '@tiptap/core';
-import { Plugin, PluginKey } from '@tiptap/pm/state';
+import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
 
 export const Markdown = Extension.create({
     name: 'markdown',
@@ -17,6 +16,8 @@ export const Markdown = Extension.create({
             bulletListMarker: '-',
             linkify: false,
             breaks: false,
+            transformPastedText: false,
+            transformCopiedText: false,
         }
     },
     addCommands() {
@@ -65,33 +66,10 @@ export const Markdown = Extension.create({
                 tight: this.options.tightLists,
                 tightClass: this.options.tightListClass,
             }),
+            MarkdownClipboard.configure({
+                transformPastedText: this.options.transformPastedText,
+                transformCopiedText: this.options.transformCopiedText,
+            }),
         ]
     },
-    addProseMirrorPlugins() {
-        return [
-            new Plugin({
-                key: new PluginKey('markdown-paste'),
-                props: {
-                    handlePaste: (view, event) => {
-                        if (view.props.editable && !view.props.editable(view.state)) {
-                            return false;
-                        }
-                        if (!event.clipboardData) return false;
-
-                        const text = event.clipboardData.getData('text/plain');
-                        const html = event.clipboardData.getData('text/html');
-                        if (text.length === 0 || html.length !== 0) return false;
-
-                        if (this.editor.getText()) {
-                            this.editor.commands.insertContentAt(view.state.selection, text, { updateSelection: true });
-                        } else {
-                            this.editor.commands.setContent(text, true);
-                        }
-
-                        return true;
-                    },
-                },
-            }),
-        ];
-    }
 });
