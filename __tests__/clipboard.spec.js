@@ -5,39 +5,81 @@ import { clipboardEvent } from "./utils/dom";
 
 
 describe('clipboard', () => {
-    test('transform pasted', () => {
-        const editor = new Editor({
-            extensions: [
-                StarterKit,
-                Markdown.configure({
-                    transformPastedText: true,
-                }),
-            ],
+    describe('paste', () => {
+        test('transform', () => {
+            const editor = new Editor({
+                extensions: [
+                    StarterKit,
+                    Markdown.configure({
+                        transformPastedText: true,
+                    }),
+                ],
+            });
+
+            const event = clipboardEvent('paste');
+            event.clipboardData.setData('text/plain', `# My title`);
+
+            editor.view.dom.dispatchEvent(event);
+
+            expect(editor.getHTML()).toContain('<h1>My title</h1>')
         });
 
-        const event = clipboardEvent('paste');
-        event.clipboardData.setData('text/plain', `# My title`);
+        test('does not transform', () => {
+            const editor = new Editor({
+                extensions: [
+                    StarterKit,
+                    Markdown.configure({
+                        transformPastedText: false,
+                    }),
+                ],
+            });
 
-        editor.view.dom.dispatchEvent(event);
+            const event = clipboardEvent('paste');
+            event.clipboardData.setData('text/plain', `# My title`);
 
-        expect(editor.getHTML()).toContain('<h1>My title</h1>')
+            editor.view.dom.dispatchEvent(event);
+
+            expect(editor.getHTML()).not.toContain('<h1>My title</h1>')
+        });
     });
 
-    test('not transform pasted', () => {
-        const editor = new Editor({
-            extensions: [
-                StarterKit,
-                Markdown.configure({
-                    transformPastedText: false,
-                }),
-            ],
+    describe('copy', () => {
+        test('transform', () => {
+            const editor = new Editor({
+                content: '# My title',
+                extensions: [
+                    StarterKit,
+                    Markdown.configure({
+                        transformCopiedText: true,
+                    }),
+                ],
+            });
+
+            const event = clipboardEvent('copy');
+
+            editor.commands.selectAll();
+            editor.view.dom.dispatchEvent(event);
+
+            expect(event.clipboardData.getData('text/plain')).toBe('# My title');
         });
 
-        const event = clipboardEvent('paste');
-        event.clipboardData.setData('text/plain', `# My title`);
+        test('does not transform', () => {
+            const editor = new Editor({
+                content: '# My title',
+                extensions: [
+                    StarterKit,
+                    Markdown.configure({
+                        transformCopiedText: false,
+                    }),
+                ],
+            });
 
-        editor.view.dom.dispatchEvent(event);
+            const event = clipboardEvent('copy');
 
-        expect(editor.getHTML()).not.toContain('<h1>My title</h1>')
+            editor.commands.selectAll();
+            editor.view.dom.dispatchEvent(event);
+
+            expect(event.clipboardData.getData('text/plain')).toBe('My title');
+        });
     });
 })
