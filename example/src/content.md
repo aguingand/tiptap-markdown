@@ -26,8 +26,6 @@ ___
 
 ***
 
-Aenean ut eros et nisl sagittis vestibulum. Donec vitae orci sed dolor rutrum auctor. Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi.
-
 ## Emphasis
 
 **This is bold text**
