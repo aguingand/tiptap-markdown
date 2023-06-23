@@ -1,8 +1,8 @@
-import { Extension } from '@tiptap/core';
+import { Extension, extensions } from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
 import { MarkdownSerializer } from "./serialize/MarkdownSerializer";
 import { MarkdownParser } from "./parse/MarkdownParser";
-import { extensions } from '@tiptap/core';
+import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
 
 export const Markdown = Extension.create({
     name: 'markdown',
@@ -15,6 +15,8 @@ export const Markdown = Extension.create({
             bulletListMarker: '-',
             linkify: false,
             breaks: false,
+            transformPastedText: false,
+            transformCopiedText: false,
         }
     },
     addCommands() {
@@ -63,6 +65,10 @@ export const Markdown = Extension.create({
                 tight: this.options.tightLists,
                 tightClass: this.options.tightListClass,
             }),
+            MarkdownClipboard.configure({
+                transformPastedText: this.options.transformPastedText,
+                transformCopiedText: this.options.transformCopiedText,
+            }),
         ]
-    }
+    },
 });
