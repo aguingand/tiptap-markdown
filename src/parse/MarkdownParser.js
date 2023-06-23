@@ -78,7 +78,7 @@ export class MarkdownParser {
     }
 
     normalizeInline(node, content) {
-        if(node.firstElementChild.matches('p')) {
+        if(node.firstElementChild?.matches('p')) {
             const firstParagraph = node.firstElementChild;
             const { nextSibling, nextElementSibling } = firstParagraph;
             const startSpaces = content.match(/^\s+/)?.[0] ?? '';
