@@ -12,6 +12,8 @@ export interface MarkdownOptions  {
     bulletListMarker?: String,
     linkify?: Boolean,
     breaks?: Boolean,
+    transformPastedText?: Boolean,
+    transformCopiedText?: Boolean,
 }
 
 export interface MarkdownStorage {
