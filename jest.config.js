@@ -137,6 +137,10 @@ module.exports = {
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   snapshotSerializers: ["jest-serializer-html"],
+  snapshotFormat: {
+    escapeString: true,
+    printBasicPrototype: true
+  },
 
   // The test environment that will be used for testing
   testEnvironment: "jsdom",
