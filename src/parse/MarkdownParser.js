@@ -31,7 +31,7 @@ export class MarkdownParser {
                 getMarkdownSpec(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, renderer)
             );
 
-            const renderedHTML = renderer.render(content);
+            const renderedHTML = renderer.render(content).replace(/>\n</g, '><').trim();
             const element = elementFromString(renderedHTML);
 
             this.editor.extensionManager.extensions.forEach(extension =>
@@ -98,6 +98,20 @@ export class MarkdownParser {
             unwrapElement(firstParagraph);
 
             node.innerHTML = `${startSpaces}${node.innerHTML}${endSpaces}`;
+        }
+
+        if(this.editor.isActive('bulletList')) {
+            const firstChildList = node.querySelector(':scope > ul:first-child');
+            if(firstChildList) {
+                unwrapElement(firstChildList);
+            }
+        }
+
+        if(this.editor.isActive('orderedList')) {
+            const firstChildList = node.querySelector(':scope > ol:first-child');
+            if(firstChildList) {
+                unwrapElement(firstChildList);
+            }
         }
     }
 }

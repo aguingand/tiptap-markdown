@@ -868,10 +868,6 @@ Array [
     "type": "paragraph",
   },
   Object {
-    "text": " ",
-    "type": "text",
-  },
-  Object {
     "content": Array [
       Object {
         "text": "example2",

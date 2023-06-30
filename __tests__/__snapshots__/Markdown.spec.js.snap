@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Markdown commands insertContentAt bullet list 1`] = `
+<ul data-tight="true">
+  <li>
+    <p>
+      example1
+    </p>
+  </li>
+  <li>
+    <p>
+      example2
+    </p>
+    <ol data-tight="true">
+      <li>
+        <p>
+          example3
+        </p>
+      </li>
+    </ol>
+  </li>
+</ul>
+`;
+
+exports[`Markdown commands insertContentAt ordered list 1`] = `
+<ol data-tight="true">
+  <li>
+    <p>
+      example1
+    </p>
+  </li>
+  <li>
+    <p>
+      example2
+    </p>
+  </li>
+</ol>
+<ul data-tight="true">
+  <li>
+    <p>
+      example3
+    </p>
+  </li>
+</ul>
+`;
