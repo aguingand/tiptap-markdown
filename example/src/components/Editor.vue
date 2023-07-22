@@ -32,7 +32,8 @@
     import CodeBlock from "@tiptap/extension-code-block";
     import { Markdown } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
-    import content from '../content.md?raw';
+    import content from '../data/content.md?raw';
+    // import content from "../data/large-content";
     import Highlight from "../extensions/highlight";
     import Container from "../extensions/container";
 
