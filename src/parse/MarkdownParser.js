@@ -8,24 +8,23 @@ export class MarkdownParser {
      * @type {import('@tiptap/core').Editor}
      */
     editor = null;
+    /**
+     * @type {markdownit}
+     */
+    md = null;
 
-    constructor(editor) {
+    constructor(editor, { html, linkify, breaks }) {
         this.editor = editor;
-    }
-
-    parse(content, { inline } = {}) {
-        const {
+        this.md = markdownit({
             html,
             linkify,
             breaks,
-        } = this.editor.storage.markdown.options;
+        });
+    }
 
+    parse(content, { inline } = {}) {
         if(typeof content === 'string') {
-            const renderer = markdownit({
-                html,
-                linkify,
-                breaks,
-            });
+            const renderer = this.md;
 
             this.editor.extensionManager.extensions.forEach(extension =>
                 getMarkdownSpec(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, renderer)

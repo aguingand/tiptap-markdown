@@ -1,8 +1,10 @@
 import markdownit from 'markdown-it';
 
+const md = markdownit();
 
 function scanDelims(text, pos) {
-    const state = new (markdownit().inline.State)(text, null, null, []);
+    md.inline.State.prototype.scanDelims.call({ src: text, posMax: text.length })
+    const state = new (md.inline.State)(text, null, null, []);
     return state.scanDelims(pos, true);
 }
 
