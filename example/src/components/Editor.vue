@@ -30,6 +30,7 @@
     import TaskList from '@tiptap/extension-task-list'
     import TaskItem from '@tiptap/extension-task-item'
     import CodeBlock from "@tiptap/extension-code-block";
+    import Youtube from "@tiptap/extension-youtube";
     import { Markdown } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../data/content.md?raw';
@@ -85,6 +86,7 @@
                         languageClassPrefix: 'lang-',
                     }),
                     Container,
+                    Youtube,
                 ],
                 content,
                 onUpdate: () => {
