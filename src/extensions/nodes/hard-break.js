@@ -15,7 +15,11 @@ export default HardBreak.extend({
             markdown: {
                 serialize: defaultMarkdownSerializer.nodes.hard_break,
                 parse: {
-                    // handled by markdown-it
+                    updateDOM(element) {
+                        // remove extra \n inserted by markdown-it as it add space in some cases
+                        // (https://github.com/aguingand/tiptap-markdown/issues/28)
+                        element.innerHTML = element.innerHTML.replace(/<br>\n/g, '<br>');
+                    }
                 },
             }
         }
