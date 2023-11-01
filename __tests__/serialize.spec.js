@@ -1,3 +1,4 @@
+import { describe, test, expect, vi } from "vitest";
 import { serialize, dedent } from './utils';
 
 describe('serialize', () => {
@@ -24,7 +25,7 @@ describe('serialize', () => {
             expect(serialize('<a href="http://example.org">example</a>')).toEqual('[example](http://example.org)');
         });
         test('underline', () => {
-            jest.spyOn(console, 'warn').mockImplementation();
+            vi.spyOn(console, 'warn').mockImplementation();
 
             expect(serialize('<u>example</u>', { html: false })).toEqual('example');
             expect(console.warn).toHaveBeenCalledWith(
@@ -254,7 +255,7 @@ describe('serialize', () => {
             })).toEqual('<inline-element>example1</inline-element> <inline-element>example2</inline-element>');
         });
         test('html disabled', () => {
-            jest.spyOn(console, 'warn').mockImplementation();
+            vi.spyOn(console, 'warn').mockImplementation();
 
             expect(serialize('<custom-element></custom-element>', {
                 html: false,

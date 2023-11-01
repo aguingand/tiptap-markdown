@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { Editor } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "../src/Markdown";

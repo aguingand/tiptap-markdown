@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { parse, dedent } from './utils';
 
 describe('parse', () => {
@@ -117,7 +118,7 @@ describe('parse', () => {
             });
             test('markdown with languageClassPrefix', () => {
                 expect(parse('```js\nexample\n```', { codeBlock: { languageClassPrefix: 'lang--' } }, true))
-                    .toMatchSnapshot();
+                    .toEqual('<pre><code class="lang--js">example</code></pre>');
             })
         });
         describe('code block', () => {

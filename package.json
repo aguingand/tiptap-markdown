@@ -3,15 +3,24 @@
   "version": "0.8.2",
   "description": "Edit markdown content in tiptap editor.",
   "scripts": {
-    "test": "jest",
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
+    "test": "vitest",
+    "dev": "vite example",
+    "build": "vite build",
+    "build:example": "vite build example",
     "preversion": "npm run build",
     "update:tiptap": "update-by-scope @tiptap"
   },
-  "main": "dist/tiptap-markdown.cjs.js",
-  "umd": "dist/tiptap-markdown.umd.js",
-  "module": "dist/tiptap-markdown.esm.js",
+  "workspaces": [
+    "example"
+  ],
+  "main": "dist/tiptap-markdown.umd.js",
+  "module": "dist/tiptap-markdown.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/tiptap-markdown.es.js",
+      "require": "./dist/tiptap-markdown.umd.js"
+    }
+  },
   "files": [
     "src",
     "dist",
@@ -40,9 +49,6 @@
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.4",
     "@rollup/plugin-babel": "^5.3.0",
-    "@rollup/plugin-commonjs": "^19.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.0.0",
     "@tiptap/core": "^2.0.3",
     "@tiptap/extension-highlight": "^2.0.3",
     "@tiptap/extension-image": "^2.0.3",
@@ -57,10 +63,11 @@
     "@tiptap/starter-kit": "^2.0.3",
     "@tiptap/vue-3": "^2.0.3",
     "@types/jest": "^28.1.7",
-    "babel-jest": "^27.0.2",
-    "jest": "^27.0.4",
     "jest-serializer-html": "^7.1.0",
-    "rollup": "^2.51.1",
-    "update-by-scope": "^1.1.3"
+    "jsdom": "^22.1.0",
+    "terser": "^5.24.0",
+    "update-by-scope": "^1.1.3",
+    "vite": "^4.5.0",
+    "vitest": "^0.34.6"
   }
 }
