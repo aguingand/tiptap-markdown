@@ -25,6 +25,25 @@ exports[`serialize > nodes > table > header in body 1`] = `
 </table>
 `;
 
+exports[`serialize > nodes > table > multiline cell 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th colspan="1"
+          rowspan="1"
+      >
+        <p>
+          example1
+        </p>
+        <p>
+          example2
+        </p>
+      </th>
+    </tr>
+  </tbody>
+</table>
+`;
+
 exports[`serialize > nodes > table > no header 1`] = `
 <table>
   <tbody>
