@@ -876,10 +876,6 @@ exports[`parse > nodes > paragraph > markdown 1`] = `
     "type": "paragraph",
   },
   {
-    "text": " ",
-    "type": "text",
-  },
-  {
     "content": [
       {
         "text": "example2",
