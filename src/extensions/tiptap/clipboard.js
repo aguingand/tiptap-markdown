@@ -22,7 +22,10 @@ export const MarkdownClipboard = Extension.create({
                         }
                         const parsed = this.editor.storage.markdown.parser.parse(text, { inline: true });
                         return DOMParser.fromSchema(this.editor.schema)
-                            .parseSlice(elementFromString(parsed), { preserveWhitespace: true });
+                            .parseSlice(elementFromString(parsed), {
+                                preserveWhitespace: true,
+                                context,
+                            });
                     },
                     /**
                      * @param {import('prosemirror-model').Slice} slice

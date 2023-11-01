@@ -499,6 +499,22 @@ exports[`parse > nodes > hard break > markdown 1`] = `
 ]
 `;
 
+exports[`parse > nodes > hard break > markdown with breaks option + inline 1`] = `
+[
+  {
+    "text": "example1",
+    "type": "text",
+  },
+  {
+    "type": "hardBreak",
+  },
+  {
+    "text": "example2",
+    "type": "text",
+  },
+]
+`;
+
 exports[`parse > nodes > hard break > markdown with breaks option 1`] = `
 [
   {
@@ -858,10 +874,6 @@ exports[`parse > nodes > paragraph > markdown 1`] = `
       },
     ],
     "type": "paragraph",
-  },
-  {
-    "text": " ",
-    "type": "text",
   },
   {
     "content": [

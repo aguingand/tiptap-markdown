@@ -155,6 +155,9 @@ describe('parse', () => {
             test('markdown with breaks option', () => {
                 expect(parse('example1\nexample2', { breaks: true })).toMatchSnapshot();
             })
+            test('markdown with breaks option + inline', () => {
+                expect(parse('example1\nexample2', { breaks: true, inline: true })).toMatchSnapshot();
+            })
             test('html', () => {
                 expect(parse('example1<br>example2')).toMatchSnapshot();
             });
