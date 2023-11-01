@@ -3,6 +3,7 @@
   "name": "example",
   "version": "0.0.0",
   "dependencies": {
+    "@tiptap/extension-youtube": "^2.1.12",
     "bootstrap": "^5.0.0-beta3",
     "markdown-it-container": "^3.0.0",
     "markdown-it-mark": "^3.0.1",
