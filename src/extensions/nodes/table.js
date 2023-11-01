@@ -57,12 +57,12 @@ function isMarkdownSerializable(node) {
     const firstRow = rows[0];
     const bodyRows = rows.slice(1);
 
-    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' || hasSpan(cell))) {
+    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' || hasSpan(cell) || cell.childCount > 1)) {
         return false;
     }
 
     if(bodyRows.some(row =>
-        childNodes(row).some(cell => cell.type.name === 'tableHeader' || hasSpan(cell))
+        childNodes(row).some(cell => cell.type.name === 'tableHeader' || hasSpan(cell) || cell.childCount > 1)
     )) {
         return false;
     }
