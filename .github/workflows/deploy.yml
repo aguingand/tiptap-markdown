@@ -38,13 +38,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build
-        run: npm run build
-      - name: Install example dependencies
-        working-directory: ./example
-        run: npm install
-      - name: Build example
-        working-directory: ./example
-        run: npm run build
+        run: npm run build:example
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
