@@ -7,7 +7,7 @@ export default defineConfig({
     plugins: [vue()],
     resolve: {
         alias: {
-            'tiptap-markdown': path.resolve(__dirname, '..'),
+            'tiptap-markdown': path.resolve(__dirname, '../src/index.js'),
         }
     },
     build: {
