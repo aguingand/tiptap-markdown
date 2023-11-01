@@ -15,7 +15,7 @@ export default defineConfig(() => {
                 entry: path.resolve(__dirname, 'src/index.js'),
                 name: 'tiptap-markdown',
                 fileName: (format) => `tiptap-markdown.${format}.js`,
-                formats: ['es', 'umd', 'cjs'],
+                formats: ['es', 'umd'],
             },
             rollupOptions: {
                 external: [
@@ -24,6 +24,7 @@ export default defineConfig(() => {
                 ],
             },
             sourcemap: true,
+            minify: false,
         },
         plugins: [
             babel({
