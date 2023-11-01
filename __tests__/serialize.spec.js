@@ -204,6 +204,15 @@ describe('serialize', () => {
                     </table>
                 `, { html: true })).toMatchSnapshot();
             });
+            test('multiline cell', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th><p>example1</p><p>example2</p></th>
+                        </tr>
+                    </table>
+                `, { html: true })).toMatchSnapshot();
+            });
         })
         test('html', () => {
             expect(serialize('<block-element></block-element> <block-element>example2</block-element>', {
