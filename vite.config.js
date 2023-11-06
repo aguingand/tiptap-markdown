@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import * as path from 'node:path';
 import { defineConfig } from 'vite';
-import babel from '@rollup/plugin-babel';
+import { babel } from '@rollup/plugin-babel';
 import packageJson from './package.json'
 
 export default defineConfig(() => {
