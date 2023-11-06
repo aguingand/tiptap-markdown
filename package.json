@@ -16,6 +16,7 @@
   "main": "dist/tiptap-markdown.umd.js",
   "module": "dist/tiptap-markdown.es.js",
   "type": "module",
+  "sideEffects": false,
   "exports": {
     ".": {
       "import": "./dist/tiptap-markdown.es.js",
