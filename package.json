@@ -31,7 +31,8 @@
     "@types/markdown-it": "^12.2.3",
     "markdown-it": "^13.0.1",
     "markdown-it-task-lists": "^2.1.1",
-    "prosemirror-markdown": "^1.11.1"
+    "prosemirror-markdown": "^1.11.1",
+    "remark": "^15.0.1"
   },
   "peerDependencies": {
     "@tiptap/core": "^2.0.3"
@@ -54,6 +55,7 @@
     "@tiptap/extension-task-item": "^2.0.3",
     "@tiptap/extension-task-list": "^2.0.3",
     "@tiptap/extension-underline": "^2.0.3",
+    "@tiptap/pm": "^2.1.12",
     "@tiptap/starter-kit": "^2.0.3",
     "@tiptap/vue-3": "^2.0.3",
     "@types/jest": "^28.1.7",
@@ -61,6 +63,8 @@
     "jest": "^27.0.4",
     "jest-serializer-html": "^7.1.0",
     "rollup": "^2.51.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2",
     "update-by-scope": "^1.1.3"
   }
 }

@@ -1,8 +1,9 @@
 import { Extension, extensions } from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
-import { MarkdownSerializer } from "./serialize/MarkdownSerializer";
-import { MarkdownParser } from "./parse/MarkdownParser";
+import { MarkdownSerializer } from "./serializer/MarkdownSerializer";
+import { MarkdownParser } from "./parser/MarkdownParser";
 import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
+import type { RawCommands } from "@tiptap/core";
 
 export const Markdown = Extension.create({
     name: 'markdown',
@@ -20,7 +21,7 @@ export const Markdown = Extension.create({
         }
     },
     addCommands() {
-        const commands = extensions.Commands.config.addCommands();
+        const commands = extensions.Commands.config.addCommands?.() as RawCommands;
         return {
             setContent: (content, emitUpdate, parseOptions) => (props) => {
                 return commands.setContent(
@@ -46,13 +47,13 @@ export const Markdown = Extension.create({
             getMarkdown: () => {
                 return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
             },
+            initialContent: this.editor.options.content,
         }
-        this.editor.options.initialContent = this.editor.options.content;
         this.editor.options.content = this.editor.storage.markdown.parser.parse(this.editor.options.content);
     },
     onCreate() {
-        this.editor.options.content = this.editor.options.initialContent;
-        delete this.editor.options.initialContent;
+        this.editor.options.content = this.editor.storage.markdown.initialContent;
+        delete this.editor.storage.markdown.initialContent;
     },
     addStorage() {
         return {

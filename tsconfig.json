@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "lib": ["dom", "es2017", "es2018", "es2019", "es2020", "es2021", "es2022"],
+    "module": "esnext",
+    "include": ["src"],
+    "compilerOptions": {
+      "emitDeclarationOnly": false,
+      "noEmit": true,
+    },
+    "allowJs": true,
+
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "useUnknownInCatchVariables": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    "importHelpers": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "pretty": true,
+    "preserveWatchOutput": true
+  }
+}
