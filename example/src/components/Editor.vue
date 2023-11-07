@@ -30,12 +30,16 @@
     import TaskList from '@tiptap/extension-task-list'
     import TaskItem from '@tiptap/extension-task-item'
     import CodeBlock from "@tiptap/extension-code-block";
+    import Youtube from "@tiptap/extension-youtube";
+    import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
     import { Markdown } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../data/content.md?raw';
-    // import content from "../data/large-content";
     import Highlight from "../extensions/highlight";
     import Container from "../extensions/container";
+    import { common, createLowlight } from 'lowlight';
+
+    const lowlight = createLowlight(common);
 
     export default {
         components: {
@@ -84,7 +88,11 @@
                     CodeBlock.configure({
                         languageClassPrefix: 'lang-',
                     }),
+                    // CodeBlockLowlight.configure({
+                    //     lowlight,
+                    // }),
                     Container,
+                    Youtube,
                 ],
                 content,
                 onUpdate: () => {

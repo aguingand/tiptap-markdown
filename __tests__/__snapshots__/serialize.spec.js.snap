@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`serialize nodes table header in body 1`] = `
+exports[`serialize > nodes > table > header in body 1`] = `
 <table>
   <tbody>
     <tr>
@@ -25,7 +25,26 @@ exports[`serialize nodes table header in body 1`] = `
 </table>
 `;
 
-exports[`serialize nodes table no header 1`] = `
+exports[`serialize > nodes > table > multiline cell 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th colspan="1"
+          rowspan="1"
+      >
+        <p>
+          example1
+        </p>
+        <p>
+          example2
+        </p>
+      </th>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`serialize > nodes > table > no header 1`] = `
 <table>
   <tbody>
     <tr>
@@ -50,7 +69,7 @@ exports[`serialize nodes table no header 1`] = `
 </table>
 `;
 
-exports[`serialize nodes table with colspan 1`] = `
+exports[`serialize > nodes > table > with colspan 1`] = `
 <table>
   <tbody>
     <tr>
@@ -66,7 +85,7 @@ exports[`serialize nodes table with colspan 1`] = `
 </table>
 `;
 
-exports[`serialize nodes table with rowspan 1`] = `
+exports[`serialize > nodes > table > with rowspan 1`] = `
 <table>
   <tbody>
     <tr>

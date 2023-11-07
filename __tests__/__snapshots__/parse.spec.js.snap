@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`parse marks bold html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > bold > html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "bold",
           },
         ],
@@ -19,13 +19,13 @@ Array [
 ]
 `;
 
-exports[`parse marks bold markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > bold > markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "bold",
           },
         ],
@@ -38,13 +38,13 @@ Array [
 ]
 `;
 
-exports[`parse marks code html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > code > html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "code",
           },
         ],
@@ -57,13 +57,13 @@ Array [
 ]
 `;
 
-exports[`parse marks code markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > code > markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "code",
           },
         ],
@@ -76,13 +76,13 @@ Array [
 ]
 `;
 
-exports[`parse marks italic html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > italic > html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "italic",
           },
         ],
@@ -95,13 +95,13 @@ Array [
 ]
 `;
 
-exports[`parse marks italic markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > italic > markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "italic",
           },
         ],
@@ -114,14 +114,14 @@ Array [
 ]
 `;
 
-exports[`parse marks link html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
-            "attrs": Object {
+exports[`parse > marks > link > html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
               "class": null,
               "href": "http://example.org",
               "target": "_blank",
@@ -138,14 +138,14 @@ Array [
 ]
 `;
 
-exports[`parse marks link markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
-            "attrs": Object {
+exports[`parse > marks > link > markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
               "class": null,
               "href": "http://example.org",
               "target": "_blank",
@@ -162,14 +162,14 @@ Array [
 ]
 `;
 
-exports[`parse marks link markdown with linkify 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
-            "attrs": Object {
+exports[`parse > marks > link > markdown with linkify 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
               "class": null,
               "href": "http://example.org",
               "target": "_blank",
@@ -186,13 +186,13 @@ Array [
 ]
 `;
 
-exports[`parse marks strike html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > strike > html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "strike",
           },
         ],
@@ -205,13 +205,13 @@ Array [
 ]
 `;
 
-exports[`parse marks strike markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "marks": Array [
-          Object {
+exports[`parse > marks > strike > markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
             "type": "strike",
           },
         ],
@@ -224,11 +224,11 @@ Array [
 ]
 `;
 
-exports[`parse marks text link 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > marks > text > link 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "http://example.org",
         "type": "text",
       },
@@ -238,11 +238,11 @@ Array [
 ]
 `;
 
-exports[`parse marks text soft break 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > marks > text > soft break 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example1 example2",
         "type": "text",
       },
@@ -252,11 +252,11 @@ Array [
 ]
 `;
 
-exports[`parse marks text text 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > marks > text > text 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -266,18 +266,18 @@ Array [
 ]
 `;
 
-exports[`parse nodes bullet list html 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > bullet list > html 1`] = `
+[
+  {
+    "attrs": {
       "tight": true,
     },
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example1",
                 "type": "text",
               },
@@ -287,11 +287,11 @@ Array [
         ],
         "type": "listItem",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example2",
                 "type": "text",
               },
@@ -307,18 +307,18 @@ Array [
 ]
 `;
 
-exports[`parse nodes bullet list markdown marker \`*\` 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > bullet list > markdown marker \`*\` 1`] = `
+[
+  {
+    "attrs": {
       "tight": false,
     },
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example1",
                 "type": "text",
               },
@@ -328,11 +328,11 @@ Array [
         ],
         "type": "listItem",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example2",
                 "type": "text",
               },
@@ -348,18 +348,18 @@ Array [
 ]
 `;
 
-exports[`parse nodes bullet list markdown marker \`-\` 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > bullet list > markdown marker \`-\` 1`] = `
+[
+  {
+    "attrs": {
       "tight": false,
     },
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example1",
                 "type": "text",
               },
@@ -369,11 +369,11 @@ Array [
         ],
         "type": "listItem",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example2",
                 "type": "text",
               },
@@ -389,14 +389,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes code block html 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > code block > html 1`] = `
+[
+  {
+    "attrs": {
       "language": null,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -406,14 +406,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes code block markdown 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > code block > markdown 1`] = `
+[
+  {
+    "attrs": {
       "language": null,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -423,14 +423,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes fence markdown 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > fence > markdown 1`] = `
+[
+  {
+    "attrs": {
       "language": null,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -440,14 +440,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes fence markdown with lang 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > fence > markdown with lang 1`] = `
+[
+  {
+    "attrs": {
       "language": "js",
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -457,26 +457,18 @@ Array [
 ]
 `;
 
-exports[`parse nodes fence markdown with languageClassPrefix 1`] = `
-<pre>
-  <code class="lang--js">
-    example
-  </code>
-</pre>
-`;
-
-exports[`parse nodes hard break html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > hard break > html 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example1",
         "type": "text",
       },
-      Object {
+      {
         "type": "hardBreak",
       },
-      Object {
+      {
         "text": "example2",
         "type": "text",
       },
@@ -486,18 +478,18 @@ Array [
 ]
 `;
 
-exports[`parse nodes hard break markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > hard break > markdown 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example1",
         "type": "text",
       },
-      Object {
+      {
         "type": "hardBreak",
       },
-      Object {
+      {
         "text": "example2",
         "type": "text",
       },
@@ -507,18 +499,34 @@ Array [
 ]
 `;
 
-exports[`parse nodes hard break markdown with breaks option 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > hard break > markdown with breaks option + inline 1`] = `
+[
+  {
+    "text": "example1",
+    "type": "text",
+  },
+  {
+    "type": "hardBreak",
+  },
+  {
+    "text": "example2",
+    "type": "text",
+  },
+]
+`;
+
+exports[`parse > nodes > hard break > markdown with breaks option 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example1",
         "type": "text",
       },
-      Object {
+      {
         "type": "hardBreak",
       },
-      Object {
+      {
         "text": "example2",
         "type": "text",
       },
@@ -528,14 +536,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings html h1 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > html h1 1`] = `
+[
+  {
+    "attrs": {
       "level": 1,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -545,14 +553,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings markdown h1 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > markdown h1 1`] = `
+[
+  {
+    "attrs": {
       "level": 1,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -562,14 +570,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings markdown h2 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > markdown h2 1`] = `
+[
+  {
+    "attrs": {
       "level": 2,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -579,14 +587,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings markdown h3 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > markdown h3 1`] = `
+[
+  {
+    "attrs": {
       "level": 3,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -596,14 +604,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings markdown h4 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > markdown h4 1`] = `
+[
+  {
+    "attrs": {
       "level": 4,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -613,14 +621,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings markdown h5 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > markdown h5 1`] = `
+[
+  {
+    "attrs": {
       "level": 5,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -630,14 +638,14 @@ Array [
 ]
 `;
 
-exports[`parse nodes headings markdown h6 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > headings > markdown h6 1`] = `
+[
+  {
+    "attrs": {
       "level": 6,
     },
-    "content": Array [
-      Object {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -647,27 +655,27 @@ Array [
 ]
 `;
 
-exports[`parse nodes hr html 1`] = `
-Array [
-  Object {
+exports[`parse > nodes > hr > html 1`] = `
+[
+  {
     "type": "horizontalRule",
   },
 ]
 `;
 
-exports[`parse nodes hr markdown 1`] = `
-Array [
-  Object {
+exports[`parse > nodes > hr > markdown 1`] = `
+[
+  {
     "type": "horizontalRule",
   },
 ]
 `;
 
-exports[`parse nodes html block 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > html > block 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example",
         "type": "text",
       },
@@ -677,11 +685,11 @@ Array [
 ]
 `;
 
-exports[`parse nodes html disabled 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > html > disabled 1`] = `
+[
+  {
+    "content": [
+      {
         "text": <custom-element>
 </custom-element>,
         "type": "text",
@@ -692,11 +700,11 @@ Array [
 ]
 `;
 
-exports[`parse nodes html inline 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > html > inline 1`] = `
+[
+  {
+    "content": [
+      {
         "type": "html-node",
       },
     ],
@@ -705,10 +713,10 @@ Array [
 ]
 `;
 
-exports[`parse nodes image html 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > image > html 1`] = `
+[
+  {
+    "attrs": {
       "alt": "example",
       "src": "example.jpg",
       "title": null,
@@ -718,10 +726,10 @@ Array [
 ]
 `;
 
-exports[`parse nodes image markdown 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > image > markdown 1`] = `
+[
+  {
+    "attrs": {
       "alt": "example",
       "src": "example.jpg",
       "title": null,
@@ -731,12 +739,12 @@ Array [
 ]
 `;
 
-exports[`parse nodes image markdown inline 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "attrs": Object {
+exports[`parse > nodes > image > markdown inline 1`] = `
+[
+  {
+    "content": [
+      {
+        "attrs": {
           "alt": "example",
           "src": "example.jpg",
           "title": null,
@@ -749,19 +757,19 @@ Array [
 ]
 `;
 
-exports[`parse nodes ordered list html 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > ordered list > html 1`] = `
+[
+  {
+    "attrs": {
       "start": 1,
       "tight": true,
     },
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example1",
                 "type": "text",
               },
@@ -771,11 +779,11 @@ Array [
         ],
         "type": "listItem",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example2",
                 "type": "text",
               },
@@ -791,19 +799,19 @@ Array [
 ]
 `;
 
-exports[`parse nodes ordered list markdown 1`] = `
-Array [
-  Object {
-    "attrs": Object {
+exports[`parse > nodes > ordered list > markdown 1`] = `
+[
+  {
+    "attrs": {
       "start": 1,
       "tight": true,
     },
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example1",
                 "type": "text",
               },
@@ -813,11 +821,11 @@ Array [
         ],
         "type": "listItem",
       },
-      Object {
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
+      {
+        "content": [
+          {
+            "content": [
+              {
                 "text": "example2",
                 "type": "text",
               },
@@ -833,20 +841,20 @@ Array [
 ]
 `;
 
-exports[`parse nodes paragraph html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > paragraph > html 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example1",
         "type": "text",
       },
     ],
     "type": "paragraph",
   },
-  Object {
-    "content": Array [
-      Object {
+  {
+    "content": [
+      {
         "text": "example2",
         "type": "text",
       },
@@ -856,24 +864,20 @@ Array [
 ]
 `;
 
-exports[`parse nodes paragraph markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
+exports[`parse > nodes > paragraph > markdown 1`] = `
+[
+  {
+    "content": [
+      {
         "text": "example1",
         "type": "text",
       },
     ],
     "type": "paragraph",
   },
-  Object {
-    "text": " ",
-    "type": "text",
-  },
-  Object {
-    "content": Array [
-      Object {
+  {
+    "content": [
+      {
         "text": "example2",
         "type": "text",
       },
@@ -883,22 +887,22 @@ Array [
 ]
 `;
 
-exports[`parse nodes table html 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "attrs": Object {
+exports[`parse > nodes > table > html 1`] = `
+[
+  {
+    "content": [
+      {
+        "content": [
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example1",
                     "type": "text",
                   },
@@ -908,16 +912,16 @@ Array [
             ],
             "type": "tableHeader",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example2",
                     "type": "text",
                   },
@@ -930,18 +934,18 @@ Array [
         ],
         "type": "tableRow",
       },
-      Object {
-        "content": Array [
-          Object {
-            "attrs": Object {
+      {
+        "content": [
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example3",
                     "type": "text",
                   },
@@ -951,16 +955,16 @@ Array [
             ],
             "type": "tableCell",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example4",
                     "type": "text",
                   },
@@ -979,22 +983,22 @@ Array [
 ]
 `;
 
-exports[`parse nodes table markdown 1`] = `
-Array [
-  Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "attrs": Object {
+exports[`parse > nodes > table > markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "content": [
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example1",
                     "type": "text",
                   },
@@ -1004,16 +1008,16 @@ Array [
             ],
             "type": "tableHeader",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example2",
                     "type": "text",
                   },
@@ -1026,18 +1030,18 @@ Array [
         ],
         "type": "tableRow",
       },
-      Object {
-        "content": Array [
-          Object {
-            "attrs": Object {
+      {
+        "content": [
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example3",
                     "type": "text",
                   },
@@ -1047,16 +1051,16 @@ Array [
             ],
             "type": "tableCell",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "colspan": 1,
               "colwidth": null,
               "rowspan": 1,
             },
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
+            "content": [
+              {
+                "content": [
+                  {
                     "text": "example4",
                     "type": "text",
                   },
@@ -1075,18 +1079,18 @@ Array [
 ]
 `;
 
-exports[`parse options inline text 1`] = `
-Array [
-  Object {
+exports[`parse > options > inline > text 1`] = `
+[
+  {
     "text": "example",
     "type": "text",
   },
 ]
 `;
 
-exports[`parse options inline text with spaces 1`] = `
-Array [
-  Object {
+exports[`parse > options > inline > text with spaces 1`] = `
+[
+  {
     "text": "  example ",
     "type": "text",
   },

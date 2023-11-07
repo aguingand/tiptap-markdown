@@ -45,8 +45,15 @@ export class MarkdownParser {
         return content;
     }
 
-    normalizeDOM(node, { inline, content } = {}) {
+    normalizeDOM(node, { inline, content }) {
         this.normalizeBlocks(node);
+
+        // remove all \n appended by markdown-it
+        node.querySelectorAll('*').forEach(el => {
+            if(el.nextSibling?.nodeType === Node.TEXT_NODE && !el.closest('pre')) {
+                el.nextSibling.textContent = el.nextSibling.textContent.replace(/^\n/, '');
+            }
+        });
 
         if(inline) {
             this.normalizeInline(node, content);
@@ -84,10 +91,6 @@ export class MarkdownParser {
             const endSpaces = !nextElementSibling
                 ? content.match(/\s+$/)?.[0] ?? ''
                 : '';
-
-            if(nextSibling?.nodeType === Node.TEXT_NODE) {
-                nextSibling.textContent = nextSibling.textContent.replace(/^\n/, '');
-            }
 
             if(content.match(/^\n\n/)) {
                 firstParagraph.innerHTML = `${firstParagraph.innerHTML}${endSpaces}`;

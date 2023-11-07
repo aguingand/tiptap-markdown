@@ -31,7 +31,7 @@ function serializeHTML(node, parent) {
     const schema = node.type.schema;
     const html = getHTMLFromFragment(Fragment.from(node), schema);
 
-    if(node.isBlock && parent.type.name === schema.topNodeType.name) {
+    if(node.isBlock && (parent instanceof Fragment || parent.type.name === schema.topNodeType.name)) {
         return formatBlock(html);
     }
 

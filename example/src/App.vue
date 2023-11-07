@@ -1,3 +1,7 @@
+<script setup>
+    import Editor from "./components/Editor.vue";
+</script>
+
 <template>
     <div class="container">
         <Editor />
@@ -5,13 +9,7 @@
 </template>
 
 <script>
-    import Editor from "./components/Editor.vue";
-
-    export default {
-        components: {
-            Editor,
-        },
-    }
+    import 'bootstrap/dist/css/bootstrap.css';
 </script>
 
 <style lang="scss" src="./app.scss">
