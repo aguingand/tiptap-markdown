@@ -1,22 +1,24 @@
-import type { Attrs, MarkType, Node, NodeType, Schema } from '@tiptap/pm/model'
+import type { Attrs, MarkType, Node, NodeType } from '@tiptap/pm/model'
 import { createNodeInParserFail, parserMatchError, stackOverFlow } from '../errors'
 import { Mark } from '@tiptap/pm/model'
-import type { MarkSchema, MarkdownNode, NodeSchema, RemarkParser } from '../types'
+import type { MarkdownNode, RemarkParser } from '../types'
 import { Stack } from '../util/Stack';
 
 import { ParserStackElement } from './ParserStackElement';
+import {Editor} from "@tiptap/core";
+import {getMarkdownSpec} from "../util/extensions";
 
 /// A state machine for parser. Transform remark AST into prosemirror state.
 export class ParserState extends Stack<Node, ParserStackElement> {
     /// The schema in current editor.
-    readonly schema: Schema
+    readonly editor: Editor
 
     /// @internal
     #marks: readonly Mark[] = Mark.none
 
-    constructor(schema: Schema) {
+    constructor(editor: Editor) {
         super()
-        this.schema = schema
+        this.editor = editor
     }
 
     /// @internal
@@ -25,17 +27,17 @@ export class ParserState extends Stack<Node, ParserStackElement> {
     /// @internal
     #maybeMerge = (a: Node, b: Node): Node | undefined => {
         if (this.#hasText(a) && this.#hasText(b) && Mark.sameSet(a.marks, b.marks))
-            return this.schema.text(a.text + b.text, a.marks)
+            return this.editor.schema.text(a.text + b.text, a.marks)
 
         return undefined
     }
 
     /// @internal
     #matchTarget = (node: MarkdownNode): NodeType | MarkType => {
-        const result = Object.values({ ...this.schema.nodes, ...this.schema.marks })
+        const result = Object.values({ ...this.editor.schema.nodes, ...this.editor.schema.marks })
             .find((x): x is (NodeType | MarkType) => {
-                const spec = x.spec as NodeSchema | MarkSchema
-                return spec.parseMarkdown.match(node)
+                const spec = getMarkdownSpec(this.editor, x);
+                return !!spec?.parseMarkdown?.match(node)
             })
 
         if (!result)
@@ -47,9 +49,9 @@ export class ParserState extends Stack<Node, ParserStackElement> {
     /// @internal
     #runNode = (node: MarkdownNode) => {
         const type = this.#matchTarget(node)
-        const spec = type.spec as NodeSchema | MarkSchema
+        const spec = getMarkdownSpec(this.editor, type);
 
-        spec.parseMarkdown.runner(this, node, type as NodeType & MarkType)
+        spec?.parseMarkdown?.handle(this, node, type as NodeType & MarkType)
     }
 
     /// Inject root node for prosemirror state.
@@ -119,7 +121,7 @@ export class ParserState extends Stack<Node, ParserStackElement> {
             throw stackOverFlow()
 
         const prevNode = topElement.pop()
-        const currNode = this.schema.text(text, this.#marks)
+        const currNode = this.editor.schema.text(text, this.#marks)
 
         if (!prevNode) {
             topElement.push(currNode)

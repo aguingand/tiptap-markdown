@@ -1,6 +1,7 @@
 import type { Mark, Node } from '@tiptap/pm/model'
 
 import type { SerializerState } from './SerializerState';
+import {SpecContext} from "../types";
 
 /// The serializer type which is used to transform prosemirror node into markdown text.
 export type Serializer = (content: Node) => string
@@ -13,7 +14,7 @@ export interface NodeSerializerSpec {
     /// ```typescript
     /// match: (node) => node.type.name === 'paragraph'
     /// ```
-    match: (node: Node) => boolean
+    // match: (node: Node) => boolean
     /// The runner function to transform the node into markdown text.
     /// Generally, you should call methods in `state` to add node to state.
     /// For example:
@@ -26,7 +27,8 @@ export interface NodeSerializerSpec {
     ///     .closeNode();
     /// }
     /// ```
-    runner: (state: SerializerState, node: Node) => void
+    // runner: (state: SerializerState, node: Node) => void
+    (this: SpecContext, state: SerializerState, node: Node): void
 }
 
 /// The spec for mark serializer in schema.
@@ -37,7 +39,7 @@ export interface MarkSerializerSpec {
     /// ```typescript
     /// match: (mark) => mark.type.name === 'emphasis'
     /// ```
-    match: (mark: Mark) => boolean
+    // match: (mark: Mark) => boolean
     /// The runner function to transform the node into markdown text.
     /// Generally, you should call methods in `state` to add mark to state.
     /// For example:
@@ -47,5 +49,6 @@ export interface MarkSerializerSpec {
     ///   state.withMark(mark, 'emphasis');
     /// }
     /// ```
-    runner: (state: SerializerState, mark: Mark, node: Node) => void | boolean
+    // runner: (state: SerializerState, mark: Mark, node: Node) => void | boolean
+    (this: SpecContext, state: SerializerState, mark: Mark, node: Node): void | boolean
 }

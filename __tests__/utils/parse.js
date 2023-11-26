@@ -20,15 +20,17 @@ export function parse(content, options = {}, asHTML = false) {
     });
 
     const parsed = editor.storage.markdown.parser.parse(content, { inline });
-    const fragment = DOMParser.fromSchema(editor.schema)
-        .parseSlice(elementFromString(parsed), {
-            preserveWhitespace: inline ? 'full' : false,
-        })
-        .content;
 
-    if(asHTML) {
-        return getHTMLFromFragment(fragment, editor.schema);
-    }
-
-    return fragment.toJSON();
+    return parsed.content;
+    // const fragment = DOMParser.fromSchema(editor.schema)
+    //     .parseSlice(elementFromString(parsed), {
+    //         preserveWhitespace: inline ? 'full' : false,
+    //     })
+    //     .content;
+    //
+    // if(asHTML) {
+    //     return getHTMLFromFragment(fragment, editor.schema);
+    // }
+    //
+    // return fragment.toJSON();
 }

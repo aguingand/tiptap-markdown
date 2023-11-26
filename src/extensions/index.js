@@ -1,10 +1,11 @@
 import Blockquote from "./nodes/blockquote";
 import BulletList from "./nodes/bullet-list";
 import CodeBlock from "./nodes/code-block";
+import Document from "./nodes/document";
 import HardBreak from "./nodes/hard-break";
 import Heading from "./nodes/heading";
 import HorizontalRule from "./nodes/horizontal-rule";
-import HTMLNode from "./nodes/html";
+import { HtmlNode } from "./nodes/html";
 import Image from "./nodes/image";
 import ListItem from "./nodes/list-item";
 import OrderedList from "./nodes/ordered-list";
@@ -26,10 +27,11 @@ export default [
     Blockquote,
     BulletList,
     CodeBlock,
+    Document,
     HardBreak,
     Heading,
     HorizontalRule,
-    HTMLNode,
+    HtmlNode,
     Image,
     ListItem,
     OrderedList,

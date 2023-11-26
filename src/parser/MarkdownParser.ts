@@ -3,20 +3,33 @@ import { unified } from "unified";
 import remarkParse from 'remark-parse';
 import remarkStringify from 'remark-stringify';
 import { ParserState } from "./ParserState";
+import {remarkMarker} from "../remark-plugins/remark-marker-plugin";
+
+type ParserOptions = {
+    html: boolean,
+    linkify: boolean,
+    breaks: boolean,
+}
 
 export class MarkdownParser {
     editor: Editor;
+    options: ParserOptions;
 
-    constructor(editor: Editor, { html, linkify, breaks }) {
+    constructor(editor: Editor, options: ParserOptions) {
         this.editor = editor;
+        this.options = options;
     }
 
-    async parse(content: Content) {
+    parse(content: Content): Content {
         if(typeof content === 'string') {
-            const remark = unified().use(remarkParse).use(remarkStringify);
-            const state = new ParserState(this.editor.schema);
-            state.run(remark, content);
-            return state.toDoc();
+            // todo handle options
+            const remark = unified()
+                .use(remarkParse)
+                .use(remarkStringify)
+                .use(remarkMarker)
+            const state = new ParserState(this.editor);
+            const parsed = state.run(remark, content).toDoc().toJSON();
+            return parsed;
         }
 
         return content;

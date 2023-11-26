@@ -1,5 +1,6 @@
 import type { MarkType, Node, NodeType } from '@tiptap/pm/model'
-import type { MarkdownNode } from '../types'
+import type {MarkdownNode, SpecContext} from '../types'
+// import type { PhrasingContent, RootContent } from 'mdast';
 
 import type { ParserState } from './ParserState'
 
@@ -27,7 +28,7 @@ export interface NodeParserSpec {
     ///     .closeNode();
     /// }
     /// ```
-    runner: (state: ParserState, node: MarkdownNode, proseType: NodeType) => void
+    handle: (this: SpecContext, state: ParserState, node: MarkdownNode, proseType: NodeType) => void
 }
 
 /// The spec for mark parser in schema.
@@ -51,5 +52,5 @@ export interface MarkParserSpec {
     ///     .closeMark(type)
     /// }
     /// ```
-    runner: (state: ParserState, node: MarkdownNode, proseType: MarkType) => void
+    handle: (this: SpecContext, state: ParserState, node: MarkdownNode, proseType: MarkType) => void
 }

@@ -1,25 +1,17 @@
 import { Node } from "@tiptap/core";
-import { NodeSchema } from "../../types";
+import type { Root as MarkdownRoot } from 'mdast';
 
-
-const Document = Node.create({ name: 'document' });
+const Document = Node.create({ name: 'doc' });
 
 export default Document.extend({
-    extendNodeSchema(): NodeSchema {
-        return {
-            parseMarkdown: {
-                match: ({ type }) => type === 'root',
-                runner: (state, node, type) => {
-                    state.injectRoot(node, type)
-                },
-            },
-            toMarkdown: {
-                match: node => node.type.name === 'document',
-                runner: (state, node) => {
-                    state.openNode('root')
-                    state.next(node.content)
-                },
-            },
-        }
+    parseMarkdown: {
+        match: node => node.type === 'root',
+        handle(state, node: MarkdownRoot, type) {
+            state.injectRoot(node, type)
+        },
+    },
+    toMarkdown(state, node)  {
+        state.openNode('root')
+        state.next(node.content)
     },
 })

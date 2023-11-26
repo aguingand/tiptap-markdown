@@ -17,6 +17,7 @@ describe('parse', () => {
         describe('bold', () => {
             test('markdown', () => {
                 expect(parse('**example**')).toMatchSnapshot();
+                expect(parse('__example__')).toMatchSnapshot();
             });
             test('html', () => {
                 expect(parse('<b>example</b>')).toMatchSnapshot();
@@ -25,6 +26,7 @@ describe('parse', () => {
         describe('italic', () => {
             test('markdown', () => {
                 expect(parse('*example*')).toMatchSnapshot();
+                expect(parse('_example_')).toMatchSnapshot();
             });
             test('html', () => {
                 expect(parse('<em>example</em>')).toMatchSnapshot();

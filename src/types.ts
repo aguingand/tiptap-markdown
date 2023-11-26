@@ -1,9 +1,10 @@
-import type { MarkSpec, NodeSpec } from '@tiptap/pm/model'
 import type { remark } from 'remark'
 import type { Plugin, /*Transformer*/ } from 'unified'
 import type { Node } from 'unist';
 import type { MarkParserSpec, NodeParserSpec } from './parser/types'
 import type { MarkSerializerSpec, NodeSerializerSpec } from './serializer/types'
+import {Editor} from "@tiptap/core";
+// import type {  Nodes } from "mdast";
 
 /// @internal
 // export type Node = Parameters<Transformer>[0]
@@ -30,22 +31,30 @@ export interface RemarkPlugin<T = Record<string, unknown>> {
 export type RemarkParser = ReturnType<typeof remark>
 
 /// The universal type of a node in [mdast](https://github.com/syntax-tree/mdast).
-export type MarkdownNode = Node & { children?: MarkdownNode[]; [x: string]: unknown }
+export type MarkdownNode = Node & { children?: MarkdownNode[]; [x: string]: unknown } | any;
+// export type MarkdownNode = Nodes;
 
-/// Schema spec for node. It is a super set of [NodeSpec](https://prosemirror.net/docs/ref/#model.NodeSpec).
-export interface NodeSchema extends NodeSpec {
+
+export type MarkdownNodeConfig = {
     /// To markdown serializer spec.
     readonly toMarkdown: NodeSerializerSpec
     /// Parse markdown serializer spec.
     readonly parseMarkdown: NodeParserSpec
-    /// The priority of the node, by default it's 50.
-    readonly priority?: number
 }
 
-/// Schema spec for mark. It is a super set of [MarkSpec](https://prosemirror.net/docs/ref/#model.MarkSpec).
-export interface MarkSchema extends MarkSpec {
+export type MarkdownMarkConfig = {
     /// To markdown serializer spec.
     readonly toMarkdown: MarkSerializerSpec
     /// Parse markdown serializer spec.
     readonly parseMarkdown: MarkParserSpec
+}
+
+export type SpecContext<Options = any> = {
+    options: Options,
+    editor: Editor,
+}
+
+declare module '@tiptap/core' {
+    interface NodeConfig<Options = any, Storage = any> extends MarkdownNodeConfig {}
+    interface MarkConfig<Options = any, Storage = any> extends MarkdownMarkConfig {}
 }
