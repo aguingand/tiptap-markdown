@@ -21,7 +21,8 @@
   "exports": {
     ".": {
       "import": "./dist/tiptap-markdown.es.js",
-      "require": "./dist/tiptap-markdown.umd.js"
+      "require": "./dist/tiptap-markdown.umd.js",
+      "types": "./index.d.ts"
     }
   },
   "files": [
