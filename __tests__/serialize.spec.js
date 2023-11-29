@@ -77,6 +77,8 @@ describe('serialize', () => {
         test('ordered list', () => {
             expect(serialize('<ol><li>example1</li><li>example2</li></ol>'))
                 .toEqual('1. example1\n2. example2');
+            expect(serialize('<ol start="10"><li>example1</li><li>example2</li></ol>'))
+                .toEqual('10. example1\n11. example2');
         });
         test('fence', () => {
             expect(serialize('<pre><code class="language-js">example</code></pre>')).toEqual('```js\nexample\n```');
