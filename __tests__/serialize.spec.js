@@ -168,6 +168,18 @@ describe('serialize', () => {
                     | --- | --- |
                 `);
             });
+            test('cell with hard break', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th><p>example1 <br> example2</p></th>
+                        </tr>
+                    </table>
+                `, { html: true })).toEqual(dedent`
+                    | example1 <br> example2 |
+                    | --- |
+                `);
+            });
             test('no header', () => {
                 expect(serialize(dedent`
                     <table>
