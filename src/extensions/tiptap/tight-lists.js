@@ -37,7 +37,7 @@ export const MarkdownTightLists = Extension.create({
                     }
                     const attrs = editor.getAttributes(name);
                     return commands.updateAttributes(name, {
-                        tight: tight ?? !attrs?.tight,
+                        tight: tight ? tight : (!attrs?.tight),
                     });
                 }
                 return this.options.listTypes
