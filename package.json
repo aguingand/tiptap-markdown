@@ -45,8 +45,8 @@
   "author": "Antoine Guingand",
   "license": "MIT",
   "dependencies": {
-    "@types/markdown-it": "^12.2.3",
-    "markdown-it": "^13.0.1",
+    "@types/markdown-it": "^13.0.7",
+    "markdown-it": "^14.1.0",
     "markdown-it-task-lists": "^2.1.1",
     "prosemirror-markdown": "^1.11.1"
   },
