@@ -68,6 +68,7 @@
     "@tiptap/extension-task-item": "^2.2.6",
     "@tiptap/extension-task-list": "^2.2.6",
     "@tiptap/extension-underline": "^2.2.6",
+    "@tiptap/pm": "^2.2.6",
     "@tiptap/starter-kit": "^2.2.6",
     "@tiptap/vue-3": "^2.2.6",
     "@types/jest": "^28.1.7",
