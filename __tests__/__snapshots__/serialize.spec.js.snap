@@ -1,7 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`serialize > nodes > table > header in body 1`] = `
-<table>
+<table style="minWidth: 25px">
+  <colgroup>
+    <col>
+  </colgroup>
   <tbody>
     <tr>
       <th colspan="1"
@@ -26,7 +29,10 @@ exports[`serialize > nodes > table > header in body 1`] = `
 `;
 
 exports[`serialize > nodes > table > multiline cell 1`] = `
-<table>
+<table style="minWidth: 25px">
+  <colgroup>
+    <col>
+  </colgroup>
   <tbody>
     <tr>
       <th colspan="1"
@@ -45,7 +51,10 @@ exports[`serialize > nodes > table > multiline cell 1`] = `
 `;
 
 exports[`serialize > nodes > table > no header 1`] = `
-<table>
+<table style="minWidth: 25px">
+  <colgroup>
+    <col>
+  </colgroup>
   <tbody>
     <tr>
       <td colspan="1"
@@ -70,7 +79,11 @@ exports[`serialize > nodes > table > no header 1`] = `
 `;
 
 exports[`serialize > nodes > table > with colspan 1`] = `
-<table>
+<table style="minWidth: 50px">
+  <colgroup>
+    <col>
+    <col>
+  </colgroup>
   <tbody>
     <tr>
       <th colspan="2"
@@ -86,7 +99,10 @@ exports[`serialize > nodes > table > with colspan 1`] = `
 `;
 
 exports[`serialize > nodes > table > with rowspan 1`] = `
-<table>
+<table style="minWidth: 25px">
+  <colgroup>
+    <col>
+  </colgroup>
   <tbody>
     <tr>
       <th colspan="1"

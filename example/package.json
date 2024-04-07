@@ -2,6 +2,7 @@
   "private": true,
   "name": "example",
   "version": "0.0.0",
+  "type": "module",
   "dependencies": {
     "@tiptap/extension-code-block-lowlight": "^2.1.12",
     "@tiptap/extension-youtube": "^2.1.12",
@@ -12,8 +13,8 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/compiler-sfc": "^3.2.47",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/compiler-sfc": "^3.4.21",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.32.10"
   }
