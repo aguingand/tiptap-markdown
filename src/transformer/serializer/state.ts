@@ -1,17 +1,17 @@
-import { serializerMatchError } from '../errors'
+import { serializerMatchError } from '../../errors'
 import type { Fragment, MarkType, Node, NodeType, Schema } from '@tiptap/pm/model'
 import { Mark } from '@tiptap/pm/model'
 
-import type { JSONRecord, MarkSchema, MarkdownNode, NodeSchema, RemarkParser, Root } from '../types'
-import { Stack } from '../util/Stack';
-import { SerializerStackElement } from './SerializerStackElement'
+import type { JSONRecord, MarkSchema, MarkdownNode, NodeSchema, RemarkParser, Root } from '../../types'
+import { Stack } from '../utility/stack';
+import { StackElement } from './stack-element'
 import type { Serializer } from './types'
 
 const isFragment = (x: Node | Fragment): x is Fragment => Object.prototype.hasOwnProperty.call(x, 'size')
 
 /// State for serializer.
 /// Transform prosemirror state into remark AST.
-export class SerializerState extends Stack<MarkdownNode, SerializerStackElement> {
+export class State extends Stack<MarkdownNode, StackElement> {
     /// @internal
     #marks: readonly Mark[] = Mark.none
     /// Get the schema of state.
@@ -149,7 +149,7 @@ export class SerializerState extends Stack<MarkdownNode, SerializerStackElement>
     }
 
     /// @internal
-    #createMarkdownNode = (element: SerializerStackElement) => {
+    #createMarkdownNode = (element: StackElement) => {
         const node: MarkdownNode = {
             ...element.props,
             type: element.type,
@@ -167,7 +167,7 @@ export class SerializerState extends Stack<MarkdownNode, SerializerStackElement>
     /// Open a new node, the next operations will
     /// add nodes into that new node until `closeNode` is called.
     openNode = (type: string, value?: string, props?: JSONRecord) => {
-        this.open(SerializerStackElement.create(type, undefined, value, props))
+        this.open(StackElement.create(type, undefined, value, props))
         return this
     }
 
@@ -185,7 +185,7 @@ export class SerializerState extends Stack<MarkdownNode, SerializerStackElement>
 
     /// @internal
     #addNodeAndPush = (type: string, children?: MarkdownNode[], value?: string, props?: JSONRecord): MarkdownNode => {
-        const element = SerializerStackElement.create(type, children, value, props)
+        const element = StackElement.create(type, children, value, props)
         const node: MarkdownNode = this.#maybeMergeChildren(this.#createMarkdownNode(element))
         this.push(node)
         return node

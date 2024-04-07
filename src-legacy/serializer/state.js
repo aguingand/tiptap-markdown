@@ -1,5 +1,5 @@
 import { MarkdownSerializerState as BaseMarkdownSerializerState } from "prosemirror-markdown";
-import { trimInline } from "../util/markdown";
+import { trimInline } from "../../src/util/markdown.js";
 
 
 /**

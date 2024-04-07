@@ -1,8 +1,9 @@
 
 import type { Attrs, Node, NodeType } from '@tiptap/pm/model'
-import { StackElement } from '../util/StackElement';
 
-export class ParserStackElement extends StackElement<Node> {
+import { StackElement } from "../utility/stack";
+
+export class StackElement extends StackElement<Node> {
     constructor(public type: NodeType, public content: Node[], public attrs?: Attrs) {
         super()
     }
@@ -16,6 +17,6 @@ export class ParserStackElement extends StackElement<Node> {
     }
 
     static create(type: NodeType, content: Node[], attrs?: Attrs) {
-        return new ParserStackElement(type, content, attrs)
+        return new StackElement(type, content, attrs)
     }
 }

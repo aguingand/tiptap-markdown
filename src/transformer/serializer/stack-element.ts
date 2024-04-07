@@ -1,7 +1,8 @@
-import type { JSONRecord, MarkdownNode } from '../types'
-import { StackElement } from '../util/StackElement'
+import type { JSONRecord, MarkdownNode } from '../../types'
 
-export class SerializerStackElement extends StackElement<MarkdownNode> {
+import { StackElement } from "../utility/stack";
+
+export class StackElement extends StackElement<MarkdownNode> {
     constructor(
         public type: string,
         public children?: MarkdownNode[],
@@ -16,7 +17,7 @@ export class SerializerStackElement extends StackElement<MarkdownNode> {
         children?: MarkdownNode[],
         value?: string,
         props: JSONRecord = {},
-    ) => new SerializerStackElement(type, children, value, props)
+    ) => new StackElement(type, children, value, props)
 
     push = (node: MarkdownNode, ...rest: MarkdownNode[]) => {
         if (!this.children)

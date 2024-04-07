@@ -1,8 +1,8 @@
 import type { MarkType, Node, NodeType } from '@tiptap/pm/model'
-import type {MarkdownNode, SpecContext} from '../types'
+import type {MarkdownNode, SpecContext} from '../../types'
 // import type { PhrasingContent, RootContent } from 'mdast';
 
-import type { ParserState } from './ParserState'
+import type { State } from './state'
 
 /// The parser type which is used to transform markdown text into prosemirror node.
 export type Parser = (text: string) => Node
@@ -28,7 +28,7 @@ export interface NodeParserSpec {
     ///     .closeNode();
     /// }
     /// ```
-    handle: (this: SpecContext, state: ParserState, node: MarkdownNode, proseType: NodeType) => void
+    handle: (this: SpecContext, state: State, node: MarkdownNode, proseType: NodeType) => void
 }
 
 /// The spec for mark parser in schema.
@@ -52,5 +52,5 @@ export interface MarkParserSpec {
     ///     .closeMark(type)
     /// }
     /// ```
-    handle: (this: SpecContext, state: ParserState, node: MarkdownNode, proseType: MarkType) => void
+    handle: (this: SpecContext, state: State, node: MarkdownNode, proseType: MarkType) => void
 }

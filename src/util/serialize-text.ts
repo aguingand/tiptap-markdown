@@ -1,9 +1,9 @@
 /* Copyright 2021, Milkdown by Mirone. */
-import type { SerializerState } from './SerializerState';
+import type { State } from '../transformer/serializer/state';
 import type { Node } from '@tiptap/pm/model'
 import { Fragment } from '@tiptap/pm/model'
 
-export function serializeText(state: SerializerState, node: Node) {
+export function serializeText(state: State, node: Node) {
   const lastIsHardBreak
     = node.childCount >= 1 && node.lastChild?.type.name === 'hardbreak'
   if (!lastIsHardBreak) {

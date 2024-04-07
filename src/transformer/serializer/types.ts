@@ -1,7 +1,7 @@
 import type { Mark, Node } from '@tiptap/pm/model'
 
-import type { SerializerState } from './SerializerState';
-import {SpecContext} from "../types";
+import type { State } from './state';
+import {SpecContext} from "../../types";
 
 /// The serializer type which is used to transform prosemirror node into markdown text.
 export type Serializer = (content: Node) => string
@@ -28,7 +28,7 @@ export interface NodeSerializerSpec {
     /// }
     /// ```
     // runner: (state: SerializerState, node: Node) => void
-    (this: SpecContext, state: SerializerState, node: Node): void
+    (this: SpecContext, state: State, node: Node): void
 }
 
 /// The spec for mark serializer in schema.
@@ -50,5 +50,5 @@ export interface MarkSerializerSpec {
     /// }
     /// ```
     // runner: (state: SerializerState, mark: Mark, node: Node) => void | boolean
-    (this: SpecContext, state: SerializerState, mark: Mark, node: Node): void | boolean
+    (this: SpecContext, state: State, mark: Mark, node: Node): void | boolean
 }

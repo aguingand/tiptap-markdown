@@ -1,7 +1,7 @@
 import {Extension, extensions, getSchemaByResolvedExtensions, Mark, Node, NodeConfig} from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
-import { MarkdownSerializer } from "./serializer/MarkdownSerializer";
-import { MarkdownParser } from "./parser/MarkdownParser";
+import { MarkdownSerializer } from "../src-legacy/serializer/MarkdownSerializer";
+import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
 import type { RawCommands } from "@tiptap/core";
 import markdownExtensions from "./extensions";

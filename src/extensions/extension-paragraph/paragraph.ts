@@ -1,5 +1,5 @@
 import { Node } from "@tiptap/core";
-import { serializeText } from "../../serializer/serialize-text";
+import { serializeText } from "../../util/serialize-text";
 import type { Paragraph as MarkdownParagraph } from 'mdast';
 
 const Paragraph = Node.create({

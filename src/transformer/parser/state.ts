@@ -1,15 +1,15 @@
 import type { Attrs, MarkType, Node, NodeType } from '@tiptap/pm/model'
-import { createNodeInParserFail, parserMatchError, stackOverFlow } from '../errors'
+import { createNodeInParserFail, parserMatchError, stackOverFlow } from '../../errors'
 import { Mark } from '@tiptap/pm/model'
-import type { MarkdownNode, RemarkParser } from '../types'
-import { Stack } from '../util/Stack';
+import type { MarkdownNode, RemarkParser } from '../../types'
+import { Stack } from '../utility/stack';
 
-import { ParserStackElement } from './ParserStackElement';
+import { StackElement } from './stack-element';
 import {Editor} from "@tiptap/core";
-import {getMarkdownSpec} from "../util/extensions";
+import {getMarkdownSpec} from "../../util/extensions";
 
 /// A state machine for parser. Transform remark AST into prosemirror state.
-export class ParserState extends Stack<Node, ParserStackElement> {
+export class State extends Stack<Node, StackElement> {
     /// The schema in current editor.
     readonly editor: Editor
 
@@ -65,7 +65,7 @@ export class ParserState extends Stack<Node, ParserStackElement> {
     /// Open a new node, the next operations will
     /// add nodes into that new node until `closeNode` is called.
     openNode = (nodeType: NodeType, attrs?: Attrs) => {
-        this.open(ParserStackElement.create(nodeType, [], attrs))
+        this.open(StackElement.create(nodeType, [], attrs))
         return this
     }
 
