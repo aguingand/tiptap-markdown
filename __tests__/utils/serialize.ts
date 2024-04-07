@@ -1,13 +1,9 @@
 import { DOMParser } from "prosemirror-model";
-import { createEditor } from "./editor";
+import { createEditor, TestEditorOptions } from "./editor";
 import { elementFromString } from "../../src/util/dom";
 
-export function serialize(content, { htmlNode, htmlMark, ...markdownOptions } = {}) {
-    const editor = createEditor({
-        htmlNode,
-        htmlMark,
-        markdownOptions,
-    });
+export function serialize(content: string, options: TestEditorOptions = {}) {
+    const editor = createEditor(options);
     const doc = DOMParser.fromSchema(editor.schema)
         .parse(elementFromString(content), {
             preserveWhitespace: true, // to ensure whitespaces handling

@@ -49,8 +49,14 @@
     "markdown-it": "^14.1.0",
     "markdown-it-task-lists": "^2.1.1",
     "prosemirror-markdown": "^1.11.1",
+    "rehype": "^13.0.1",
+    "rehype-minify-whitespace": "^6.0.0",
+    "rehype-raw": "^7.0.0",
+    "rehype-remark": "^10.0.0",
     "remark": "^15.0.1",
-    "remark-gfm": "^4.0.0"
+    "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.0",
+    "remark-rehype": "^11.1.0"
   },
   "peerDependencies": {
     "@tiptap/core": "^2.0.3"
@@ -76,6 +82,7 @@
     "@types/jest": "^28.1.7",
     "jest-serializer-html": "^7.1.0",
     "jsdom": "^22.1.0",
+    "mdast-util-to-hast": "^13.1.0",
     "terser": "^5.24.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",

@@ -6,13 +6,13 @@ const Text = Node.create({
 });
 
 export default Text.extend({
-    parseMarkdown: {
-        match: node => node.type === 'text',
-        handle(state, node: MarkdownText) {
-            state.addText(node.value)
-        },
-    },
-    toMarkdown(state, node) {
-        state.addNode('text', undefined, node.text)
-    }
+    // parseMarkdown: {
+    //     match: node => node.type === 'text',
+    //     handle(state, node: MarkdownText) {
+    //         state.addText(node.value)
+    //     },
+    // },
+    // toMarkdown(state, node) {
+    //     state.addNode('text', undefined, node.text)
+    // }
 });

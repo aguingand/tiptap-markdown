@@ -1,5 +1,5 @@
 
-export { parse } from './parse';
+export { parse } from './parse.js';
 export { serialize } from './serialize';
 
 export function dedent(str) {

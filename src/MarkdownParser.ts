@@ -1,9 +1,13 @@
 import { Content, Editor } from "@tiptap/core";
 import { unified } from "unified";
 import remarkParse from 'remark-parse';
-import remarkStringify from 'remark-stringify';
-import { State } from "./transformer/parser/state";
-import {remarkMarker} from "./remark-plugins/remark-marker-plugin";
+import remarkRehype from 'remark-rehype';
+import remarkBreaks from 'remark-breaks';
+import rehypeStringify from 'rehype-stringify';
+import rehypeRaw from 'rehype-raw';
+import rehypeMinifyWhitespace from 'rehype-minify-whitespace';
+import { remarkGfm } from "./remark-plugins/remark-gfm";
+import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
 
 type ParserOptions = {
     html: boolean,
@@ -22,13 +26,25 @@ export class MarkdownParser {
 
     parse(content: Content): Content {
         if(typeof content === 'string') {
-            // todo handle options
-            const remark = unified()
-                .use(remarkParse)
-                .use(remarkStringify)
-                .use(remarkMarker)
-            const state = new State(this.editor);
-            const parsed = state.run(remark, content).toDoc().toJSON();
+            const remark = unified();
+
+            this.editor.extensionManager.extensions.forEach(extension => {
+                extension.config.fromMarkdown?.({
+                    remark,
+                    remarkRehype,
+                    remarkRehypeDefaultHandlers,
+                });
+            });
+
+            remark.use(remarkParse)
+                .use(remarkGfm, { autolink: this.options.linkify })
+                .use(this.options.breaks ? [remarkBreaks] : [])
+                .use(remarkRehype, { allowDangerousHtml: true })
+                .use(this.options.html ? [rehypeRaw] : [])
+                .use(rehypeMinifyWhitespace)
+                .use(rehypeStringify);
+
+            const parsed = String(remark.processSync(content));
             return parsed;
         }
 

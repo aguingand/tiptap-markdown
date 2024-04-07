@@ -1,6 +1,6 @@
-import {Extension, extensions, getSchemaByResolvedExtensions, Mark, Node, NodeConfig} from '@tiptap/core';
+import {Extension, extensions, getSchemaByResolvedExtensions} from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
-import { MarkdownSerializer } from "../src-legacy/serializer/MarkdownSerializer";
+// import { MarkdownSerializer } from "../src-legacy/serializer/MarkdownSerializer";
 import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
 import type { RawCommands } from "@tiptap/core";
@@ -59,13 +59,15 @@ export const Markdown = Extension.create({
         this.editor.storage.markdown = {
             options: { ...this.options },
             parser: new MarkdownParser(this.editor, this.options),
-            serializer: new MarkdownSerializer(this.editor),
+            // serializer: new MarkdownSerializer(this.editor),
             getMarkdown: () => {
                 return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
             },
             initialContent: this.editor.options.content,
         }
-        this.editor.options.content = this.editor.storage.markdown.parser.parse(this.editor.options.content);
+        if(this.editor.options.content) {
+            this.editor.options.content = this.editor.storage.markdown.parser.parse(this.editor.options.content);
+        }
     },
     onCreate() {
         this.editor.options.content = this.editor.storage.markdown.initialContent;

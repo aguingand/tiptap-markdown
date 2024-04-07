@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { parse, dedent } from './utils';
+import { parse, dedent } from './utils/index.js';
 
 describe('parse', () => {
     describe('marks', () => {

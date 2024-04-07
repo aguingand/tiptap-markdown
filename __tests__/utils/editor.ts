@@ -1,26 +1,29 @@
-import { Editor, Node, Mark } from "@tiptap/core";
+import { Editor, Node, Mark, NodeConfig, MarkConfig } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
 import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
+import Image, { ImageOptions } from '@tiptap/extension-image';
 import Underline from '@tiptap/extension-underline';
-import CodeBlock from "@tiptap/extension-code-block";
+import CodeBlock, { CodeBlockOptions } from "@tiptap/extension-code-block";
 import { Markdown } from "../../src/Markdown";
+import { MarkdownOptions } from "../../index";
 
-export function createEditor({
-    image,
-    codeBlock,
-    htmlNode,
-    htmlMark,
-    markdownOptions,
-} = {}) {
+export type TestEditorOptions = {
+    image?: ImageOptions,
+    codeBlock?: CodeBlockOptions,
+    htmlNode?: NodeConfig,
+    htmlMark?: MarkConfig,
+    markdown?: MarkdownOptions,
+}
+
+export function createEditor(options: TestEditorOptions) {
     return new Editor({
         extensions: [
             Markdown.configure({
-                ...markdownOptions,
+                ...options.markdown,
             }),
             StarterKit.configure({
                 codeBlock: false,
@@ -32,18 +35,18 @@ export function createEditor({
             Link,
             Underline,
             CodeBlock.configure({
-                ...codeBlock,
+                ...options.codeBlock,
             }),
             Image.configure({
-                ...image,
+                ...options.image,
             }),
             Node.create({
+                ...options.htmlNode,
                 name: 'html-node',
-                ...htmlNode,
             }),
             Mark.create({
+                ...options.htmlMark,
                 name: 'html-mark',
-                ...htmlMark,
             }),
         ],
     });

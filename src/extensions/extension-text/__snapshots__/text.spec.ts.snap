@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse soft break 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example1 example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
