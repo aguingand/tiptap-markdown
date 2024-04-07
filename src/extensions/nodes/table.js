@@ -18,6 +18,7 @@ export default Table.extend({
                         HTMLNode.storage.markdown.serialize.call(this, state, node, parent);
                         return;
                     }
+                    state.inTable = true;
                     node.forEach((row, p, i) => {
                         state.write('| ');
                         row.forEach((col, p, j) => {
@@ -38,6 +39,7 @@ export default Table.extend({
                         }
                     });
                     state.closeBlock(node);
+                    state.inTable = false;
                 },
                 parse: {
                     // handled by markdown-it

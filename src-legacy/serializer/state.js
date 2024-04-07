@@ -8,6 +8,8 @@ import { trimInline } from "../../src/util/markdown.js";
  */
 export class MarkdownSerializerState extends BaseMarkdownSerializerState {
 
+    inTable = false;
+
     constructor(nodes, marks, options) {
         super(nodes, marks, options ?? {});
         this.inlines = [];

@@ -2,7 +2,6 @@ import markdownit from "markdown-it";
 import { elementFromString, extractElement, unwrapElement } from "../util/dom";
 import { getMarkdownSpec } from "../util/extensions";
 
-
 export class MarkdownParser {
     /**
      * @type {import('@tiptap/core').Editor}
@@ -15,22 +14,20 @@ export class MarkdownParser {
 
     constructor(editor, { html, linkify, breaks }) {
         this.editor = editor;
-        this.md = markdownit({
+        this.md = this.withPatchedRenderer(markdownit({
             html,
             linkify,
             breaks,
-        });
+        }));
     }
 
     parse(content, { inline } = {}) {
         if(typeof content === 'string') {
-            const renderer = this.md;
-
             this.editor.extensionManager.extensions.forEach(extension =>
-                getMarkdownSpec(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, renderer)
+                getMarkdownSpec(extension)?.parse?.setup?.call({ editor:this.editor, options:extension.options }, this.md)
             );
 
-            const renderedHTML = renderer.render(content);
+            const renderedHTML = this.md.render(content);
             const element = elementFromString(renderedHTML);
 
             this.editor.extensionManager.extensions.forEach(extension =>
@@ -86,7 +83,7 @@ export class MarkdownParser {
     normalizeInline(node, content) {
         if(node.firstElementChild?.matches('p')) {
             const firstParagraph = node.firstElementChild;
-            const { nextSibling, nextElementSibling } = firstParagraph;
+            const { nextElementSibling } = firstParagraph;
             const startSpaces = content.match(/^\s+/)?.[0] ?? '';
             const endSpaces = !nextElementSibling
                 ? content.match(/\s+$/)?.[0] ?? ''
@@ -101,6 +98,30 @@ export class MarkdownParser {
 
             node.innerHTML = `${startSpaces}${node.innerHTML}${endSpaces}`;
         }
+    }
+
+    /**
+     * @param {markdownit} md
+     */
+    withPatchedRenderer(md) {
+        const withoutNewLine = (renderer) => (...args) => {
+            const rendered = renderer(...args);
+            if(rendered === '\n') {
+                return rendered; // keep soft breaks
+            }
+            if(rendered[rendered.length - 1] === '\n') {
+                return rendered.slice(0, -1);
+            }
+            return rendered;
+        }
+
+        md.renderer.rules.hardbreak = withoutNewLine(md.renderer.rules.hardbreak);
+        md.renderer.rules.softbreak = withoutNewLine(md.renderer.rules.softbreak);
+        md.renderer.rules.fence = withoutNewLine(md.renderer.rules.fence);
+        md.renderer.rules.code_block = withoutNewLine(md.renderer.rules.code_block);
+        md.renderer.renderToken = withoutNewLine(md.renderer.renderToken.bind(md.renderer));
+
+        return md;
     }
 }
 

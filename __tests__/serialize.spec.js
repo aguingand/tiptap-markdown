@@ -77,7 +77,13 @@ describe('serialize', () => {
         test('ordered list', () => {
             expect(serialize('<ol><li>example1</li><li>example2</li></ol>'))
                 .toEqual('1. example1\n2. example2');
+            expect(serialize('<ol start="10"><li>example1</li><li>example2</li></ol>'))
+                .toEqual('10. example1\n11. example2');
         });
+        test('adjacent ordered list', () => {
+            expect(serialize('<ol><li>example1</li></ol><ol><li>example2</li></ol><ol><li>example3</li></ol>'))
+                .toEqual('1. example1\n\n\n1) example2\n\n\n1. example3'); // prosemirror-markdown insert 3 \n, only 2 are needed
+        })
         test('fence', () => {
             expect(serialize('<pre><code class="language-js">example</code></pre>')).toEqual('```js\nexample\n```');
         })
@@ -160,6 +166,18 @@ describe('serialize', () => {
                 `)).toEqual(dedent`
                     | example1 | example2 |
                     | --- | --- |
+                `);
+            });
+            test('cell with hard break', () => {
+                expect(serialize(dedent`
+                    <table>
+                        <tr>
+                            <th><p>example1 <br> example2</p></th>
+                        </tr>
+                    </table>
+                `, { html: true })).toEqual(dedent`
+                    | example1 <br> example2 |
+                    | --- |
                 `);
             });
             test('no header', () => {
