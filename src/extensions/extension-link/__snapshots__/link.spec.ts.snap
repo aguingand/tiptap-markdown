@@ -55,6 +55,17 @@ exports[`parse markdown with linkify 1`] = `
   {
     "content": [
       {
+        "marks": [
+          {
+            "attrs": {
+              "class": null,
+              "href": "http://example.org",
+              "rel": "noopener noreferrer nofollow",
+              "target": "_blank",
+            },
+            "type": "link",
+          },
+        ],
         "text": "http://example.org",
         "type": "text",
       },

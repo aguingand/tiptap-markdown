@@ -1,4 +1,4 @@
-import { Content, Editor } from "@tiptap/core";
+import { Content, Editor, getExtensionField, MarkConfig, NodeConfig } from "@tiptap/core";
 import { unified } from "unified";
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -7,7 +7,6 @@ import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
 import rehypeMinifyWhitespace from 'rehype-minify-whitespace';
 import { remarkGfm } from "./remark-plugins/remark-gfm";
-import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
 
 type ParserOptions = {
     html: boolean,
@@ -29,10 +28,17 @@ export class MarkdownParser {
             const remark = unified();
 
             this.editor.extensionManager.extensions.forEach(extension => {
-                extension.config.fromMarkdown?.({
+                const fromMarkdown = getExtensionField<NodeConfig['fromMarkdown'] | MarkConfig['fromMarkdown']>(
+                    extension,
+                    'fromMarkdown',
+                    {
+                        name: extension.name,
+                        options: extension.options,
+                        editor: this.editor,
+                    }
+                );
+                fromMarkdown?.({
                     remark,
-                    remarkRehype,
-                    remarkRehypeDefaultHandlers,
                 });
             });
 

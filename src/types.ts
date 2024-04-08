@@ -1,32 +1,22 @@
 import { Editor } from "@tiptap/core";
 import { remark } from "remark";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeRemark from "rehype-remark";
-import remarkStringify from "remark-stringify";
-import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
-import { defaultHandlers as remarkStringifyDefaultHandlers } from "mdast-util-to-markdown";
-import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
 
-type Config = {
-    fromMarkdown(context: {
-        remark: typeof remark,
-        remarkParse: typeof remarkParse,
-        remarkRehype: typeof remarkRehype,
-        remarkRehypeDefaultHandlers: typeof remarkRehypeDefaultHandlers,
-    }): void,
-    toMarkdown(context: {
-        remark: typeof remark,
-        remarkStringify: typeof remarkStringify,
-        remarkStringifyDefaultHandlers: typeof remarkStringifyDefaultHandlers,
-        rehypeRemark: typeof rehypeRemark,
-        rehypeRemarkDefaultHandlers: typeof rehypeRemarkDefaultHandlers,
-    }): void,
+type Config<Options> = {
+    fromMarkdown(
+        this: { name: string, options: Options, editor: Editor },
+        context: {
+            remark: typeof remark,
+        }): void,
+    toMarkdown(
+        this: { name: string, editor: Editor, options: Options },
+        context: {
+            remark: typeof remark,
+        }): void,
 }
 
-export type MarkdownNodeConfig = Config
+export type MarkdownNodeConfig<Options> = Config<Options>
 
-export type MarkdownMarkConfig = Config
+export type MarkdownMarkConfig<Options> = Config<Options>
 
 export type SpecContext<Options = any> = {
     options: Options,
@@ -34,6 +24,6 @@ export type SpecContext<Options = any> = {
 }
 
 declare module '@tiptap/core' {
-    interface NodeConfig<Options = any, Storage = any> extends MarkdownNodeConfig {}
-    interface MarkConfig<Options = any, Storage = any> extends MarkdownMarkConfig {}
+    interface NodeConfig<Options = any, Storage = any> extends MarkdownNodeConfig<Options> {}
+    interface MarkConfig<Options = any, Storage = any> extends MarkdownMarkConfig<Options> {}
 }

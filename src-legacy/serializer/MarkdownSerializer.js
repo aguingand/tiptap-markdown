@@ -1,6 +1,6 @@
 import { MarkdownSerializerState } from './state.js';
-import HTMLMark from "../../src/extensions/marks/html.js";
-import HTMLNode from "../../src/extensions/nodes/html.js";
+import HTMLMark from "../extensions/marks/html.js";
+import HTMLNode from "../extensions/nodes/html.ts";
 import { getMarkdownSpec } from "../../src/util/extensions.js";
 import HardBreak from "../../src/extensions/nodes/hard-break.js";
 

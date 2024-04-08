@@ -1,11 +1,10 @@
-import Blockquote from "./nodes/blockquote";
-import BulletList from "./nodes/bullet-list";
+import Blockquote from "./extension-blockquote/blockquote";
+import BulletList from "./extension-bullet-list/bullet-list";
 import CodeBlock from "./nodes/code-block";
 import Document from "./extension-document/document";
 import HardBreak from "./nodes/hard-break";
 import Heading from "./nodes/heading";
 import HorizontalRule from "./nodes/horizontal-rule";
-import { HtmlNode } from "./nodes/html";
 import Image from "./nodes/image";
 import ListItem from "./nodes/list-item";
 import OrderedList from "./nodes/ordered-list";
@@ -16,11 +15,10 @@ import TaskList from "./nodes/task-list";
 import Text from "./extension-text/text";
 
 import Bold from "./extension-bold/bold";
-import Code from "./marks/code";
-import HTMLMark from "./marks/html";
+import Code from "./extension-code/code";
 import Italic from "./extension-italic/italic";
-import Link from "./marks/link";
-import Strike from "./marks/strike";
+import Link from "./extension-link/link";
+import Strike from "./extension-strike/strike";
 
 
 export default [
@@ -31,7 +29,6 @@ export default [
     HardBreak,
     Heading,
     HorizontalRule,
-    HtmlNode,
     Image,
     ListItem,
     OrderedList,
@@ -43,7 +40,6 @@ export default [
 
     Bold,
     Code,
-    HTMLMark,
     Italic,
     Link,
     Strike,

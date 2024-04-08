@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "type": "strike",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "type": "strike",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;

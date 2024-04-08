@@ -1,11 +1,11 @@
 import { Node } from "@tiptap/core";
-import type { Paragraph as MarkdownParagraph } from 'mdast';
 
-const Paragraph = Node.create({
-    name: 'paragraph',
+
+const Blockquote = Node.create({
+    name: 'blockquote',
 });
 
-export default Paragraph.extend({
+export default Blockquote.extend({
     fromMarkdown() {
         // handled by remark
     },

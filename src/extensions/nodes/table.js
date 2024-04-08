@@ -1,6 +1,6 @@
 import { Node } from "@tiptap/core";
 import { childNodes } from "../../util/prosemirror";
-import HTMLNode from './html';
+// import HTMLNode from '../../../src-legacy/extensions/nodes/html.js';
 
 const Table = Node.create({
     name: 'table',
@@ -14,10 +14,10 @@ export default Table.extend({
         return {
             markdown: {
                 serialize(state, node, parent) {
-                    if(!isMarkdownSerializable(node)) {
-                        HTMLNode.storage.markdown.serialize.call(this, state, node, parent);
-                        return;
-                    }
+                    // if(!isMarkdownSerializable(node)) {
+                    //     HTMLNode.storage.markdown.serialize.call(this, state, node, parent);
+                    //     return;
+                    // }
                     state.inTable = true;
                     node.forEach((row, p, i) => {
                         state.write('| ');

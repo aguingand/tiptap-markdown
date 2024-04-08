@@ -5,9 +5,16 @@ import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
 import type { RawCommands } from "@tiptap/core";
 import markdownExtensions from "./extensions";
-import {HtmlNode} from "./extensions/nodes/html";
+import { MarkdownOptions } from "../index";
 
-export const Markdown = Extension.create({
+type MarkdownStorage = {
+    options: MarkdownOptions,
+    parser: MarkdownParser,
+    // serializer: MarkdownSerializer,
+    getMarkdown: () => string,
+}
+
+export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
     name: 'markdown',
     priority: 50,
     addOptions() {
@@ -80,7 +87,6 @@ export const Markdown = Extension.create({
     },
     addExtensions() {
         return [
-            HtmlNode,
             MarkdownTightLists.configure({
                 tight: this.options.tightLists,
                 tightClass: this.options.tightListClass,

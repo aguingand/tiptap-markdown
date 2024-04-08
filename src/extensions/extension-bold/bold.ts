@@ -2,6 +2,12 @@ import { Mark } from "@tiptap/core";
 import { Strong } from "mdast";
 import { remarkMarker } from "../../remark-plugins/remark-marker-plugin";
 import { withOptions } from "../../util/state";
+import remarkRehype from "remark-rehype";
+import remarkStringify from "remark-stringify";
+import rehypeRemark from "rehype-remark";
+import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
+import { defaultHandlers as remarkStringifyDefaultHandlers } from "mdast-util-to-markdown";
+import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
 
 const Bold = Mark.create({
     name: 'bold',
@@ -16,13 +22,12 @@ export default Bold.extend({
             },
         }
     },
-    fromMarkdown({ remark, remarkRehype, remarkRehypeDefaultHandlers }) {
+    fromMarkdown({ remark }) {
         remark
             .use(remarkMarker)
             .use(remarkRehype, {
                 handlers: {
                     strong(state, node: Strong) {
-                        console.log(node);
                         const element = remarkRehypeDefaultHandlers.strong(state, node);
                         element.properties.dataMarkdownMarker = node.marker;
                         return element;
@@ -30,7 +35,7 @@ export default Bold.extend({
                 }
             });
     },
-    toMarkdown({ remark, rehypeRemark, rehypeRemarkDefaultHandlers, remarkStringify, remarkStringifyDefaultHandlers }) {
+    toMarkdown({ remark }) {
         remark
             .use(rehypeRemark, {
                 handlers: {

@@ -2,6 +2,13 @@ import { Mark } from "@tiptap/core";
 import { Emphasis } from "mdast";
 import { remarkMarker } from "../../remark-plugins/remark-marker-plugin";
 import { withOptions } from "../../util/state";
+import remarkRehype from "remark-rehype";
+import remarkStringify from "remark-stringify";
+import rehypeRemark from "rehype-remark";
+import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
+import { defaultHandlers as remarkStringifyDefaultHandlers } from "mdast-util-to-markdown";
+import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
+
 
 const Italic = Mark.create({
     name: 'italic',
@@ -16,7 +23,7 @@ export default Italic.extend({
             },
         }
     },
-    fromMarkdown({ remark, remarkRehype, remarkRehypeDefaultHandlers }) {
+    fromMarkdown({ remark }) {
         remark
             .use(remarkMarker)
             .use(remarkRehype, {
@@ -24,13 +31,12 @@ export default Italic.extend({
                     emphasis(state, node: Emphasis) {
                         const element = remarkRehypeDefaultHandlers.emphasis(state, node);
                         element.properties.dataMarkdownMarker = node.marker;
-                        console.log(element);
                         return element;
                     }
                 }
             });
     },
-    toMarkdown({ remark, rehypeRemark, rehypeRemarkDefaultHandlers, remarkStringify, remarkStringifyDefaultHandlers }) {
+    toMarkdown({ remark }) {
         remark
             .use(rehypeRemark, {
                 handlers: {
