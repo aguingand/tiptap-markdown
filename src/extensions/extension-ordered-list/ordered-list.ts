@@ -1,4 +1,6 @@
 import { Node } from "@tiptap/core";
+import remarkRehype from "remark-rehype";
+import { remarkRehypeListHandlers } from "../../remark-plugins/lists";
 
 
 const OrderedList = Node.create({
@@ -7,8 +9,10 @@ const OrderedList = Node.create({
 
 
 export default OrderedList.extend({
-    parseMarkdown() {
-        // handled by remark
+    parseMarkdown({ toHTML }) {
+        toHTML.use(remarkRehype, {
+            handlers: remarkRehypeListHandlers,
+        });
     },
     renderMarkdown() {
         // handled by remark

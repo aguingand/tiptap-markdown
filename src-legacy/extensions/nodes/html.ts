@@ -1,6 +1,5 @@
 import { DOMParser, Node as ProsemirrorNode } from "@tiptap/pm/model";
 import { Node } from "@tiptap/core";
-import { elementFromString } from "../../../src/util/dom";
 import { Html } from "mdast";
 
 export const HtmlNode = Node.create({

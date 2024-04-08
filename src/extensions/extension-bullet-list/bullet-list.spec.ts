@@ -2,16 +2,16 @@ import { expect, test } from "vitest";
 import { parse, serialize } from "../../../__tests__/utils";
 
 
-test('markdown with "-"', () => {
+test('parse markdown with "-"', () => {
     expect(parse('- example1\n\n- example2')).toMatchSnapshot();
 });
-test('markdown with "*"', () => {
+test('parse markdown with "*"', () => {
     expect(parse('* example1\n\n* example2')).toMatchSnapshot();
 });
-test('markdown with "+"', () => {
+test('parse markdown with "+"', () => {
     expect(parse('+ example1\n\n+ example2')).toMatchSnapshot();
 });
-test('html', () => {
+test('parse html', () => {
     expect(parse('<ul><li>example1</li><li>example2</li></ul>')).toMatchSnapshot();
 });
 test.skip('serialize', () => {

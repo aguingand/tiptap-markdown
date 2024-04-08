@@ -8,23 +8,22 @@ import Link from '@tiptap/extension-link';
 import Image, { ImageOptions } from '@tiptap/extension-image';
 import Underline from '@tiptap/extension-underline';
 import CodeBlock, { CodeBlockOptions } from "@tiptap/extension-code-block";
+import TaskList from "@tiptap/extension-task-list";
+import TaskItem from "@tiptap/extension-task-item";
 import { Markdown } from "../../src/Markdown";
 import { MarkdownOptions } from "../../index";
 
 export type TestEditorOptions = {
     image?: Partial<ImageOptions>,
     codeBlock?: Partial<CodeBlockOptions>,
-    htmlNode?: NodeConfig,
-    htmlMark?: MarkConfig,
+    htmlNode?: Partial<NodeConfig>,
+    htmlMark?: Partial<MarkConfig>,
     markdown?: Partial<MarkdownOptions>,
 }
 
 export function createEditor(options: TestEditorOptions) {
     return new Editor({
         extensions: [
-            CodeBlock.configure({
-                ...options.codeBlock,
-            }),
             Markdown.configure({
                 ...options.markdown,
             }),
@@ -37,9 +36,14 @@ export function createEditor(options: TestEditorOptions) {
             TableCell,
             Link,
             Underline,
+            CodeBlock.configure({
+                ...options.codeBlock,
+            }),
             Image.configure({
                 ...options.image,
             }),
+            TaskList,
+            TaskItem,
             Node.create({
                 ...options.htmlNode,
                 name: 'html-node',

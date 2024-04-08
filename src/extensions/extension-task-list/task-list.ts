@@ -1,7 +1,7 @@
 import remarkRehype from "remark-rehype";
 import { Node } from "@tiptap/core";
+import { remarkRehypeListHandlers } from "../../remark-plugins/lists";
 
-// import BulletList from "../extension-bullet-list/bullet-list.ts";
 
 
 const TaskList = Node.create({
@@ -9,27 +9,9 @@ const TaskList = Node.create({
 });
 
 export default TaskList.extend({
-    parseMarkdown({ fromMarkdown, toHTML }) {
+    parseMarkdown({ toHTML }) {
+        toHTML.use(remarkRehype, {
+            handlers: remarkRehypeListHandlers,
+        });
     },
-    /**
-     * @return {{markdown: MarkdownNodeSpec}}
-     */
-    addStorage() {
-        return {
-            markdown: {
-                // serialize: BulletList.storage.markdown.serialize,
-                // parse: {
-                //     setup(markdownit) {
-                //         markdownit.use(taskListPlugin);
-                //     },
-                //     updateDOM(element) {
-                //         [...element.querySelectorAll('.contains-task-list')]
-                //             .forEach(list => {
-                //                 list.setAttribute('data-type', 'taskList');
-                //             });
-                //     },
-                // }
-            }
-        }
-    }
 });

@@ -8,6 +8,7 @@ export const MarkdownTightLists = Extension.create({
         listTypes: [
             'bulletList',
             'orderedList',
+            'taskList',
         ],
     }),
     addGlobalAttributes() {

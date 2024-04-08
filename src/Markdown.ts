@@ -1,11 +1,12 @@
 import {Extension, extensions, getSchemaByResolvedExtensions} from '@tiptap/core';
-import { MarkdownTightLists } from "./extensions/tiptap/tight-lists";
-// import { MarkdownSerializer } from "../src-legacy/serializer/MarkdownSerializer";
+import { MarkdownTightLists } from "./extensions/markdown-tight-lists/markdown-tight-lists";
 import { MarkdownParser } from "./MarkdownParser";
-import { MarkdownClipboard } from "./extensions/tiptap/clipboard";
+import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clipboard";
 import type { RawCommands } from "@tiptap/core";
 import markdownExtensions from "./extensions";
 import { MarkdownOptions } from "../index";
+import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
+import { MarkdownSerializer } from "./MarkdownSerializer";
 
 type MarkdownStorage = {
     options: MarkdownOptions,
@@ -74,8 +75,8 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
 
         this.editor.storage.markdown = {
             options: { ...this.options },
-            parser: new MarkdownParser(this.editor, this.options),
-            // serializer: new MarkdownSerializer(this.editor),
+            parser: new MarkdownParser(this.editor),
+            serializer: new MarkdownSerializer(this.editor),
             getMarkdown: () => {
                 return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
             },
@@ -96,6 +97,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
     },
     addExtensions() {
         return [
+            MarkdownRawHTML,
             MarkdownTightLists.configure({
                 tight: this.options.tightLists,
                 tightClass: this.options.tightListClass,
