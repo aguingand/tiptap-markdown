@@ -1,5 +1,6 @@
-import taskListPlugin from "markdown-it-task-lists";
+import remarkRehype from "remark-rehype";
 import { Node } from "@tiptap/core";
+
 // import BulletList from "../extension-bullet-list/bullet-list.ts";
 
 
@@ -8,6 +9,8 @@ const TaskList = Node.create({
 });
 
 export default TaskList.extend({
+    parseMarkdown({ fromMarkdown, toHTML }) {
+    },
     /**
      * @return {{markdown: MarkdownNodeSpec}}
      */

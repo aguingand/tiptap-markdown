@@ -1,0 +1,50 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "attrs": {
+      "alt": "example",
+      "src": "example.jpg",
+      "title": null,
+    },
+    "type": "image",
+  },
+]
+`;
+
+exports[`parse markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "attrs": {
+          "alt": "example",
+          "src": "example.jpg",
+          "title": null,
+        },
+        "type": "image",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown inline 1`] = `
+[
+  {
+    "content": [
+      {
+        "attrs": {
+          "alt": "example",
+          "src": "example.jpg",
+          "title": null,
+        },
+        "type": "image",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;

@@ -30,7 +30,7 @@ export function getMarkdownSpec<
     //     return Object.assign({}, defaultExtension?.config, extension?.config);
     // }
 
-    if(extension && extension.config.parseMarkdown && extension.config.toMarkdown) {
+    if(extension && extension.config.parseMarkdown && extension.config.renderMarkdown) {
         const context = {
             editor,
             options: extension.options
@@ -40,7 +40,7 @@ export function getMarkdownSpec<
                 match: extension.config.parseMarkdown.match,
                 handle: extension.config.parseMarkdown.handle.bind(context),
             },
-            toMarkdown: extension.config.toMarkdown.bind(context),
+            renderMarkdown: extension.config.renderMarkdown.bind(context),
         };
     }
 

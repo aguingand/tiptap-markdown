@@ -4,10 +4,10 @@ import type { Root as MarkdownRoot } from 'mdast';
 const Document = Node.create({ name: 'doc' });
 
 export default Document.extend({
-    fromMarkdown() {
+    parseMarkdown() {
         // handled by remark
     },
-    toMarkdown() {
+    renderMarkdown() {
         // handled by remark
     },
 });

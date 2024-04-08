@@ -79,7 +79,7 @@
     "@tiptap/pm": "^2.2.6",
     "@tiptap/starter-kit": "^2.2.6",
     "@tiptap/vue-3": "^2.2.6",
-    "@types/jest": "^28.1.7",
+    "@types/jest": "^28.1.8",
     "jest-serializer-html": "^7.1.0",
     "jsdom": "^22.1.0",
     "terser": "^5.24.0",

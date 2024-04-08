@@ -1,0 +1,90 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "attrs": {
+      "language": null,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
+  },
+]
+`;
+
+exports[`parse markdown 1`] = `
+[
+  {
+    "attrs": {
+      "language": null,
+    },
+    "content": [
+      {
+        "text": "example
+",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
+  },
+]
+`;
+
+exports[`parse markdown with indent 1`] = `
+[
+  {
+    "attrs": {
+      "language": null,
+    },
+    "content": [
+      {
+        "text": "example
+",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
+  },
+]
+`;
+
+exports[`parse markdown with lang 1`] = `
+[
+  {
+    "attrs": {
+      "language": "js",
+    },
+    "content": [
+      {
+        "text": "example
+",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
+  },
+]
+`;
+
+exports[`parse markdown with languageClassPrefix 1`] = `
+[
+  {
+    "attrs": {
+      "language": "js",
+    },
+    "content": [
+      {
+        "text": "example
+",
+        "type": "text",
+      },
+    ],
+    "type": "codeBlock",
+  },
+]
+`;

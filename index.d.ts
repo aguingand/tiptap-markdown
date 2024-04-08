@@ -6,14 +6,14 @@ import * as Prosemirror from "prosemirror-model";
 import * as MarkdownIt from "markdown-it";
 
 export interface MarkdownOptions  {
-    html?: Boolean,
-    tightLists?: Boolean,
-    tightListClass?: String,
-    bulletListMarker?: String,
-    linkify?: Boolean,
-    breaks?: Boolean,
-    transformPastedText?: Boolean,
-    transformCopiedText?: Boolean,
+    html: boolean,
+    tightLists: boolean,
+    tightListClass: string,
+    bulletListMarker: string,
+    linkify: boolean,
+    breaks: boolean,
+    transformPastedText: boolean,
+    transformCopiedText: boolean,
 }
 
 export interface MarkdownStorage {

@@ -12,16 +12,19 @@ import { Markdown } from "../../src/Markdown";
 import { MarkdownOptions } from "../../index";
 
 export type TestEditorOptions = {
-    image?: ImageOptions,
-    codeBlock?: CodeBlockOptions,
+    image?: Partial<ImageOptions>,
+    codeBlock?: Partial<CodeBlockOptions>,
     htmlNode?: NodeConfig,
     htmlMark?: MarkConfig,
-    markdown?: MarkdownOptions,
+    markdown?: Partial<MarkdownOptions>,
 }
 
 export function createEditor(options: TestEditorOptions) {
     return new Editor({
         extensions: [
+            CodeBlock.configure({
+                ...options.codeBlock,
+            }),
             Markdown.configure({
                 ...options.markdown,
             }),
@@ -34,9 +37,6 @@ export function createEditor(options: TestEditorOptions) {
             TableCell,
             Link,
             Underline,
-            CodeBlock.configure({
-                ...options.codeBlock,
-            }),
             Image.configure({
                 ...options.image,
             }),

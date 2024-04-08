@@ -22,38 +22,36 @@ export default Bold.extend({
             },
         }
     },
-    fromMarkdown({ remark }) {
-        remark
-            .use(remarkMarker)
-            .use(remarkRehype, {
-                handlers: {
-                    strong(state, node: Strong) {
-                        const element = remarkRehypeDefaultHandlers.strong(state, node);
-                        element.properties.dataMarkdownMarker = node.marker;
-                        return element;
-                    }
+    parseMarkdown({ fromMarkdown, toHTML }) {
+        fromMarkdown.use(remarkMarker);
+        toHTML.use(remarkRehype, {
+            handlers: {
+                strong: (state, node: Strong) => {
+                    const element = remarkRehypeDefaultHandlers.strong(state, node);
+                    element.properties.dataMarkdownMarker = node.marker;
+                    return element;
                 }
-            });
+            }
+        });
     },
-    toMarkdown({ remark }) {
-        remark
-            .use(rehypeRemark, {
-                handlers: {
-                    strong(state, element) {
-                        const node = rehypeRemarkDefaultHandlers.strong(state, element);
-                        node.marker = element.properties.markdownMarker as string;
-                        return node;
-                    }
+    renderMarkdown({ fromHTML, toMarkdown }) {
+        fromHTML.use(rehypeRemark, {
+            handlers: {
+                strong(state, element) {
+                    const node = rehypeRemarkDefaultHandlers.strong(state, element);
+                    node.marker = element.properties.dataMarkdownMarker as string;
+                    return node;
                 }
-            })
-            .use(remarkStringify, {
-                handlers: {
-                    strong(node: Strong, parent, state, info) {
-                       return withOptions(state, { strong: node.marker as any }, (state) =>
-                           remarkStringifyDefaultHandlers.strong(node, parent, state, info)
-                       )
-                    }
+            }
+        });
+        toMarkdown.use(remarkStringify, {
+            handlers: {
+                strong(node: Strong, parent, state, info) {
+                   return withOptions(state, { strong: node.marker as any }, (state) =>
+                       remarkStringifyDefaultHandlers.strong(node, parent, state, info)
+                   )
                 }
-            })
+            }
+        });
     }
 });

@@ -1,11 +1,11 @@
 import { Node } from "@tiptap/core";
-import type { Paragraph as MarkdownParagraph } from 'mdast';
 
-const Paragraph = Node.create({
-    name: 'paragraph',
+
+const HorizontalRule = Node.create({
+    name: 'horizontalRule',
 });
 
-export default Paragraph.extend({
+export default HorizontalRule.extend({
     parseMarkdown() {
         // handled by remark
     },

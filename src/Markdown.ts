@@ -53,7 +53,16 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             const markdownExtension = markdownExtensions.find(e => e.name === extension.name);
             if(markdownExtension) {
                 const { name, defaultOptions, ...config } = markdownExtension.config;
-                return extension.extend(config as any);
+                return extension
+                    .extend({
+                        ...config,
+                        addOptions() {
+                            return {
+                                ...extension.options,
+                                ...markdownExtension.options,
+                            };
+                        },
+                    } as any);
             }
             return extension;
         });

@@ -6,10 +6,10 @@ const Text = Node.create({
 });
 
 export default Text.extend({
-    fromMarkdown() {
+    parseMarkdown() {
         // handled by remark
     },
-    toMarkdown() {
+    renderMarkdown() {
         // handled by remark
     },
 });

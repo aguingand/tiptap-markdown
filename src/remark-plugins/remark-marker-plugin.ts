@@ -1,6 +1,6 @@
 import { visit } from 'unist-util-visit';
 import type { Node } from 'unist';
-import {Plugin} from "unified";
+import { Plugin } from 'unified';
 
 export const remarkMarker: Plugin<[], undefined, undefined> = () => (tree, file) => {
     const getMarker = (node: Node) => {

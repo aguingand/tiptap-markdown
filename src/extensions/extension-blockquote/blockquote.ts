@@ -6,10 +6,10 @@ const Blockquote = Node.create({
 });
 
 export default Blockquote.extend({
-    fromMarkdown() {
+    parseMarkdown() {
         // handled by remark
     },
-    toMarkdown() {
+    renderMarkdown() {
         // handled by remark
     },
 });

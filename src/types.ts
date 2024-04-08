@@ -1,17 +1,21 @@
 import { Editor } from "@tiptap/core";
-import { remark } from "remark";
+import { Processor } from "unified";
 
 type Config<Options> = {
-    fromMarkdown(
+    parseMarkdown(
         this: { name: string, options: Options, editor: Editor },
-        context: {
-            remark: typeof remark,
-        }): void,
-    toMarkdown(
+        { fromMarkdown, toHTML }: {
+            fromMarkdown: Processor<any,any,any,any,any>,
+            toHTML: Processor<any,any,any,any,any>,
+        }
+    ): void,
+    renderMarkdown(
         this: { name: string, editor: Editor, options: Options },
-        context: {
-            remark: typeof remark,
-        }): void,
+        { fromHTML, toMarkdown }: {
+            fromHTML: Processor<any,any,any,any,any>,
+            toMarkdown: Processor<any,any,any,any,any>,
+        }
+    ): void,
 }
 
 export type MarkdownNodeConfig<Options> = Config<Options>

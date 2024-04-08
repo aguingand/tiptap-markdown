@@ -2,11 +2,10 @@ import { Content, Editor, getExtensionField, MarkConfig, NodeConfig } from "@tip
 import { unified } from "unified";
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import remarkBreaks from 'remark-breaks';
 import rehypeStringify from 'rehype-stringify';
 import rehypeRaw from 'rehype-raw';
 import rehypeMinifyWhitespace from 'rehype-minify-whitespace';
-import { remarkGfm } from "./remark-plugins/remark-gfm";
+import { Root } from 'mdast';
 
 type ParserOptions = {
     html: boolean,
@@ -25,33 +24,32 @@ export class MarkdownParser {
 
     parse(content: Content): Content {
         if(typeof content === 'string') {
-            const remark = unified();
+            const fromMarkdown = unified().use(remarkParse);
+            const toHTML = unified()
+                .use(remarkRehype, { allowDangerousHtml: true })
+                .use(this.options.html ? [rehypeRaw] : [])
+                .use(rehypeMinifyWhitespace)
+                .use(rehypeStringify);
 
             this.editor.extensionManager.extensions.forEach(extension => {
-                const fromMarkdown = getExtensionField<NodeConfig['fromMarkdown'] | MarkConfig['fromMarkdown']>(
+                const parseMarkdown = getExtensionField<NodeConfig['parseMarkdown'] | MarkConfig['parseMarkdown']>(
                     extension,
-                    'fromMarkdown',
+                    'parseMarkdown',
                     {
                         name: extension.name,
                         options: extension.options,
                         editor: this.editor,
                     }
                 );
-                fromMarkdown?.({
-                    remark,
+                parseMarkdown?.({
+                    fromMarkdown,
+                    toHTML,
                 });
             });
 
-            remark.use(remarkParse)
-                .use(remarkGfm, { autolink: this.options.linkify })
-                .use(this.options.breaks ? [remarkBreaks] : [])
-                .use(remarkRehype, { allowDangerousHtml: true })
-                .use(this.options.html ? [rehypeRaw] : [])
-                .use(rehypeMinifyWhitespace)
-                .use(rehypeStringify);
-
-            const parsed = String(remark.processSync(content));
-            return parsed;
+            const mdTree = fromMarkdown.runSync(fromMarkdown.parse(content), content) as Root;
+            const html = toHTML.stringify(toHTML.runSync(mdTree, content));
+            return html;
         }
 
         return content;

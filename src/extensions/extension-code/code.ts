@@ -6,10 +6,10 @@ const Code = Mark.create({
 });
 
 export default Code.extend({
-    fromMarkdown() {
+    parseMarkdown() {
         // handled by remark
     },
-    toMarkdown() {
+    renderMarkdown() {
         // handled by remark
     },
 })

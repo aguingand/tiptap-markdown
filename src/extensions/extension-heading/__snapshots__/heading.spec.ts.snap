@@ -1,0 +1,120 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html h1 1`] = `
+[
+  {
+    "attrs": {
+      "level": 1,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse markdown h1 1`] = `
+[
+  {
+    "attrs": {
+      "level": 1,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse markdown h2 1`] = `
+[
+  {
+    "attrs": {
+      "level": 2,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse markdown h3 1`] = `
+[
+  {
+    "attrs": {
+      "level": 3,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse markdown h4 1`] = `
+[
+  {
+    "attrs": {
+      "level": 4,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse markdown h5 1`] = `
+[
+  {
+    "attrs": {
+      "level": 5,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;
+
+exports[`parse markdown h6 1`] = `
+[
+  {
+    "attrs": {
+      "level": 6,
+    },
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "heading",
+  },
+]
+`;

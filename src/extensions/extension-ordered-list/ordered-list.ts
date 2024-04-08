@@ -1,11 +1,12 @@
 import { Node } from "@tiptap/core";
-import type { Paragraph as MarkdownParagraph } from 'mdast';
 
-const Paragraph = Node.create({
-    name: 'paragraph',
+
+const OrderedList = Node.create({
+    name: 'orderedList',
 });
 
-export default Paragraph.extend({
+
+export default OrderedList.extend({
     parseMarkdown() {
         // handled by remark
     },
