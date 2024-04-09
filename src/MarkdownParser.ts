@@ -38,8 +38,9 @@ export class MarkdownParser {
                 });
             });
 
-            const mdTree = fromMarkdown.runSync(fromMarkdown.parse(content), content) as Root;
-            const html = toHTML.stringify(toHTML.runSync(mdTree, content));
+            const mdast = fromMarkdown.runSync(fromMarkdown.parse(content), content) as Root;
+            const hast = toHTML.runSync(mdast, content);
+            const html = toHTML.stringify(hast, content);
             return html;
         }
 

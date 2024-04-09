@@ -1,13 +1,15 @@
-import { DOMParser } from "prosemirror-model";
+import { Node as ProseMirrorNode } from "@tiptap/pm/model";
+import { Content, getHTMLFromFragment, createNodeFromContent } from "@tiptap/core";
 import { createEditor, TestEditorOptions } from "./editor";
-import { elementFromString } from "../../src/util/dom";
 
-export function serialize(content: string, options: TestEditorOptions = {}) {
+export function serialize(content: Content, options: TestEditorOptions = {}) {
     const editor = createEditor(options);
-    const doc = DOMParser.fromSchema(editor.schema)
-        .parse(elementFromString(content), {
-            preserveWhitespace: true, // to ensure whitespaces handling
-        });
+    const doc = createNodeFromContent(content, editor.schema, {
+        parseOptions: {
+            preserveWhitespace: true,
+        }
+    }) as ProseMirrorNode;
+    const html = getHTMLFromFragment(doc.content, editor.schema);
 
-    return editor.storage.markdown.serializer.serialize(doc);
+    return editor.storage.markdown.serializer.serialize(html);
 }

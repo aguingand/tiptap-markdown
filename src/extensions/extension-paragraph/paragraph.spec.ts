@@ -8,6 +8,6 @@ test('parse markdown', () => {
 test('parse html', () => {
     expect(parse(`<p>example1</p><p>example2</p>`)).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<p>example1</p><p>example2</p>')).toEqual('example1\n\nexample2');
+test('serialize', () => {
+    expect(serialize('<p>example1</p><p>example2</p>')).toEqual('example1\n\nexample2\n');
 });

@@ -25,8 +25,8 @@ export default CodeBlock.extend({
             }
         });
     },
-    renderMarkdown({ fromHTML, toMarkdown }) {
-        fromHTML.use(rehypeRemark, {
+    renderMarkdown({ toMarkdown }) {
+        toMarkdown.use(rehypeRemark, {
             handlers: {
                 pre: (state, element) => {
                     const node: Code = rehypeRemarkDefaultHandlers.pre(state, element);

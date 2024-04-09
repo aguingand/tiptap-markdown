@@ -7,9 +7,16 @@ test('parse', () => {
 test('parse soft break', () => {
     expect(parse('example1\nexample2')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('example')).toEqual('example');
+test('serialize', () => {
+    expect(serialize('example')).toEqual('example\n');
 });
-test.skip('serialize escaped', () => {
-    expect(serialize('example <><>')).toEqual('example &lt;&gt;&lt;&gt;');
+test('serialize escaped', () => {
+    expect(serialize(
+        [
+            {
+                "text": "example <div></div>",
+                "type": "text",
+            },
+        ]
+    )).toEqual('example \\<div>\\</div>\n');
 });

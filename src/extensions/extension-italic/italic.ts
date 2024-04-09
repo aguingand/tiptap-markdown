@@ -1,7 +1,7 @@
 import { Mark } from "@tiptap/core";
 import { Emphasis } from "mdast";
 import { remarkMarker } from "../../remark-plugins/remark-marker-plugin";
-import { withOptions } from "../../util/state";
+import { withStateOptions } from "../../util/state";
 import remarkRehype from "remark-rehype";
 import rehypeRemark from "rehype-remark";
 import remarkStringify from "remark-stringify";
@@ -29,31 +29,32 @@ export default Italic.extend({
             handlers: {
                 emphasis: (state, node: Emphasis) => {
                     const element = remarkRehypeDefaultHandlers.emphasis(state, node);
-                    element.properties.dataMarkdownMarker = node.marker;
+                    element.properties.dataMarkdownMarker = node.data!.marker;
                     return element;
                 }
             }
         });
     },
-    renderMarkdown({ fromHTML, toMarkdown }) {
-        fromHTML.use(rehypeRemark, {
-            handlers: {
-                em(state, element) {
-                    const node = rehypeRemarkDefaultHandlers.em(state, element);
-                    node.marker = element.properties.dataMarkdownMarker as string;
-                    return node;
+    renderMarkdown({ toMarkdown }) {
+        toMarkdown
+            .use(rehypeRemark, {
+                handlers: {
+                    em(state, element) {
+                        const node = rehypeRemarkDefaultHandlers.em(state, element);
+                        (node.data ??= {}).marker = element.properties.dataMarkdownMarker as any;
+                        return node;
+                    }
                 }
-            }
-        });
-        toMarkdown.use(remarkStringify, {
-            handlers: {
-                emphasis(node: Emphasis, parent, state, info) {
-                    return withOptions(state, { emphasis: node.marker as any }, (state) =>
-                        remarkStringifyDefaultHandlers.emphasis(node, parent, state, info)
-                    );
+            })
+            .use(remarkStringify, {
+                handlers: {
+                    emphasis(node: Emphasis, parent, state, info) {
+                        return withStateOptions(state, { emphasis: node.data!.marker }, (state) =>
+                            remarkStringifyDefaultHandlers.emphasis(node, parent, state, info)
+                        );
+                    }
                 }
-            }
-        });
+            });
     }
 })
 

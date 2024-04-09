@@ -1,7 +1,7 @@
 import { Mark } from "@tiptap/core";
 import { Strong } from "mdast";
 import { remarkMarker } from "../../remark-plugins/remark-marker-plugin";
-import { withOptions } from "../../util/state";
+import { withStateOptions } from "../../util/state";
 import remarkRehype from "remark-rehype";
 import remarkStringify from "remark-stringify";
 import rehypeRemark from "rehype-remark";
@@ -28,30 +28,31 @@ export default Bold.extend({
             handlers: {
                 strong: (state, node: Strong) => {
                     const element = remarkRehypeDefaultHandlers.strong(state, node);
-                    element.properties.dataMarkdownMarker = node.marker;
+                    element.properties.dataMarkdownMarker = node.data!.marker;
                     return element;
                 }
             }
         });
     },
-    renderMarkdown({ fromHTML, toMarkdown }) {
-        fromHTML.use(rehypeRemark, {
-            handlers: {
-                strong(state, element) {
-                    const node = rehypeRemarkDefaultHandlers.strong(state, element);
-                    node.marker = element.properties.dataMarkdownMarker as string;
-                    return node;
+    renderMarkdown({ toMarkdown }) {
+        toMarkdown
+            .use(rehypeRemark, {
+                handlers: {
+                    strong(state, element) {
+                        const node = rehypeRemarkDefaultHandlers.strong(state, element);
+                        (node.data ??= {}).marker = element.properties.dataMarkdownMarker as any;
+                        return node;
+                    }
                 }
-            }
-        });
-        toMarkdown.use(remarkStringify, {
-            handlers: {
-                strong(node: Strong, parent, state, info) {
-                   return withOptions(state, { strong: node.marker as any }, (state) =>
-                       remarkStringifyDefaultHandlers.strong(node, parent, state, info)
-                   )
+            })
+            .use(remarkStringify, {
+                handlers: {
+                    strong(node: Strong, parent, state, info) {
+                       return withStateOptions(state, { strong: node.data!.marker }, (state) =>
+                           remarkStringifyDefaultHandlers.strong(node, parent, state, info)
+                       );
+                    }
                 }
-            }
-        });
+            });
     }
 });

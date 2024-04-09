@@ -11,7 +11,7 @@ test('parse markdown with "_"', () => {
 test('parse html', () => {
     expect(parse('<em>example</em>')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<em>example</em>')).toEqual('*example*');
-    expect(serialize('<em data-markdown-marker="_">example</em>')).toEqual('_example_');
+test('serialize', () => {
+    expect(serialize('<em>example</em>')).toEqual('*example*\n');
+    expect(serialize('<em data-markdown-marker="_">example</em>')).toEqual('_example_\n');
 });
