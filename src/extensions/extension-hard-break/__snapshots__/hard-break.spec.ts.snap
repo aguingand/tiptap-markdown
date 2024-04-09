@@ -1,0 +1,85 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example1",
+        "type": "text",
+      },
+      {
+        "type": "hardBreak",
+      },
+      {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example1",
+        "type": "text",
+      },
+      {
+        "type": "hardBreak",
+      },
+      {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown with breaks option 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example1",
+        "type": "text",
+      },
+      {
+        "type": "hardBreak",
+      },
+      {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown with double spaces 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example1",
+        "type": "text",
+      },
+      {
+        "type": "hardBreak",
+      },
+      {
+        "text": "example2",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;

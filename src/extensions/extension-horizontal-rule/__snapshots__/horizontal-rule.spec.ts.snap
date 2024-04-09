@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`html 1`] = `
+[
+  {
+    "type": "horizontalRule",
+  },
+]
+`;
+
+exports[`markdown 1`] = `
+[
+  {
+    "type": "horizontalRule",
+  },
+]
+`;

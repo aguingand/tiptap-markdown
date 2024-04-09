@@ -1,5 +1,5 @@
 import { describe, test, expect, vi } from "vitest";
-import { serialize, dedent } from './utils';
+import { serialize, dedent } from './utils/index.js';
 
 describe('serialize', () => {
     describe('marks', () => {

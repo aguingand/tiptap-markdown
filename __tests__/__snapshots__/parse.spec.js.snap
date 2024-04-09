@@ -26,6 +26,31 @@ exports[`parse > marks > bold > markdown 1`] = `
       {
         "marks": [
           {
+            "attrs": {
+              "marker": "*",
+            },
+            "type": "bold",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse > marks > bold > markdown 2`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
+              "marker": "_",
+            },
             "type": "bold",
           },
         ],
@@ -102,6 +127,31 @@ exports[`parse > marks > italic > markdown 1`] = `
       {
         "marks": [
           {
+            "attrs": {
+              "marker": "*",
+            },
+            "type": "italic",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse > marks > italic > markdown 2`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
+              "marker": "_",
+            },
             "type": "italic",
           },
         ],

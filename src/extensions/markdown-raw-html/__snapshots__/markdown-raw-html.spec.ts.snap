@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse block html node 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "html-node",
+  },
+]
+`;
+
+exports[`parse disabled 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": <custom-element>
+</custom-element>,
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse inline html node 1`] = `
+[
+  {
+    "content": [
+      {
+        "type": "html-node",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
