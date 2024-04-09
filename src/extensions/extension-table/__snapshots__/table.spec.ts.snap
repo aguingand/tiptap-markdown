@@ -191,3 +191,78 @@ exports[`parse markdown 1`] = `
   },
 ]
 `;
+
+exports[`serialize > header in body 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th>
+        example1
+      </th>
+    </tr>
+    <tr>
+      <th>
+        example3
+      </th>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`serialize > multiline cell 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th>
+        <p>
+          example1
+        </p>
+        <p>
+          example2
+        </p>
+      </th>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`serialize > no header 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <td>
+        example1
+      </td>
+    </tr>
+    <tr>
+      <td>
+        example3
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`serialize > with colspan 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th colspan="2">
+        example1
+      </th>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`serialize > with rowspan 1`] = `
+<table>
+  <tbody>
+    <tr>
+      <th rowspan="2">
+        example1
+      </th>
+    </tr>
+  </tbody>
+</table>
+`;

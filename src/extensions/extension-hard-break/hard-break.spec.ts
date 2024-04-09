@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { parse } from "../../../__tests__/utils";
+import { parse, serialize } from "../../../__tests__/utils";
 
 
 test('parse markdown', () => {
@@ -16,4 +16,10 @@ test('parse markdown with breaks option', () => {
 // })
 test('parse html', () => {
     expect(parse('example1<br>example2')).toMatchSnapshot();
+});
+test('serialize', () => {
+    expect(serialize('example1<br>example2')).toEqual('example1\\\nexample2\n');
+});
+test.skip('serialize with mark wrap', () => {
+    expect(serialize('example1<strong><br></strong>example2')).toEqual('example1\\\nexample2');
 });

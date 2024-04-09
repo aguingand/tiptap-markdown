@@ -21,3 +21,10 @@ test('serialize', () => {
     expect(serialize('<ul><li>example1</li><li>example2</li></ul>', { markdown: { bulletListMarker: '*' } }))
         .toEqual('* example1\n* example2\n');
 });
+test('serialize adjacent', () => {
+    expect(serialize('<ul><li>example1</li></ul><ul><li>example2</li></ul><ul><li>example3</li></ul>'))
+        .toEqual('- example1\n\n* example2\n\n- example3\n');
+
+    expect(serialize('<ul><li>example1</li></ul><ul><li>example2</li></ul><ul><li>example3</li></ul>', { markdown: { bulletListMarker: '*' } }))
+        .toEqual('* example1\n\n- example2\n\n* example3\n');
+});

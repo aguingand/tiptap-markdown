@@ -24,6 +24,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             tightLists: true,
             tightListClass: 'tight',
             bulletListMarker: '-',
+            horizontalRuleMarker: '-',
             linkify: false,
             breaks: false,
             transformPastedText: false,

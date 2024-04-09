@@ -8,6 +8,6 @@ test('parse markdown', () => {
 test('parse html', () => {
     expect(parse('<s>example</s>')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<s>example</s>')).toEqual('~~example~~');
+test('serialize', () => {
+    expect(serialize('<s>example</s>')).toEqual('~~example~~\n');
 });

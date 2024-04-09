@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { parse } from "../../../__tests__/utils";
+import { parse, serialize } from "../../../__tests__/utils";
 
 
 test('parse markdown', () => {
@@ -13,4 +13,7 @@ test('parse markdown without linkify', () => {
 });
 test('parse html', () => {
     expect(parse('<a href="http://example.org">example</a>')).toMatchSnapshot();
+});
+test('serialize', () => {
+    expect(serialize('<a href="http://example.org">example</a>')).toEqual('[example](http://example.org)\n');
 });

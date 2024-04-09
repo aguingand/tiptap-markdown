@@ -7,8 +7,10 @@ test('markdown', () => {
 test('html', () => {
     expect(parse('<hr>')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<hr>')).toEqual('---')
+test('serialize', () => {
+    expect(serialize('<hr>')).toEqual('---\n')
 })
-
+test('serialize with horizontalRuleMarker', () => {
+    expect(serialize('<hr>', { markdown: { horizontalRuleMarker: '*' } })).toEqual('***\n')
+})
 

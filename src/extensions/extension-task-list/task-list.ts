@@ -1,7 +1,7 @@
-import remarkRehype from "remark-rehype";
 import { Node } from "@tiptap/core";
-import { remarkRehypeListHandlers } from "../../remark-plugins/lists";
-
+import remarkRehype from "remark-rehype";
+import rehypeRemark from "rehype-remark";
+import { rehypeRemarkBulletListHandlers, remarkRehypeListHandlers } from "../../remark-plugins/lists";
 
 
 const TaskList = Node.create({
@@ -12,6 +12,11 @@ export default TaskList.extend({
     parseMarkdown({ toHTML }) {
         toHTML.use(remarkRehype, {
             handlers: remarkRehypeListHandlers,
+        });
+    },
+    renderMarkdown({ toMarkdown }) {
+        toMarkdown.use(rehypeRemark, {
+            handlers: rehypeRemarkBulletListHandlers,
         });
     },
 });

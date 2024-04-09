@@ -10,14 +10,14 @@ test('parse html', () => {
     expect(parse('<ol><li>example1</li><li>example2</li></ol>')).toMatchSnapshot();
 });
 
-test.skip('serialize ordered list', () => {
+test('serialize', () => {
     expect(serialize('<ol><li>example1</li><li>example2</li></ol>'))
-        .toEqual('1. example1\n2. example2');
+        .toEqual('1. example1\n2. example2\n');
     expect(serialize('<ol start="10"><li>example1</li><li>example2</li></ol>'))
-        .toEqual('10. example1\n11. example2');
+        .toEqual('10. example1\n11. example2\n');
 });
 
-test.skip('serialize adjacent ordered list', () => {
+test('serialize adjacent', () => {
     expect(serialize('<ol><li>example1</li></ol><ol><li>example2</li></ol><ol><li>example3</li></ol>'))
-        .toEqual('1. example1\n\n\n1) example2\n\n\n1. example3'); // prosemirror-markdown insert 3 \n, only 2 are needed
+        .toEqual('1. example1\n\n1) example2\n\n1. example3\n');
 })

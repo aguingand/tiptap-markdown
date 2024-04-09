@@ -38,6 +38,7 @@ export default defineConfig(() => {
                 path.resolve(__dirname, '__tests__/utils/setup.js'),
                 path.resolve(__dirname, '__tests__/utils/setup-dom.js'),
             ],
+            include: ['src/**/*.spec.ts'],
         }
     }
 });

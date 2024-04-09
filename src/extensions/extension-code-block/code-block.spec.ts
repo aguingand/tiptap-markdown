@@ -18,9 +18,13 @@ test('parse markdown with indent', () => {
 test('parse html', () => {
     expect(parse('<pre><code>example</code></pre>')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<pre><code>example</code></pre>')).toEqual('```\nexample\n```');
+test('serialize', () => {
+    expect(serialize('<pre><code>example</code></pre>')).toEqual('```\nexample\n```\n');
 });
-test.skip('serialize with lang', () => {
-    expect(serialize('<pre><code class="language-js">example</code></pre>')).toEqual('```\nexample\n```');
+test('serialize with lang', () => {
+    expect(serialize('<pre><code class="language-js">example</code></pre>')).toEqual('```js\nexample\n```\n');
+});
+test('serialize with languageClassPrefix', () => {
+    expect(serialize('<pre><code class="lang--js">example</code></pre>', { codeBlock: { languageClassPrefix: 'lang--' } }))
+        .toEqual('```js\nexample\n```\n');
 });

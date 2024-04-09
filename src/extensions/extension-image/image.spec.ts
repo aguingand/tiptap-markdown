@@ -12,6 +12,6 @@ test('parse markdown inline', () => {
 test('parse html', () => {
     expect(parse('<img src="example.jpg" alt="example">')).toMatchSnapshot();
 });
-test.skip('serialize image', () => {
-    expect(serialize('<img src="example.jpg" alt="example">')).toEqual('![example](example.jpg)');
+test('serialize image', () => {
+    expect(serialize('<img src="example.jpg" alt="example">')).toEqual('![example](example.jpg)\n');
 });

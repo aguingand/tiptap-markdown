@@ -23,11 +23,11 @@ test('parse markdown h6', () => {
 test('parse html h1', () => {
     expect(parse('<h1>example</h1>')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<h1>example</h1>')).toEqual('# example');
-    expect(serialize('<h2>example</h2>')).toEqual('## example');
-    expect(serialize('<h3>example</h3>')).toEqual('### example');
-    expect(serialize('<h4>example</h4>')).toEqual('#### example');
-    expect(serialize('<h5>example</h5>')).toEqual('##### example');
-    expect(serialize('<h6>example</h6>')).toEqual('###### example');
+test('serialize', () => {
+    expect(serialize('<h1>example</h1>')).toEqual('# example\n');
+    expect(serialize('<h2>example</h2>')).toEqual('## example\n');
+    expect(serialize('<h3>example</h3>')).toEqual('### example\n');
+    expect(serialize('<h4>example</h4>')).toEqual('#### example\n');
+    expect(serialize('<h5>example</h5>')).toEqual('##### example\n');
+    expect(serialize('<h6>example</h6>')).toEqual('###### example\n');
 });

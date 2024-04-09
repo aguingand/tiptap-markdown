@@ -1,8 +1,9 @@
 import { Node } from "@tiptap/core";
 import remarkRehype from "remark-rehype";
-import { gfmTaskListItemFromMarkdown } from "mdast-util-gfm-task-list-item";
+import rehypeRemark from "rehype-remark";
+import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
 import { gfmTaskListItem } from 'micromark-extension-gfm-task-list-item';
-import { remarkRehypeListItemHandlers } from "../../remark-plugins/lists";
+import { rehypeRemarkListItemHandlers, remarkRehypeListItemHandlers } from "../../remark-plugins/lists";
 
 const TaskItem = Node.create({
     name: 'taskItem',
@@ -17,7 +18,11 @@ export default TaskItem.extend({
             handlers: remarkRehypeListItemHandlers,
         });
     },
-    renderMarkdown() {
-        // handled by remark ?
+    renderMarkdown({ toMarkdown }) {
+        (toMarkdown.data().toMarkdownExtensions ??= []).push(gfmTaskListItemToMarkdown());
+
+        toMarkdown.use(rehypeRemark, {
+            handlers: rehypeRemarkListItemHandlers,
+        });
     },
 });

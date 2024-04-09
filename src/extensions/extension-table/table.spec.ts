@@ -29,7 +29,7 @@ test('parse html', () => {
     `)).toMatchSnapshot();
 });
 
-describe.skip('serialize', () => {
+describe('serialize', () => {
     test('filled', () => {
         expect(serialize(dedent`
             <table>
@@ -44,7 +44,7 @@ describe.skip('serialize', () => {
             </table>
         `)).toEqual(dedent`
             | example1 | example2 |
-            | --- | --- |
+            | -------- | -------- |
             | example3 | example4 |
         `);
     });
@@ -61,9 +61,9 @@ describe.skip('serialize', () => {
                 </tr>
             </table>
         `)).toEqual(dedent`
-            |  |  |
-            | --- | --- |
-            |  |  |
+            |   |   |
+            | - | - |
+            |   |   |
         `);
     });
     test('single column', () => {
@@ -78,7 +78,7 @@ describe.skip('serialize', () => {
             </table>
         `)).toEqual(dedent`
             | example1 |
-            | --- |
+            | -------- |
             | example3 |
         `);
     });
@@ -92,7 +92,7 @@ describe.skip('serialize', () => {
             </table>
         `)).toEqual(dedent`
             | example1 | example2 |
-            | --- | --- |
+            | -------- | -------- |
         `);
     });
     test('cell with hard break', () => {
@@ -103,8 +103,8 @@ describe.skip('serialize', () => {
                 </tr>
             </table>
         `, { markdown: { html: true } })).toEqual(dedent`
-            | example1 <br> example2 |
-            | --- |
+            | example1<br>example2 |
+            | -------------------- |
         `);
     });
     test('no header', () => {

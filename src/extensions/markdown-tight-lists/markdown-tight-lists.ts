@@ -1,7 +1,20 @@
 import { Extension } from "@tiptap/core";
+import { Element } from "hast";
+import { List } from "mdast";
+
+export function maybeTightList(element: Element, markdownNode: List) {
+    if(element.properties.dataTight === 'true') {
+        markdownNode.spread = false;
+        markdownNode.children.forEach(listItem => {
+            listItem.spread = false;
+        });
+    }
+    return markdownNode;
+}
 
 export const MarkdownTightLists = Extension.create({
     name: 'markdownTightLists',
+    priority: 100,
     addOptions: () => ({
         tight: true,
         tightClass: 'tight',

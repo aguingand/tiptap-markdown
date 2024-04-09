@@ -8,6 +8,6 @@ test('parse markdown', () => {
 test('parse html', () => {
     expect(parse('<blockquote>example</blockquote>')).toMatchSnapshot();
 });
-test.skip('serialize', () => {
-    expect(serialize('<blockquote>example</blockquote>')).toMatchSnapshot();
+test('serialize', () => {
+    expect(serialize('<blockquote>example</blockquote>')).toEqual('> example\n')
 });

@@ -15,7 +15,7 @@ export default CodeBlock.extend({
     parseMarkdown({ toHTML }) {
         toHTML.use(remarkRehype, {
             handlers: {
-                code: (state, node) => {
+                code: (state, node: Code) => {
                     const element = remarkRehypeDefaultHandlers.code(state, node);
                     if(node.lang) {
                         (element.children[0] as Element).properties.className = [this.options.languageClassPrefix + node.lang];
@@ -30,9 +30,11 @@ export default CodeBlock.extend({
             handlers: {
                 pre: (state, element) => {
                     const node: Code = rehypeRemarkDefaultHandlers.pre(state, element);
-                    if(!node.lang) {
-
-                    }
+                    node.lang ??= ((element.children.find(child => child.type === 'element' && child.tagName === 'code') as Element)
+                        ?.properties
+                        ?.className as string[])
+                        ?.find(c => c.startsWith(this.options.languageClassPrefix))
+                        ?.replace(this.options.languageClassPrefix, '');
                     return node;
                 }
             }

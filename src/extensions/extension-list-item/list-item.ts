@@ -1,6 +1,7 @@
 import { Node } from "@tiptap/core";
 import remarkRehype from "remark-rehype";
-import { remarkRehypeListItemHandlers } from "../../remark-plugins/lists";
+import { rehypeRemarkListItemHandlers, remarkRehypeListItemHandlers } from "../../remark-plugins/lists";
+import rehypeRemark from "rehype-remark";
 
 const ListItem = Node.create({
     name: 'listItem',
@@ -13,7 +14,9 @@ export default ListItem.extend({
             handlers: remarkRehypeListItemHandlers,
         });
     },
-    renderMarkdown() {
-        // handled by remark
+    renderMarkdown({ toMarkdown }) {
+        // toMarkdown.use(rehypeRemark, {
+        //     handlers: rehypeRemarkListItemHandlers,
+        // });
     },
 });
