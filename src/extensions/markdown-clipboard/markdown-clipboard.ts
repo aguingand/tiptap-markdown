@@ -1,4 +1,4 @@
-import { Extension } from "@tiptap/core";
+import { createNodeFromContent, Extension } from "@tiptap/core";
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { DOMParser } from '@tiptap/pm/model';
 import { elementFromString } from "../../util/dom";
@@ -16,16 +16,18 @@ export const MarkdownClipboard = Extension.create({
             new Plugin({
                 key: new PluginKey('markdownClipboard'),
                 props: {
+                    // @ts-ignore
                     clipboardTextParser: (text, context, plainText) => {
                         if(plainText || !this.options.transformPastedText) {
                             return null; // pasting with shift key prevents formatting
                         }
                         const parsed = this.editor.storage.markdown.parser.parse(text, { inline: true });
-                        return DOMParser.fromSchema(this.editor.schema)
-                            .parseSlice(elementFromString(parsed), {
+                        return createNodeFromContent(parsed, this.editor.schema, {
+                            parseOptions: {
                                 preserveWhitespace: true,
                                 context,
-                            });
+                            }
+                        });
                     },
                     /**
                      * @param {import('prosemirror-model').Slice} slice

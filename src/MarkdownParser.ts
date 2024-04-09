@@ -2,9 +2,9 @@ import { Content, Editor, getExtensionField, MarkConfig, NodeConfig } from "@tip
 import { unified } from "unified";
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import rehypeStringify from 'rehype-stringify';
 import rehypeMinifyWhitespace from 'rehype-minify-whitespace';
 import { Root } from 'mdast';
+import rehypeDomStringify from "rehype-dom-stringify";
 
 export class MarkdownParser {
     editor: Editor;
@@ -20,7 +20,7 @@ export class MarkdownParser {
             const toHTML = unified()
                 .use(remarkRehype)
                 .use(rehypeMinifyWhitespace)
-                .use(rehypeStringify);
+                .use(rehypeDomStringify);
 
             this.editor.extensionManager.extensions.forEach(extension => {
                 const parseMarkdown = getExtensionField<NodeConfig['parseMarkdown'] | MarkConfig['parseMarkdown']>(

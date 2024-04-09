@@ -2,7 +2,7 @@ import remarkStringify from 'remark-stringify';
 import { Content, Editor, getExtensionField, MarkConfig, NodeConfig } from "@tiptap/core";
 import { unified } from "unified";
 import rehypeRemark from "rehype-remark";
-import rehypeParse from "rehype-parse";
+import rehypeDomParse from "rehype-dom-parse";
 import { Root } from "hast";
 
 export class MarkdownSerializer {
@@ -14,7 +14,7 @@ export class MarkdownSerializer {
 
     serialize(content: string): string {
         const fromHTML = unified()
-            .use(rehypeParse, { fragment: true });
+            .use(rehypeDomParse, { fragment: true });
         const toMarkdown = unified()
             .use(rehypeRemark)
             .use(remarkStringify);

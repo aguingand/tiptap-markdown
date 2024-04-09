@@ -50,6 +50,8 @@
     "markdown-it-task-lists": "^2.1.1",
     "prosemirror-markdown": "^1.11.1",
     "rehype": "^13.0.1",
+    "rehype-dom-parse": "^5.0.0",
+    "rehype-dom-stringify": "^4.0.0",
     "rehype-minify-whitespace": "^6.0.0",
     "rehype-raw": "^7.0.0",
     "rehype-remark": "^10.0.0",

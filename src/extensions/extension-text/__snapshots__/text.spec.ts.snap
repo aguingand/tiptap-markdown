@@ -27,3 +27,17 @@ exports[`parse soft break 1`] = `
   },
 ]
 `;
+
+exports[`parse with spaces inline 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
