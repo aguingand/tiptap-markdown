@@ -1,20 +1,26 @@
 {
-  "private": true,
   "name": "example",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force"
+  },
   "dependencies": {
-    "@tiptap/extension-code-block-lowlight": "^2.1.12",
-    "@tiptap/extension-youtube": "^2.1.12",
-    "bootstrap": "^5.0.0-beta3",
-    "lowlight": "^3.1.0",
-    "markdown-it-container": "^3.0.0",
-    "markdown-it-mark": "^3.0.1",
-    "vue": "^3.2.47"
+    "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "@types/node": "^20.11.28",
     "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/compiler-sfc": "^3.4.21",
-    "sass": "^1.32.10"
+    "@vue/tsconfig": "^0.5.1",
+    "npm-run-all2": "^6.1.2",
+    "typescript": "~5.4.0",
+    "vite": "^5.1.6",
+    "vue-tsc": "^2.0.6"
   }
 }

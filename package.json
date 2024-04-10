@@ -4,10 +4,10 @@
   "description": "Edit markdown content in tiptap editor.",
   "scripts": {
     "test": "vitest",
-    "dev": "vite example",
+    "dev": "vite example-legacy",
     "build": "vite build",
-    "build:example": "vite build example",
-    "preview": "vite preview example",
+    "build:example": "vite build example-legacy",
+    "preview": "vite preview example-legacy",
     "preversion": "npm run build",
     "update:tiptap": "update-by-scope @tiptap"
   },

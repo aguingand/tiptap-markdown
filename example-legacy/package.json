@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "example",
+  "version": "0.0.0",
+  "type": "module",
+  "dependencies": {
+    "@tiptap/extension-code-block-lowlight": "^2.1.12",
+    "@tiptap/extension-youtube": "^2.1.12",
+    "lowlight": "^3.1.0",
+    "markdown-it-mark": "^3.0.1",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/compiler-sfc": "^3.4.21",
+    "sass": "^1.32.10"
+  }
+}

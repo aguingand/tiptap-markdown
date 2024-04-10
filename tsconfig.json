@@ -3,7 +3,7 @@
     "target": "es2015",
     "lib": ["dom", "es2017", "es2018", "es2019", "es2020", "es2021", "es2022"],
     "module": "esnext",
-    "include": ["src"],
+    "include": ["src","example/src/**/*.vue"],
     "compilerOptions": {
       "emitDeclarationOnly": false,
       "noEmit": true,
