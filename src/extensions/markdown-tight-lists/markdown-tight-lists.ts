@@ -1,6 +1,7 @@
 import { Extension } from "@tiptap/core";
 import { Element } from "hast";
 import { List } from "mdast";
+import { MarkdownStorage } from "../../Markdown";
 
 export function maybeTightList(element: Element, markdownNode: List) {
     if(element.properties.dataTight === 'true') {
@@ -16,8 +17,6 @@ export const MarkdownTightLists = Extension.create({
     name: 'markdownTightLists',
     priority: 100,
     addOptions: () => ({
-        tight: true,
-        tightClass: 'tight',
         listTypes: [
             'bulletList',
             'orderedList',
@@ -30,11 +29,11 @@ export const MarkdownTightLists = Extension.create({
                 types: this.options.listTypes,
                 attributes: {
                     tight: {
-                        default: this.options.tight,
+                        default: (this.editor.storage.markdown as MarkdownStorage).options.tightLists,
                         parseHTML: element =>
                             element.getAttribute('data-tight') === 'true' || !element.querySelector('p'),
                         renderHTML: attributes => ({
-                            class: attributes.tight ? this.options.tightClass : null,
+                            class: attributes.tight ? (this.editor.storage.markdown as MarkdownStorage).tightClass : null,
                             'data-tight': attributes.tight ? 'true' : null,
                         }),
                     },

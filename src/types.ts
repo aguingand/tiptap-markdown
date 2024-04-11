@@ -1,12 +1,14 @@
 import { Editor } from "@tiptap/core";
 import { Processor } from "unified";
+import { defaultHandlers as remarkRehypeDefaultHandlers, Handlers as RemarkRehypeHandlers } from "mdast-util-to-hast";
+import { Nodes } from 'mdast';
 
-export type ParseMarkdownProps = {
+export interface ParseMarkdownProps {
     fromMarkdown: Processor<any,any,any,any,any>,
     toHTML: Processor<any,any,any,any,any>,
 }
 
-export type RenderMarkdownProps = {
+export interface RenderMarkdownProps {
     fromHTML: Processor<any,any,any,any,any>,
     toMarkdown: Processor<any,any,any,any,any>,
 }
@@ -20,6 +22,14 @@ export type MarkdownConfig<Options> = {
         this: { name: string, options: Options, editor: Editor },
         { fromHTML, toMarkdown }: RenderMarkdownProps
     ): void,
+}
+declare module 'unified' {
+    interface Data {
+        withHandlers<
+            N extends Nodes,
+            Handlers = Pick<typeof remarkRehypeDefaultHandlers, N['type']>
+        >(middleware: (handlers: Handlers) => Handlers): Handlers
+    }
 }
 
 declare module '@tiptap/core' {

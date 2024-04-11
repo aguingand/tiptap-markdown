@@ -1,18 +1,29 @@
-import {Extension, extensions, getSchemaByResolvedExtensions} from '@tiptap/core';
+import { Content, Editor, Extension, extensions, getExtensionField, getSchemaByResolvedExtensions } from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/markdown-tight-lists/markdown-tight-lists";
 import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clipboard";
-import type { RawCommands } from "@tiptap/core";
 import markdownExtensions from "./extensions";
-import { MarkdownOptions } from "../index";
 import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
 import { MarkdownSerializer } from "./MarkdownSerializer";
 
-type MarkdownStorage = {
+export interface MarkdownOptions  {
+    html: boolean,
+    tightLists: boolean,
+    tightListClass: string,
+    bulletListMarker: '-' | '*' | '+',
+    horizontalRuleMarker: '-' | '_' | '*',
+    linkify: boolean,
+    breaks: boolean,
+    transformPastedText: boolean,
+    transformCopiedText: boolean,
+}
+
+export interface MarkdownStorage {
     options: MarkdownOptions,
     parser: MarkdownParser,
-    // serializer: MarkdownSerializer,
+    serializer: MarkdownSerializer,
     getMarkdown: () => string,
+    initialContent?: Content,
 }
 
 export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
@@ -32,11 +43,11 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
         }
     },
     addCommands() {
-        const commands = extensions.Commands.config.addCommands?.() as RawCommands;
+        const commands = getExtensionField(extensions.Commands, 'addCommands')();
         return {
             setContent: (content, emitUpdate, parseOptions) => (props) => {
                 return commands.setContent(
-                    props.editor.storage.markdown.parser.parse(content),
+                    (props.editor.storage.markdown as MarkdownStorage).parser.parse(content),
                     emitUpdate,
                     parseOptions
                 )(props);
@@ -44,7 +55,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             insertContentAt: (range, content, options) => (props) => {
                 return commands.insertContentAt(
                     range,
-                    props.editor.storage.markdown.parser.parse(content, { inline: true }),
+                    (props.editor.storage.markdown as MarkdownStorage).parser.parse(content),
                     options
                 )(props);
             },
@@ -79,34 +90,32 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             parser: new MarkdownParser(this.editor),
             serializer: new MarkdownSerializer(this.editor),
             getMarkdown: () => {
-                return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
+                return (this.editor.storage.markdown as MarkdownStorage)
+                    .serializer
+                    .serialize(this.editor.state.doc.content);
             },
             initialContent: this.editor.options.content,
         }
         if(this.editor.options.content) {
-            this.editor.options.content = this.editor.storage.markdown.parser.parse(this.editor.options.content);
+            this.editor.options.content = (this.editor.storage.markdown as MarkdownStorage)
+                .parser
+                .parse(this.editor.options.content);
         }
     },
     onCreate() {
-        this.editor.options.content = this.editor.storage.markdown.initialContent;
+        this.editor.options.content = (this.editor.storage.markdown as MarkdownStorage).initialContent!;
         delete this.editor.storage.markdown.initialContent;
     },
     addStorage() {
         return {
             /// storage will be defined in onBeforeCreate() to prevent initial object overriding
-        }
+        } as MarkdownStorage
     },
     addExtensions() {
         return [
             MarkdownRawHTML,
-            MarkdownTightLists.configure({
-                tight: this.options.tightLists,
-                tightClass: this.options.tightListClass,
-            }),
-            MarkdownClipboard.configure({
-                transformPastedText: this.options.transformPastedText,
-                transformCopiedText: this.options.transformCopiedText,
-            }),
+            MarkdownTightLists,
+            MarkdownClipboard,
         ]
     },
 });

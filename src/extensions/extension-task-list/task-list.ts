@@ -1,7 +1,8 @@
 import { Node } from "@tiptap/core";
-import remarkRehype from "remark-rehype";
+import remarkRehype, { defaultHandlers } from "remark-rehype";
 import rehypeRemark from "rehype-remark";
-import { rehypeRemarkBulletListHandlers, remarkRehypeListHandlers } from "../../remark-plugins/lists";
+import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
+import { List } from "mdast";
 
 
 const TaskList = Node.create({
@@ -11,12 +12,20 @@ const TaskList = Node.create({
 export default TaskList.extend({
     parseMarkdown({ toHTML }) {
         toHTML.use(remarkRehype, {
-            handlers: remarkRehypeListHandlers,
+            handlers: toHTML.data().withHandlers<List>((handlers) => ({
+                list: (state, node) => {
+                    const element = handlers.list(state, node);
+
+                    if((element.properties.className as string[])?.[0] === 'contains-task-list') {
+                        element.properties.dataType = 'taskList';
+                    }
+
+                    return element;
+                }
+            })),
         });
     },
     renderMarkdown({ toMarkdown }) {
-        toMarkdown.use(rehypeRemark, {
-            handlers: rehypeRemarkBulletListHandlers,
-        });
+        // handled by remark
     },
 });

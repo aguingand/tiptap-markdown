@@ -1,42 +1,32 @@
-import { createNodeFromContent, Extension } from "@tiptap/core";
+import { elementFromString, Extension } from "@tiptap/core";
 import { Plugin, PluginKey } from '@tiptap/pm/state';
 import { DOMParser } from '@tiptap/pm/model';
-import { elementFromString } from "../../util/dom";
+import { MarkdownStorage } from "../../Markdown";
 
 export const MarkdownClipboard = Extension.create({
     name: 'markdownClipboard',
-    addOptions() {
-        return {
-            transformPastedText: false,
-            transformCopiedText: false,
-        }
-    },
-    addProseMirrorPlugins() {
+    addProseMirrorPlugins: function() {
         return [
             new Plugin({
                 key: new PluginKey('markdownClipboard'),
                 props: {
-                    // @ts-ignore
-                    clipboardTextParser: (text, context, plainText) => {
-                        if(plainText || !this.options.transformPastedText) {
-                            return null; // pasting with shift key prevents formatting
+                    clipboardTextParser: (text, context, plainText, view) => {
+                        if(plainText || !(this.editor.storage.markdown as MarkdownStorage).options.transformPastedText) {
+                            return null as any; // pasting with shift key prevents formatting
                         }
-                        const parsed = this.editor.storage.markdown.parser.parse(text, { inline: true });
-                        return createNodeFromContent(parsed, this.editor.schema, {
-                            parseOptions: {
+                        const html = (this.editor.storage.markdown as MarkdownStorage).parser.parse(text);
+
+                        return DOMParser.fromSchema(this.editor.schema)
+                            .parseSlice(elementFromString(html), {
                                 preserveWhitespace: true,
                                 context,
-                            }
-                        });
+                            });
                     },
-                    /**
-                     * @param {import('prosemirror-model').Slice} slice
-                     */
                     clipboardTextSerializer: (slice) => {
-                        if(!this.options.transformCopiedText) {
-                            return null;
+                        if(!(this.editor.storage.markdown as MarkdownStorage).options.transformPastedText) {
+                            return '';
                         }
-                        return this.editor.storage.markdown.serializer.serialize(slice.content);
+                        return (this.editor.storage.markdown as MarkdownStorage).serializer.serialize(slice.content);
                     },
                 },
             })

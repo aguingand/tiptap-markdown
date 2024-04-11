@@ -1,5 +1,6 @@
 import remarkStringify from 'remark-stringify';
-import { Content, Editor, getExtensionField, MarkConfig, NodeConfig } from "@tiptap/core";
+import { Editor, getExtensionField, getHTMLFromFragment, MarkConfig, NodeConfig } from "@tiptap/core";
+import { Node as ProseMirrorNode, Fragment } from "@tiptap/pm/model";
 import { unified } from "unified";
 import rehypeRemark from "rehype-remark";
 import rehypeDomParse from "rehype-dom-parse";
@@ -12,7 +13,13 @@ export class MarkdownSerializer {
         this.editor = editor;
     }
 
-    serialize(content: string): string {
+    serialize(content: ProseMirrorNode | Fragment) {
+        return this.serializeFromHTML(
+            getHTMLFromFragment(Fragment.from(content), this.editor.schema)
+        );
+    }
+
+    serializeFromHTML(content: string): string {
         const fromHTML = unified()
             .use(rehypeDomParse, { fragment: true });
         const toMarkdown = unified()
