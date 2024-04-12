@@ -1,9 +1,17 @@
-import { Content,  Extension, extensions, getExtensionField, getSchemaByResolvedExtensions } from '@tiptap/core';
+import {
+    Content,
+    Extension,
+    ExtensionConfig,
+    extensions,
+    getExtensionField,
+    getSchemaByResolvedExtensions, MarkConfig, NodeConfig
+} from '@tiptap/core';
 import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clipboard";
 import markdownExtensions from "./extensions";
 import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
 import { MarkdownSerializer } from "./MarkdownSerializer";
+import { ParseMarkdownProps } from "./types";
 
 export interface MarkdownOptions  {
     html: boolean,
@@ -61,29 +69,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
         }
     },
     onBeforeCreate() {
-        this.editor.extensionManager.extensions = this.editor.extensionManager.extensions.map(extension => {
-            const markdownExtension = markdownExtensions.find(e => e.name === extension.name);
-            if(markdownExtension) {
-                const { name, defaultOptions, ...config } = markdownExtension.config;
-                return extension
-                    .extend({
-                        ...config,
-                        addOptions() {
-                            return {
-                                ...extension.options,
-                                ...markdownExtension.options,
-                            };
-                        },
-                    } as any);
-            }
-            return extension;
-        });
-        this.editor.extensionManager.schema = getSchemaByResolvedExtensions(
-            this.editor.extensionManager.extensions,
-            this.editor
-        );
-        this.editor.schema = this.editor.extensionManager.schema;
-
+        const editor = this.editor;
         this.editor.storage.markdown = {
             options: { ...this.options },
             parser: new MarkdownParser(this.editor),
@@ -95,6 +81,53 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             },
             initialContent: this.editor.options.content,
         }
+        this.editor.extensionManager.extensions = this.editor.extensionManager.extensions.map(extension => {
+            let markdownExtension = markdownExtensions.find(e => e.name === extension.name);
+            if(typeof markdownExtension === 'function') {
+                return markdownExtension(extension).extend({
+                    addStorage() {
+                        return {
+                            ...this.parent?.(),
+                            markdown: editor.storage.markdown,
+                        }
+                    },
+                });
+            }
+            if(markdownExtension) {
+                return extension
+                    .extend({
+                        ...markdownExtension.config,
+                        defaultOptions: null,
+                        parseMarkdown(props) {
+                            const parse = this.parent ?? getExtensionField(markdownExtension, 'parseMarkdown', this);
+                            parse!(props);
+                        },
+                        renderMarkdown(props) {
+                            const render = this.parent ?? getExtensionField(markdownExtension, 'renderMarkdown', this);
+                            render!(props);
+                        },
+                        addStorage() {
+                            return {
+                                ...this.parent?.(),
+                                markdown: editor.storage.markdown,
+                            }
+                        },
+                        addOptions() {
+                            return {
+                                ...this.parent?.(),
+                                ...markdownExtension.options,
+                            }
+                        },
+                    } as Partial<ExtensionConfig> & Partial<NodeConfig> & Partial<MarkConfig>);
+            }
+            return extension;
+        });
+        this.editor.extensionManager.schema = getSchemaByResolvedExtensions(
+            this.editor.extensionManager.extensions,
+            this.editor
+        );
+        this.editor.schema = this.editor.extensionManager.schema;
+
         if(this.editor.options.content) {
             this.editor.options.content = (this.editor.storage.markdown as MarkdownStorage)
                 .parser

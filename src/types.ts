@@ -1,12 +1,16 @@
-import { Editor, NodeConfig } from "@tiptap/core";
+import { Editor } from "@tiptap/core";
 import { Processor } from "unified";
-import { defaultHandlers as remarkRehypeDefaultHandlers, Handlers as RemarkRehypeHandlers } from "mdast-util-to-hast";
-import { Nodes } from 'mdast';
+import { Options as RemarkRehypeOptions } from "remark-rehype";
 import { ParentConfig } from "@tiptap/core/src/types";
+import { MarkdownStorage } from "./Markdown";
 
 export interface ParseMarkdownProps {
     fromMarkdown: Processor<any,any,any,any,any>,
     toHTML: Processor<any,any,any,any,any>,
+}
+
+export interface ParseMarkdownReturn {
+    remarkRehypeOptions?: RemarkRehypeOptions
 }
 
 export interface RenderMarkdownProps {
@@ -14,37 +18,32 @@ export interface RenderMarkdownProps {
     toMarkdown: Processor<any,any,any,any,any>,
 }
 
-export type MarkdownConfig<Options> = {
+export type MarkdownConfig<Options, Storage> = {
     parseMarkdown(
         this: {
             name: string,
             options: Options,
             editor: Editor,
-            parent: ParentConfig<MarkdownConfig<Options>>['parseMarkdown']
+            storage: Storage,
+            parent: ParentConfig<MarkdownConfig<Options, Storage>>['parseMarkdown']
         },
         { fromMarkdown, toHTML }: ParseMarkdownProps
-    ): void,
+    ): ParseMarkdownReturn | void,
     renderMarkdown(
         this: {
             name: string,
             options: Options,
             editor: Editor,
-            parent: ParentConfig<MarkdownConfig<Options>>['renderMarkdown']
+            storage: Storage,
+            parent: ParentConfig<MarkdownConfig<Options, Storage>>['renderMarkdown']
         },
         { fromHTML, toMarkdown }: RenderMarkdownProps
     ): void,
 }
-declare module 'unified' {
-    interface Data {
-        withHandlers<
-            N extends Nodes,
-            Handlers = Pick<typeof remarkRehypeDefaultHandlers, N['type']>
-        >(middleware: (handlers: Handlers) => Handlers): Handlers
-    }
-}
 
 declare module '@tiptap/core' {
-    interface NodeConfig<Options = any, Storage = any> extends MarkdownConfig<Options> {}
-    interface MarkConfig<Options = any, Storage = any> extends MarkdownConfig<Options> {}
-    interface ExtensionConfig<Options = any, Storage = any> extends MarkdownConfig<Options> {}
+    interface NodeConfig<Options = any, Storage = any> extends MarkdownConfig<Options, Storage> {}
+    interface MarkConfig<Options = any, Storage = any> extends MarkdownConfig<Options, Storage> {}
+    interface ExtensionConfig<Options = any, Storage = any> extends MarkdownConfig<Options, Storage> {}
 }
+export type WithMarkdownStorage<Storage = {}> = Storage & { markdown: MarkdownStorage };

@@ -33,6 +33,7 @@ export class MarkdownSerializer {
                 {
                     name: extension.name,
                     options: extension.options,
+                    storage: extension.storage,
                     editor: this.editor,
                 }
             );

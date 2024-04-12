@@ -31,6 +31,7 @@ export class MarkdownParser {
                     {
                         name: extension.name,
                         options: extension.options,
+                        storage: extension.storage,
                         editor: this.editor,
                     }
                 );
@@ -38,6 +39,10 @@ export class MarkdownParser {
                     fromMarkdown,
                     toHTML,
                 });
+
+                // if(remarkRehypeOptions) {
+                //     toHTML.use(remarkRehype, remarkRehypeOptions);
+                // }
             });
 
             const mdast = fromMarkdown.runSync(fromMarkdown.parse(content), content) as Root;

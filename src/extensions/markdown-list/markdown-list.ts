@@ -2,27 +2,30 @@ import { Node } from "@tiptap/core";
 import { Element } from "hast";
 import { List } from "mdast";
 import { MarkdownStorage } from "../../Markdown";
-import remarkRehype from "remark-rehype";
+import remarkRehype, { Options as RemarkRehypeOptions } from "remark-rehype";
 import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
-import rehypeRemark from "rehype-remark/lib";
+import rehypeRemark from "rehype-remark";
 import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
+import { WithMarkdownStorage } from "../../types";
 
-export const MarkdownList = Node.create({
+export const MarkdownList = Node.create<any, WithMarkdownStorage>({
+    name: '', // take parent name
     addAttributes() {
         return {
+            ...this.parent?.(),
             tight: {
-                default: (this.editor!.storage.markdown as MarkdownStorage).options.tightLists,
+                default: this.storage.markdown.options.tightLists,
                 parseHTML: element =>
                     element.getAttribute('data-tight') === 'true' || !element.querySelector('p'),
                 renderHTML: attributes => ({
-                    class: attributes.tight ? (this.editor!.storage.markdown as MarkdownStorage).options.tightListClass : null,
+                    class: attributes.tight ? this.storage.markdown.options.tightListClass : null,
                     'data-tight': attributes.tight ? 'true' : null,
                 }),
             },
         };
     },
     parseMarkdown({ toHTML }) {
-        toHTML.use(remarkRehype, {
+        const remarkRehypeOptions: RemarkRehypeOptions = {
             handlers: {
                 list(state, node) {
                     const element = remarkRehypeDefaultHandlers.list(state, node);
@@ -34,7 +37,9 @@ export const MarkdownList = Node.create({
                     return element;
                 }
             },
-        });
+        };
+        toHTML.use(remarkRehype, remarkRehypeOptions);
+        return { remarkRehypeOptions };
     },
     renderMarkdown({ toMarkdown }) {
         function handleTight(element: Element, markdownNode: List) {
@@ -59,4 +64,4 @@ export const MarkdownList = Node.create({
         })
     }
 });
-
+MarkdownList.config.defaultOptions = null;
