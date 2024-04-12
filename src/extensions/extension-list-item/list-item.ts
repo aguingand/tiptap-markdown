@@ -1,22 +1,14 @@
-import { Node } from "@tiptap/core";
-import remarkRehype from "remark-rehype";
-import { rehypeRemarkListItemHandlers, remarkRehypeListItemHandlers } from "../../remark-plugins/lists";
-import rehypeRemark from "rehype-remark";
+import { MarkdownListItem } from "../markdown-list-item/markdown-list-item";
 
-const ListItem = Node.create({
+const ListItem = MarkdownListItem.extend({
     name: 'listItem',
 });
 
-
 export default ListItem.extend({
-    parseMarkdown({ toHTML }) {
-        toHTML.use(remarkRehype, {
-            handlers: remarkRehypeListItemHandlers,
-        });
+    parseMarkdown({ fromMarkdown, toHTML }) {
+        this.parent!({ fromMarkdown, toHTML });
     },
-    renderMarkdown({ toMarkdown }) {
-        // toMarkdown.use(rehypeRemark, {
-        //     handlers: rehypeRemarkListItemHandlers,
-        // });
+    renderMarkdown({ fromHTML, toMarkdown }) {
+        this.parent!({ fromHTML, toMarkdown });
     },
 });

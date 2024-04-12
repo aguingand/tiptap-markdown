@@ -1,30 +1,46 @@
 import { Node } from "@tiptap/core";
-import remarkRehype from "remark-rehype/lib";
+import remarkRehype from "remark-rehype";
+import { ListItem } from "mdast";
 import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
-import { Element } from "hast";
-import { List } from "mdast";
-import { Handlers as RemarkRehypeHandlers } from "mdast-util-to-hast/lib/state";
+import rehypeRemark from "rehype-remark";
+import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
 
 
-// here we create a comme extension tha will handle all lists
 export const MarkdownListItem = Node.create({
-    name: 'markdownList',
-    parseMarkdown({ fromMarkdown, toHTML }) {
+    parseMarkdown({ toHTML }) {
         toHTML.use(remarkRehype, {
             handlers: {
-                list(state, node) {
-                    const element = remarkRehypeDefaultHandlers.list(state, node);
+                listItem(state, node: ListItem, parent) {
+                    const element = remarkRehypeDefaultHandlers.listItem(state, node, parent);
 
-                    toHTML.data().listHandlers?.forEach(listHandler => {
-                        listHandler(element, node);
-                    });
+                    if(typeof node.checked === 'boolean') {
+                        element.properties.dataType = 'taskItem';
+                        element.properties.dataChecked = node.checked ? 'true' : 'false';
+                    }
 
                     return element;
                 }
             },
-        })
+        });
+    },
+    renderMarkdown({ toMarkdown }) {
+        toMarkdown.use(rehypeRemark, {
+            handlers: {
+                li(state, element) {
+                    const item = rehypeRemarkDefaultHandlers.li(state, {
+                        ...element,
+                        children: element.properties.dataType === 'taskItem'
+                            ? element.children.slice(1) // remove checkbox input
+                            : element.children,
+                    });
+
+                    if(element.properties.dataType === 'taskItem') {
+                        item.checked = element.properties.dataChecked === 'true';
+                    }
+
+                    return item;
+                },
+            }
+        });
     }
 });
-
-
-

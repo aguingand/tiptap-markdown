@@ -1,29 +1,15 @@
-import { Node } from "@tiptap/core";
-import remarkRehype from "remark-rehype";
-import rehypeRemark from "rehype-remark";
-import { remarkRehypeListHandlers } from "../../remark-plugins/lists";
-import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
-import { maybeTightList } from "../markdown-tight-lists/markdown-tight-lists";
+import { MarkdownList } from "../markdown-list/markdown-list";
 
 
-const OrderedList = Node.create({
+const OrderedList = MarkdownList.extend({
     name: 'orderedList',
 });
 
-
 export default OrderedList.extend({
-    parseMarkdown({ toHTML }) {
-        toHTML.use(remarkRehype, {
-            handlers: remarkRehypeListHandlers,
-        });
+    parseMarkdown({ fromMarkdown, toHTML }) {
+        this.parent!({ fromMarkdown, toHTML });
     },
-    renderMarkdown({ toMarkdown }) {
-        toMarkdown.use(rehypeRemark, {
-            handlers: {
-                ol(state, element) {
-                    return maybeTightList(element, rehypeRemarkDefaultHandlers.ol(state, element));
-                },
-            },
-        });
+    renderMarkdown({ fromHTML, toMarkdown }) {
+        this.parent!({ fromHTML, toMarkdown });
     },
 });

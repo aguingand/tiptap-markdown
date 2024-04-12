@@ -1,31 +1,15 @@
-import { Node } from "@tiptap/core";
-import remarkRehype, { defaultHandlers } from "remark-rehype";
-import rehypeRemark from "rehype-remark";
-import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
-import { List } from "mdast";
+import { MarkdownList } from "../markdown-list/markdown-list";
 
 
-const TaskList = Node.create({
+const TaskList = MarkdownList.extend({
     name: 'taskList',
 });
 
 export default TaskList.extend({
-    parseMarkdown({ toHTML }) {
-        toHTML.use(remarkRehype, {
-            handlers: toHTML.data().withHandlers<List>((handlers) => ({
-                list: (state, node) => {
-                    const element = handlers.list(state, node);
-
-                    if((element.properties.className as string[])?.[0] === 'contains-task-list') {
-                        element.properties.dataType = 'taskList';
-                    }
-
-                    return element;
-                }
-            })),
-        });
+    parseMarkdown({ fromMarkdown, toHTML }) {
+        this.parent!({ fromMarkdown, toHTML });
     },
-    renderMarkdown({ toMarkdown }) {
-        // handled by remark
+    renderMarkdown({ fromHTML, toMarkdown }) {
+        this.parent!({ fromHTML, toMarkdown });
     },
 });

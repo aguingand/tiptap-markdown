@@ -1,31 +1,23 @@
-import { Node } from "@tiptap/core";
 import remarkStringify from "remark-stringify";
-import remarkRehype from "remark-rehype";
-import rehypeRemark from "rehype-remark";
-import { rehypeRemarkBulletListHandlers, remarkRehypeListHandlers } from "../../remark-plugins/lists";
-import { MarkdownOptions } from "../../../index";
+import { MarkdownStorage } from "../../Markdown";
+import { MarkdownList } from "../markdown-list/markdown-list";
 
 
 
-const BulletList = Node.create({
+const BulletList = MarkdownList.extend({
     name: 'bulletList',
 });
 
 export default BulletList.extend({
-    parseMarkdown({ toHTML }) {
-        toHTML.use(remarkRehype, {
-            handlers: remarkRehypeListHandlers,
-        });
+    parseMarkdown({ fromMarkdown, toHTML }) {
+        this.parent!({ fromMarkdown, toHTML });
     },
-    renderMarkdown({ toMarkdown }) {
-        const bulletListMarker = (this.editor.storage.markdown.options as MarkdownOptions).bulletListMarker;
-        toMarkdown
-            .use(rehypeRemark, {
-                handlers: rehypeRemarkBulletListHandlers,
-            })
-            .use(remarkStringify, {
-                bullet: bulletListMarker,
-                bulletOther: bulletListMarker === '-' ? '*' : '-',
-            });
+    renderMarkdown({ fromHTML, toMarkdown }) {
+        const bulletListMarker = (this.editor.storage.markdown as MarkdownStorage).options.bulletListMarker;
+        this.parent!({ fromHTML, toMarkdown });
+        toMarkdown.use(remarkStringify, {
+            bullet: bulletListMarker,
+            bulletOther: bulletListMarker === '-' ? '*' : '-',
+        });
     },
 });

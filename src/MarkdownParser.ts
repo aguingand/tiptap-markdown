@@ -3,7 +3,7 @@ import { unified } from "unified";
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeMinifyWhitespace from 'rehype-minify-whitespace';
-import { Root } from 'mdast';
+import { Root, Nodes } from 'mdast';
 import rehypeDomStringify from "rehype-dom-stringify";
 
 type ParseReturn<C> = C extends string ? HTMLContent : C;

@@ -1,5 +1,4 @@
-import { Content, Editor, Extension, extensions, getExtensionField, getSchemaByResolvedExtensions } from '@tiptap/core';
-import { MarkdownTightLists } from "./extensions/markdown-tight-lists/markdown-tight-lists";
+import { Content,  Extension, extensions, getExtensionField, getSchemaByResolvedExtensions } from '@tiptap/core';
 import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clipboard";
 import markdownExtensions from "./extensions";
@@ -114,7 +113,6 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
     addExtensions() {
         return [
             MarkdownRawHTML,
-            MarkdownTightLists,
             MarkdownClipboard,
         ]
     },

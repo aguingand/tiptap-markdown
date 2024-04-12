@@ -1,11 +1,8 @@
-import { Node } from "@tiptap/core";
-import remarkRehype from "remark-rehype";
-import rehypeRemark from "rehype-remark";
 import { gfmTaskListItemFromMarkdown, gfmTaskListItemToMarkdown } from "mdast-util-gfm-task-list-item";
 import { gfmTaskListItem } from 'micromark-extension-gfm-task-list-item';
-import { rehypeRemarkListItemHandlers, remarkRehypeListItemHandlers } from "../../remark-plugins/lists";
+import { MarkdownListItem } from "../markdown-list-item/markdown-list-item";
 
-const TaskItem = Node.create({
+const TaskItem = MarkdownListItem.extend({
     name: 'taskItem',
 });
 
@@ -14,15 +11,11 @@ export default TaskItem.extend({
         (fromMarkdown.data().micromarkExtensions ??= []).push(gfmTaskListItem());
         (fromMarkdown.data().fromMarkdownExtensions ??= []).push(gfmTaskListItemFromMarkdown());
 
-        toHTML.use(remarkRehype, {
-            handlers: remarkRehypeListItemHandlers,
-        });
+        this.parent!({ fromMarkdown, toHTML });
     },
-    renderMarkdown({ toMarkdown }) {
+    renderMarkdown({ fromHTML, toMarkdown }) {
         (toMarkdown.data().toMarkdownExtensions ??= []).push(gfmTaskListItemToMarkdown());
 
-        toMarkdown.use(rehypeRemark, {
-            handlers: rehypeRemarkListItemHandlers,
-        });
+        this.parent!({ fromHTML, toMarkdown });
     },
 });

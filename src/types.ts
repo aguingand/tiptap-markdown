@@ -1,7 +1,8 @@
-import { Editor } from "@tiptap/core";
+import { Editor, NodeConfig } from "@tiptap/core";
 import { Processor } from "unified";
 import { defaultHandlers as remarkRehypeDefaultHandlers, Handlers as RemarkRehypeHandlers } from "mdast-util-to-hast";
 import { Nodes } from 'mdast';
+import { ParentConfig } from "@tiptap/core/src/types";
 
 export interface ParseMarkdownProps {
     fromMarkdown: Processor<any,any,any,any,any>,
@@ -15,11 +16,21 @@ export interface RenderMarkdownProps {
 
 export type MarkdownConfig<Options> = {
     parseMarkdown(
-        this: { name: string, options: Options, editor: Editor },
+        this: {
+            name: string,
+            options: Options,
+            editor: Editor,
+            parent: ParentConfig<MarkdownConfig<Options>>['parseMarkdown']
+        },
         { fromMarkdown, toHTML }: ParseMarkdownProps
     ): void,
     renderMarkdown(
-        this: { name: string, options: Options, editor: Editor },
+        this: {
+            name: string,
+            options: Options,
+            editor: Editor,
+            parent: ParentConfig<MarkdownConfig<Options>>['renderMarkdown']
+        },
         { fromHTML, toMarkdown }: RenderMarkdownProps
     ): void,
 }
