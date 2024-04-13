@@ -1,5 +1,5 @@
 import { Extension } from "@tiptap/core";
-import { MarkdownOptions } from "../../../index";
+import { MarkdownOptions } from "../../Markdown";
 import rehypeRaw from "rehype-raw";
 import remarkRehype from "remark-rehype";
 

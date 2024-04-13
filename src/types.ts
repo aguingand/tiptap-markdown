@@ -19,7 +19,7 @@ export interface RenderMarkdownProps {
 }
 
 export type MarkdownConfig<Options, Storage> = {
-    parseMarkdown(
+    parseMarkdown?(
         this: {
             name: string,
             options: Options,
@@ -29,7 +29,7 @@ export type MarkdownConfig<Options, Storage> = {
         },
         { fromMarkdown, toHTML }: ParseMarkdownProps
     ): ParseMarkdownReturn | void,
-    renderMarkdown(
+    renderMarkdown?(
         this: {
             name: string,
             options: Options,

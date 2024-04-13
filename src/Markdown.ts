@@ -12,6 +12,7 @@ import markdownExtensions from "./extensions";
 import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
 import { MarkdownSerializer } from "./MarkdownSerializer";
 import { ParseMarkdownProps } from "./types";
+import { DOMParser } from "@tiptap/pm/model";
 
 export interface MarkdownOptions  {
     html: boolean,
@@ -68,7 +69,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             },
         }
     },
-    onBeforeCreate() {
+    onBeforeCreate: function () {
         const editor = this.editor;
         this.editor.storage.markdown = {
             options: { ...this.options },
@@ -83,7 +84,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
         }
         this.editor.extensionManager.extensions = this.editor.extensionManager.extensions.map(extension => {
             let markdownExtension = markdownExtensions.find(e => e.name === extension.name);
-            if(typeof markdownExtension === 'function') {
+            if (typeof markdownExtension === 'function') {
                 return markdownExtension(extension).extend({
                     addStorage() {
                         return {
@@ -93,7 +94,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
                     },
                 });
             }
-            if(markdownExtension) {
+            if (markdownExtension) {
                 return extension
                     .extend({
                         ...markdownExtension.config,
@@ -127,8 +128,13 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             this.editor
         );
         this.editor.schema = this.editor.extensionManager.schema;
+        // this.editor.schema.cached.domParser = new class extends DOMParser {
+        //     override parse(dom: DOMNode, options?: ParseOptions): Node {
+        //         return super.parse(dom, options);
+        //     }
+        // }(this.editor.schema, DOMParser.schemaRules(this.editor.schema))
 
-        if(this.editor.options.content) {
+        if (this.editor.options.content) {
             this.editor.options.content = (this.editor.storage.markdown as MarkdownStorage)
                 .parser
                 .parse(this.editor.options.content);
