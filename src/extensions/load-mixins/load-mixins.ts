@@ -1,9 +1,9 @@
 import {
     Extension,
-    getSchemaByResolvedExtensions, Mark, MarkConfig,
+    getSchemaByResolvedExtensions, Mark,
     Node,
 } from "@tiptap/core";
-import { MarkMixin, NodeMixin } from "./types";
+import { MarkMixin, NodeMixin } from "../../types";
 
 
 export const LoadMixins = Extension.create<{ mixins: { [name: string]: NodeMixin | MarkMixin } }>({

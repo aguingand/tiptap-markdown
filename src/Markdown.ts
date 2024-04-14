@@ -9,27 +9,27 @@ import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clip
 import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
 import { MarkdownSerializer } from "./MarkdownSerializer";
 import { LoadMixins } from "./extensions/load-mixins/load-mixins";
-import { bulletList } from "./extensions/extension-bullet-list/bullet-list";
-import { blockquote } from "./extensions/extension-blockquote/blockquote";
-import { bold } from "./extensions/extension-bold/bold";
-import { code } from "./extensions/extension-code/code";
-import { codeBlock } from "./extensions/extension-code-block/code-block";
-import { doc } from "./extensions/extension-document/document";
-import { hardBreak } from "./extensions/extension-hard-break/hard-break";
-import { heading } from "./extensions/extension-heading/heading";
-import { horizontalRule } from "./extensions/extension-horizontal-rule/horizontal-rule";
-import { image } from "./extensions/extension-image/image";
-import { italic } from "./extensions/extension-italic/italic";
-import { link } from "./extensions/extension-link/link";
-import { listItem } from "./extensions/extension-list-item/list-item";
-import { orderedList } from "./extensions/extension-ordered-list/ordered-list";
-import { strike } from "./extensions/extension-strike/strike";
-import { table } from "./extensions/extension-table/table";
-import { taskItem } from "./extensions/extension-task-item/task-item";
-import { taskList } from "./extensions/extension-task-list/task-list";
-import { paragraph } from "./extensions/extension-paragraph/paragraph";
-import { text } from "./extensions/extension-text/text";
 import { LoadContent } from "./extensions/load-content/load-content";
+import { bulletList } from "./mixins/extension-bullet-list/bullet-list";
+import { blockquote } from "./mixins/extension-blockquote/blockquote";
+import { bold } from "./mixins/extension-bold/bold";
+import { code } from "./mixins/extension-code/code";
+import { codeBlock } from "./mixins/extension-code-block/code-block";
+import { doc } from "./mixins/extension-document/document";
+import { hardBreak } from "./mixins/extension-hard-break/hard-break";
+import { heading } from "./mixins/extension-heading/heading";
+import { horizontalRule } from "./mixins/extension-horizontal-rule/horizontal-rule";
+import { image } from "./mixins/extension-image/image";
+import { italic } from "./mixins/extension-italic/italic";
+import { link } from "./mixins/extension-link/link";
+import { listItem } from "./mixins/extension-list-item/list-item";
+import { orderedList } from "./mixins/extension-ordered-list/ordered-list";
+import { strike } from "./mixins/extension-strike/strike";
+import { table } from "./mixins/extension-table/table";
+import { taskItem } from "./mixins/extension-task-item/task-item";
+import { taskList } from "./mixins/extension-task-list/task-list";
+import { paragraph } from "./mixins/extension-paragraph/paragraph";
+import { text } from "./mixins/extension-text/text";
 
 export interface MarkdownOptions  {
     html: boolean,
