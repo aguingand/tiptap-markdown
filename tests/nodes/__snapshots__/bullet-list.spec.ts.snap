@@ -1,0 +1,206 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "attrs": {
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
+  },
+]
+`;
+
+exports[`parse markdown with "*" 1`] = `
+[
+  {
+    "attrs": {
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
+  },
+]
+`;
+
+exports[`parse markdown with "+" 1`] = `
+[
+  {
+    "attrs": {
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
+  },
+]
+`;
+
+exports[`parse markdown with "-" 1`] = `
+[
+  {
+    "attrs": {
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
+  },
+]
+`;
+
+exports[`parse non-tight list 1`] = `
+[
+  {
+    "attrs": {
+      "tight": false,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "bulletList",
+  },
+]
+`;

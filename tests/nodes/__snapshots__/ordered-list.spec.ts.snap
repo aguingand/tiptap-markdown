@@ -1,0 +1,169 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "attrs": {
+      "start": 1,
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "orderedList",
+  },
+]
+`;
+
+exports[`parse markdown 1`] = `
+[
+  {
+    "attrs": {
+      "start": 1,
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "orderedList",
+  },
+]
+`;
+
+exports[`parse markdown non-tight 1`] = `
+[
+  {
+    "attrs": {
+      "start": 1,
+      "tight": false,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "orderedList",
+  },
+]
+`;
+
+exports[`parse markdown with start 1`] = `
+[
+  {
+    "attrs": {
+      "start": 10,
+      "tight": true,
+    },
+    "content": [
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example1",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+      {
+        "content": [
+          {
+            "content": [
+              {
+                "text": "example2",
+                "type": "text",
+              },
+            ],
+            "type": "paragraph",
+          },
+        ],
+        "type": "listItem",
+      },
+    ],
+    "type": "orderedList",
+  },
+]
+`;
