@@ -1,15 +1,7 @@
 import { MarkdownList } from "../markdown-list/markdown-list";
+import type { TaskList } from "@tiptap/extension-task-list";
+import { NodeMixin } from "../load-mixins/types";
 
-
-const TaskList = MarkdownList.extend({
-    name: 'taskList',
-});
-
-export default TaskList.extend({
-    parseMarkdown({ fromMarkdown, toHTML }) {
-        this.parent!({ fromMarkdown, toHTML });
-    },
-    renderMarkdown({ fromHTML, toMarkdown }) {
-        this.parent!({ fromHTML, toMarkdown });
-    },
-});
+export const taskList: NodeMixin<typeof TaskList> = (TaskList) => (
+    TaskList.extend(MarkdownList.config)
+);

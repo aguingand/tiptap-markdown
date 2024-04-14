@@ -1,15 +1,16 @@
 import { Node } from "@tiptap/core";
 import { Element } from "hast";
 import { List } from "mdast";
-import { MarkdownStorage } from "../../Markdown";
 import remarkRehype, { Options as RemarkRehypeOptions } from "remark-rehype";
 import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
 import rehypeRemark from "rehype-remark";
 import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
 import { WithMarkdownStorage } from "../../types";
 
+
 export const MarkdownList = Node.create<any, WithMarkdownStorage>({
     name: '', // take parent name
+    defaultOptions: null,
     addAttributes() {
         return {
             ...this.parent?.(),

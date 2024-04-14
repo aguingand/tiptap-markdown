@@ -1,11 +1,12 @@
 import remarkStringify from "remark-stringify";
 import { MarkdownList } from "../markdown-list/markdown-list";
-import type { BulletList as TiptapBulletList, BulletListOptions } from '@tiptap/extension-bullet-list';
+import type { BulletList, BulletListOptions } from '@tiptap/extension-bullet-list';
 import { WithMarkdownStorage } from "../../types";
+import { NodeMixin } from "../load-mixins/types";
 
 
-export default function bulletList(BulletList: typeof TiptapBulletList) {
-    return BulletList
+export const bulletList: NodeMixin<typeof BulletList> = (BulletList) => (
+    BulletList
         .extend(MarkdownList.config)
         .extend<BulletListOptions, WithMarkdownStorage>({
             parseMarkdown({ fromMarkdown, toHTML }) {
@@ -21,4 +22,4 @@ export default function bulletList(BulletList: typeof TiptapBulletList) {
                 this.parent!({ fromHTML, toMarkdown });
             },
         })
-}
+);

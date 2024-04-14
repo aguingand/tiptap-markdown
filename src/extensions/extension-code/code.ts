@@ -1,15 +1,13 @@
-import { Mark } from "@tiptap/core";
+import type Code from '@tiptap/extension-code';
+import { MarkMixin } from "../load-mixins/types";
 
-
-const Code = Mark.create({
-    name: 'code',
-});
-
-export default Code.extend({
-    parseMarkdown() {
-        // handled by remark
-    },
-    renderMarkdown() {
-        // handled by remark
-    },
-})
+export const code: MarkMixin<typeof Code> = (Code) => (
+    Code.extend({
+        parseMarkdown() {
+            // handled by remark
+        },
+        renderMarkdown() {
+            // handled by remark
+        },
+    })
+);

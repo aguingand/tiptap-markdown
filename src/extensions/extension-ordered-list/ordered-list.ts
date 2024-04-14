@@ -1,15 +1,7 @@
 import { MarkdownList } from "../markdown-list/markdown-list";
+import type { OrderedList } from "@tiptap/extension-ordered-list";
+import { NodeMixin } from "../load-mixins/types";
 
-
-const OrderedList = MarkdownList.extend({
-    name: 'orderedList',
-});
-
-export default OrderedList.extend({
-    parseMarkdown({ fromMarkdown, toHTML }) {
-        this.parent!({ fromMarkdown, toHTML });
-    },
-    renderMarkdown({ fromHTML, toMarkdown }) {
-        this.parent!({ fromHTML, toMarkdown });
-    },
-});
+export const orderedList: NodeMixin<typeof OrderedList> = (OrderedList) => (
+    OrderedList.extend(MarkdownList.config)
+);

@@ -39,10 +39,6 @@ export class MarkdownParser {
                     fromMarkdown,
                     toHTML,
                 });
-
-                // if(remarkRehypeOptions) {
-                //     toHTML.use(remarkRehype, remarkRehypeOptions);
-                // }
             });
 
             const mdast = fromMarkdown.runSync(fromMarkdown.parse(content), content) as Root;

@@ -1,15 +1,14 @@
-import { Node } from "@tiptap/core";
+import { NodeMixin } from "../load-mixins/types";
+import type Blockquote from '@tiptap/extension-blockquote';
 
 
-const Blockquote = Node.create({
-    name: 'blockquote',
-});
-
-export default Blockquote.extend({
-    parseMarkdown() {
-        // handled by remark
-    },
-    renderMarkdown() {
-        // handled by remark
-    },
-});
+export const blockquote: NodeMixin<typeof Blockquote> = (Blockquote) => (
+    Blockquote.extend({
+        parseMarkdown() {
+            // handled by remark
+        },
+        renderMarkdown() {
+            // handled by remark
+        },
+    })
+);

@@ -1,14 +1,16 @@
+import { NodeMixin } from "../load-mixins/types";
 import { MarkdownListItem } from "../markdown-list-item/markdown-list-item";
+import type { ListItem } from "@tiptap/extension-list-item";
 
-const ListItem = MarkdownListItem.extend({
-    name: 'listItem',
-});
-
-export default ListItem.extend({
-    parseMarkdown({ fromMarkdown, toHTML }) {
-        this.parent!({ fromMarkdown, toHTML });
-    },
-    renderMarkdown({ fromHTML, toMarkdown }) {
-        this.parent!({ fromHTML, toMarkdown });
-    },
-});
+export const listItem: NodeMixin<typeof ListItem> = (ListItem) => (
+    ListItem
+        .extend(MarkdownListItem.config)
+        .extend({
+            parseMarkdown({ fromMarkdown, toHTML }) {
+                this.parent!({ fromMarkdown, toHTML });
+            },
+            renderMarkdown({ fromHTML, toMarkdown }) {
+                this.parent!({ fromHTML, toMarkdown });
+            },
+        })
+);

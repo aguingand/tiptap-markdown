@@ -1,15 +1,13 @@
-import { Node } from "@tiptap/core";
-import type { Paragraph as MarkdownParagraph } from 'mdast';
+import type { Paragraph } from "@tiptap/extension-paragraph";
+import { NodeMixin } from "../load-mixins/types";
 
-const Paragraph = Node.create({
-    name: 'paragraph',
-});
-
-export default Paragraph.extend({
-    parseMarkdown() {
-        // handled by remark
-    },
-    renderMarkdown() {
-        // handled by remark
-    },
-});
+export const paragraph: NodeMixin<typeof Paragraph> = (Paragraph) => (
+    Paragraph.extend({
+        parseMarkdown() {
+            // handled by remark
+        },
+        renderMarkdown() {
+            // handled by remark
+        },
+    })
+);

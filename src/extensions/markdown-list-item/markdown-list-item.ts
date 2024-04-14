@@ -7,6 +7,8 @@ import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mda
 
 
 export const MarkdownListItem = Node.create({
+    name: '', // take parent name
+    defaultOptions: null,
     parseMarkdown({ toHTML }) {
         toHTML.use(remarkRehype, {
             handlers: {

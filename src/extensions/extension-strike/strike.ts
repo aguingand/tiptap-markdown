@@ -1,17 +1,16 @@
-import { Mark } from "@tiptap/core";
 import { gfmStrikethrough } from 'micromark-extension-gfm-strikethrough';
 import { gfmStrikethroughFromMarkdown, gfmStrikethroughToMarkdown } from "mdast-util-gfm-strikethrough";
+import type { Strike } from "@tiptap/extension-strike";
+import { MarkMixin } from "../load-mixins/types";
 
-const Strike = Mark.create({
-    name: 'strike',
-});
-
-export default Strike.extend({
-    parseMarkdown({ fromMarkdown }) {
-        (fromMarkdown.data().micromarkExtensions ??= []).push(gfmStrikethrough());
-        (fromMarkdown.data().fromMarkdownExtensions ??= []).push(gfmStrikethroughFromMarkdown());
-    },
-    renderMarkdown({ toMarkdown }) {
-        (toMarkdown.data().toMarkdownExtensions ??= []).push(gfmStrikethroughToMarkdown());
-    },
-});
+export const strike: MarkMixin<typeof Strike> = (Strike) => (
+    Strike.extend({
+        parseMarkdown({ fromMarkdown }) {
+            (fromMarkdown.data().micromarkExtensions ??= []).push(gfmStrikethrough());
+            (fromMarkdown.data().fromMarkdownExtensions ??= []).push(gfmStrikethroughFromMarkdown());
+        },
+        renderMarkdown({ toMarkdown }) {
+            (toMarkdown.data().toMarkdownExtensions ??= []).push(gfmStrikethroughToMarkdown());
+        },
+    })
+);

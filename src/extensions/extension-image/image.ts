@@ -1,22 +1,20 @@
-import { Node } from "@tiptap/core";
-import { ImageOptions } from "@tiptap/extension-image";
+import type { Image } from "@tiptap/extension-image";
+import { NodeMixin } from "../load-mixins/types";
 
 
-const Image = Node.create<ImageOptions>({
-    name: 'image',
-});
-
-export default Image.extend({
-    addOptions() {
-        return {
-            ...this.parent?.(),
-            inline: true, // markdown images are always inline
-        }
-    },
-    parseMarkdown() {
-        // handled by remark
-    },
-    renderMarkdown() {
-        // handled by remark
-    },
-});
+export const image: NodeMixin<typeof Image> = (Image) => (
+    Image.extend({
+        addOptions() {
+            return {
+                ...this.parent?.(),
+                inline: true, // markdown images are always inline
+            }
+        },
+        parseMarkdown() {
+            // handled by remark
+        },
+        renderMarkdown() {
+            // handled by remark
+        },
+    })
+);
