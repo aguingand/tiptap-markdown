@@ -3,10 +3,11 @@ import { MarkdownOptions, MarkdownStorage } from "../Markdown";
 import rehypeRaw from "rehype-raw";
 import remarkRehype from "remark-rehype";
 import rehypeRemark from "rehype-remark";
-import { defaultHandlers as rehypeRemarkDefaultHandlers, Handle } from "hast-util-to-mdast";
+import { defaultHandlers as rehypeRemarkDefaultHandlers, defaultNodeHandlers as rehypeRemarkDefaultNodeHandlers, Handle } from "hast-util-to-mdast";
 import { Html } from "mdast";
 import { toHtml } from "hast-util-to-html";
 import { DOMParser, DOMSerializer, NodeType, MarkType  } from '@tiptap/pm/model';
+import editor from "../../example-legacy/src/components/Editor.vue";
 
 
 export const MarkdownRawHTML = Extension.create({
@@ -70,60 +71,61 @@ export const MarkdownRawHTML = Extension.create({
                     ? defaultHandler(state, node, parent)
                     : state.all(node);
             };
-        const handlersFromDefaults = Object.fromEntries(
-            Object.entries(rehypeRemarkDefaultHandlers).map(([name, handler]) => {
-                if(passthroughElements.includes(name as any)) {
-                    return [name, handler];
-                }
-                return [
-                    name,
-                    handleHTML(name),
-                ];
-            })
-        );
-        const handlersFromSchema = Object.fromEntries([
-            ...Object.entries(this.editor.schema.nodes)
-                .map<[string | null, NodeType]>(([name, nodeType]) => [getTagNameFromNodeType(nodeType), nodeType])
-                .filter(([tagName, nodeType]) => !!tagName)
-                .map(([tagName, nodeType]) => [
-                    tagName,
-                    handleHTML(tagName as string, nodeType)
-                ]),
-            ...Object.entries(this.editor.schema.marks)
-                .map<[string | null, MarkType]>(([name, markType]) => [getTagNameFromMarkType(markType), markType])
-                .filter(([tagName, markType]) => !!tagName)
-                .map(([tagName, markType]) => [
-                    tagName,
-                    handleHTML(tagName as string, markType)
-                ]),
-        ]);
-
+        // const handlersFromDefaults = Object.fromEntries(
+        //     Object.entries(rehypeRemarkDefaultHandlers).map(([name, handler]) => {
+        //         if(passthroughElements.includes(name as any)) {
+        //             return [name, handler];
+        //         }
+        //         return [
+        //             name,
+        //             handleHTML(name),
+        //         ];
+        //     })
+        // );
+        // const handlersFromSchema = Object.fromEntries([
+        //     ...Object.entries(this.editor.schema.nodes)
+        //         .map<[string | null, NodeType]>(([name, nodeType]) => [getTagNameFromNodeType(nodeType), nodeType])
+        //         .filter(([tagName, nodeType]) => !!tagName)
+        //         .map(([tagName, nodeType]) => [
+        //             tagName,
+        //             handleHTML(tagName as string, nodeType)
+        //         ]),
+        //     ...Object.entries(this.editor.schema.marks)
+        //         .map<[string | null, MarkType]>(([name, markType]) => [getTagNameFromMarkType(markType), markType])
+        //         .filter(([tagName, markType]) => !!tagName)
+        //         .map(([tagName, markType]) => [
+        //             tagName,
+        //             handleHTML(tagName as string, markType)
+        //         ]),
+        // ]);
+        const editor = this.editor;
         toMarkdown.use(rehypeRemark, {
-            handlers: {
-                ...handlersFromDefaults,
-                ...handlersFromSchema,
+            nodeHandlers: {
+                root: (state, node) => {
+                    const initialState = { ...state };
+                    state.one = (node, parent) => {
+                        if(node.type === 'element' && !passthroughElements.includes(node.tagName)) {
+                            if(node.properties.dataMark) {
+                                const prosemirrorMarkName = node.properties.dataMark;
+                                delete node.properties.dataMark;
+                                return handleHTML(node.tagName, editor.schema.marks[prosemirrorMarkName])(state, node, parent);
+                            } else if(node.properties.dataNode) {
+                                const prosemirrorNodeName = node.properties.dataNode;
+                                delete node.properties.dataNode;
+                                return handleHTML(node.tagName, editor.schema.nodes[prosemirrorNodeName])(state, node, parent);
+                            }
+                            return handleHTML(node.tagName)(state, node, parent);
+                        }
+                        return initialState.one.call(state, node, parent);
+                    }
+                    state.all = initialState.all.bind(state);
+                    return rehypeRemarkDefaultNodeHandlers.root(state, node);
+                },
             },
+            // handlers: {
+            //     ...handlersFromDefaults,
+            //     ...handlersFromSchema,
+            // },
         });
     },
 });
-
-
-function getTagNameFromNodeType(nodeType: NodeType) {
-    const attrs = Object.fromEntries(Object.entries(nodeType.spec.attrs ?? {}).map(([name]) => [name, null]));
-    const output = nodeType.spec.toDOM?.(nodeType.create(attrs));
-    const fixedOutput = Array.isArray(output)
-        ? output.filter(spec => spec != null) as [string, ...any[]]
-        : output;
-    const spec = fixedOutput ? DOMSerializer.renderSpec(document, fixedOutput) : null;
-    return spec?.dom instanceof HTMLElement ? spec.dom.tagName.toLowerCase() : null;
-}
-
-function getTagNameFromMarkType(markType: MarkType) {
-    const attrs = Object.fromEntries(Object.entries(markType.spec.attrs ?? {}).map(([name]) => [name, null]));
-    const output = markType.spec.toDOM?.(markType.create(attrs), false);
-    const fixedOutput = Array.isArray(output)
-        ? output.filter(spec => spec != null) as [string, ...any[]]
-        : output;
-    const spec = fixedOutput ? DOMSerializer.renderSpec(document, fixedOutput) : null;
-    return spec?.dom instanceof HTMLElement ? spec.dom.tagName.toLowerCase() : null;
-}
