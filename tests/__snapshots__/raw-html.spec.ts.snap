@@ -53,6 +53,12 @@ exports[`parse inline html node 1`] = `
   {
     "content": [
       {
+        "content": [
+          {
+            "text": "Hello",
+            "type": "text",
+          },
+        ],
         "type": "html-node",
       },
     ],

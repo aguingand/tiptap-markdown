@@ -9,6 +9,7 @@ import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mda
 import { MarkMixin } from "../types";
 import { remarkMarker } from "../remark-plugins/remark-marker-plugin";
 import { withStateOptions } from "../util/state";
+import { visit } from "unist-util-visit";
 
 
 export const bold: MarkMixin<typeof Bold> = (Bold) => (
@@ -35,6 +36,14 @@ export const bold: MarkMixin<typeof Bold> = (Bold) => (
         },
         renderMarkdown({ toMarkdown }) {
             toMarkdown
+                // .use(() => (tree) => {
+                //     visit(tree, ['strong' satisfies Strong['type']], (strong: Strong, index, parent) => {
+                //         if(strong.children) {
+                //
+                //         }
+                //     });
+                //     return tree;
+                // })
                 .use(rehypeRemark, {
                     handlers: {
                         strong(state, element) {

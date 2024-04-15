@@ -28,6 +28,7 @@ test('parse inline html node', () => {
     expect(parse('<custom-element>Hello</custom-element>', {
         htmlNode: {
             group: 'inline',
+            content: 'text*',
             inline: true,
             parseHTML: () => [{
                 tag: 'custom-element',
@@ -36,17 +37,18 @@ test('parse inline html node', () => {
     })).toMatchSnapshot();
 });
 test('parse disabled', () => {
-    expect(parse('<custom-element></custom-element>', {
+    expect(parse('<custom-element>\nHello\n</custom-element>', {
         markdown: {
             html: false,
         },
         htmlNode: {
             group: 'block',
+            content: 'inline*',
             parseHTML: () => [{
                 tag: 'custom-element',
             }],
         },
-    })).toMatchSnapshot();
+    })).toBeNull();
 })
 test('serialize underline', () => {
     vi.spyOn(console, 'warn').mockImplementation(() => {});
