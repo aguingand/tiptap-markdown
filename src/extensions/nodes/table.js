@@ -25,9 +25,16 @@ export default Table.extend({
                             if(j) {
                                 state.write(' | ');
                             }
-                            const cellContent = col.firstChild;
-                            if(cellContent.textContent.trim()) {
-                                state.renderInline(cellContent);
+                            if(col.childCount > 0) {
+                                for (let k = 0; k < col.childCount; k++) {
+                                    const cellContent = col.child(k);
+                                    if(cellContent.textContent.trim()) {
+                                        state.renderInline(cellContent);
+                                    }
+                                    if (k < col.childCount - 1) {
+                                        state.write(' <br/> ');
+                                    }
+                                }
                             }
                         });
                         state.write(' |')
@@ -59,12 +66,12 @@ function isMarkdownSerializable(node) {
     const firstRow = rows[0];
     const bodyRows = rows.slice(1);
 
-    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' || hasSpan(cell) || cell.childCount > 1)) {
+    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' )) {
         return false;
     }
 
     if(bodyRows.some(row =>
-        childNodes(row).some(cell => cell.type.name === 'tableHeader' || hasSpan(cell) || cell.childCount > 1)
+        childNodes(row).some(cell => cell.type.name === 'tableHeader' )
     )) {
         return false;
     }
