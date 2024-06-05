@@ -32,7 +32,7 @@ export default Table.extend({
                                         state.renderInline(cellContent);
                                     }
                                     if (k < col.childCount - 1) {
-                                        state.write(' <br/> ');
+                                        state.write(' <br> ');
                                     }
                                 }
                             }
@@ -66,12 +66,12 @@ function isMarkdownSerializable(node) {
     const firstRow = rows[0];
     const bodyRows = rows.slice(1);
 
-    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' )) {
+    if(childNodes(firstRow).some(cell => cell.type.name !== 'tableHeader' || hasSpan(cell))) {
         return false;
     }
 
     if(bodyRows.some(row =>
-        childNodes(row).some(cell => cell.type.name === 'tableHeader' )
+        childNodes(row).some(cell => cell.type.name === 'tableHeader' || hasSpan(cell) )
     )) {
         return false;
     }

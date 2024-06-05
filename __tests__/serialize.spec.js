@@ -229,7 +229,10 @@ describe('serialize', () => {
                             <th><p>example1</p><p>example2</p></th>
                         </tr>
                     </table>
-                `, { html: true })).toMatchSnapshot();
+                `, { html: true })).toEqual(dedent`
+                | example1 <br> example2 |
+                | --- |
+            `);
             });
         })
         test('html', () => {
