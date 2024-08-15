@@ -47,7 +47,7 @@ export class MarkdownParser {
 
         // remove all \n appended by markdown-it
         node.querySelectorAll('*').forEach(el => {
-            if(el.nextSibling?.nodeType === Node.TEXT_NODE && !el.closest('pre')) {
+            if(el.nextSibling?.nodeType === Node.TEXT_NODE && !el.closest('pre') && el.nextSibling) {
                 el.nextSibling.textContent = el.nextSibling.textContent.replace(/^\n/, '');
             }
         });
