@@ -6,6 +6,7 @@ exports[`parse html 1`] = `
     "attrs": {
       "start": 1,
       "tight": true,
+      "type": undefined,
     },
     "content": [
       {
@@ -48,6 +49,7 @@ exports[`parse markdown 1`] = `
     "attrs": {
       "start": 1,
       "tight": true,
+      "type": undefined,
     },
     "content": [
       {
