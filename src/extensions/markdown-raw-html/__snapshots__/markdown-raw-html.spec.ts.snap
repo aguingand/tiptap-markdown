@@ -1,5 +1,19 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`parse block disabled inner <p> 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
 exports[`parse block html node 1`] = `
 [
   {
@@ -14,13 +28,39 @@ exports[`parse block html node 1`] = `
 ]
 `;
 
-exports[`parse disabled 1`] = `
+exports[`parse block html node inner <p> 1`] = `
 [
   {
     "content": [
       {
-        "text": <custom-element>
-</custom-element>,
+        "content": [
+          {
+            "text": "example",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "html-node",
+  },
+]
+`;
+
+exports[`parse inline disabled 1`] = `
+[
+  {
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse inline disabled inner text 1`] = `
+[
+  {
+    "content": [
+      {
+        "text": "example",
         "type": "text",
       },
     ],
@@ -34,6 +74,25 @@ exports[`parse inline html node 1`] = `
   {
     "content": [
       {
+        "type": "html-node",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse inline html node inner text 1`] = `
+[
+  {
+    "content": [
+      {
+        "content": [
+          {
+            "text": "example",
+            "type": "text",
+          },
+        ],
         "type": "html-node",
       },
     ],

@@ -8,8 +8,8 @@ export const MarkdownRawHTML = Extension.create({
     name: 'markdownRawHTML',
     parseMarkdown({ toHTML }) {
         // always keep html, and as text if not enabled
-        toHTML.use(remarkRehype, { allowDangerousHtml: true });
         if((this.editor.storage.markdown.options as MarkdownOptions).html) {
+            toHTML.use(remarkRehype, { allowDangerousHtml: true });
             toHTML.use(rehypeRaw);
         }
     }

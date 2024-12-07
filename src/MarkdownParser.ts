@@ -20,7 +20,7 @@ export class MarkdownParser {
             const toHTML = unified()
                 .use(remarkRehype)
                 .use(rehypeMinifyWhitespace)
-                .use(rehypeDomStringify);
+                .use(rehypeDomStringify)
 
             this.editor.extensionManager.extensions.forEach(extension => {
                 const parseMarkdown = getExtensionField<NodeConfig['parseMarkdown'] | MarkConfig['parseMarkdown']>(
@@ -37,9 +37,12 @@ export class MarkdownParser {
                     toHTML,
                 });
             });
-
             const mdast = fromMarkdown.runSync(fromMarkdown.parse(content), content) as Root;
             const hast = toHTML.runSync(mdast, content);
+            if(hast.children.length === 0) {
+                // earle return if empty because of https://github.com/rehypejs/rehype-dom/pull/26
+                return '';
+            }
             const html = toHTML.stringify(hast, content);
             return html;
         }
