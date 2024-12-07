@@ -1,5 +1,6 @@
 import { Editor } from "@tiptap/core";
 import { Processor } from "unified";
+import { MarkdownStorage } from "./Markdown";
 
 export type ParseMarkdownProps = {
     fromMarkdown: Processor<any,any,any,any,any>,
@@ -11,7 +12,7 @@ export type RenderMarkdownProps = {
     toMarkdown: Processor<any,any,any,any,any>,
 }
 
-export type MarkdownConfig<Options> = {
+export type MarkdownExtensionConfig<Options> = {
     parseMarkdown(
         this: { name: string, options: Options, editor: Editor },
         { fromMarkdown, toHTML }: ParseMarkdownProps
@@ -23,7 +24,9 @@ export type MarkdownConfig<Options> = {
 }
 
 declare module '@tiptap/core' {
-    interface NodeConfig<Options = any, Storage = any> extends MarkdownConfig<Options> {}
-    interface MarkConfig<Options = any, Storage = any> extends MarkdownConfig<Options> {}
-    interface ExtensionConfig<Options = any, Storage = any> extends MarkdownConfig<Options> {}
+    interface NodeConfig<Options = any, Storage = any> extends MarkdownExtensionConfig<Options> {}
+    interface MarkConfig<Options = any, Storage = any> extends MarkdownExtensionConfig<Options> {}
+    interface ExtensionConfig<Options = any, Storage = any> extends MarkdownExtensionConfig<Options> {}
 }
+
+export { MarkdownStorage }

@@ -15,3 +15,9 @@ test('serialize', () => {
     expect(serialize('<strong>example</strong>')).toEqual('**example**\n');
     expect(serialize('<strong data-markdown-marker="_">example</strong>')).toEqual('__example__\n');
 });
+test('expels whitespace / non letters', () => {
+    expect(serialize('My <strong> example </strong>')).toEqual('My **example**\n');
+});
+test('encode boundary characters', () => {
+    expect(serialize('Before<strong>! example.</strong>After')).toEqual('Befor&#x65;**! example.**&#x41;fter\n');
+});

@@ -1,12 +1,11 @@
 import { Mark } from "@tiptap/core";
-import { Strong } from "mdast";
-import { remarkMarker } from "../../remark-plugins/remark-marker-plugin";
-import { withStateOptions } from "../../util/state";
+import { Emphasis, Strong } from "mdast";
+import { remarkMarker, stringifyMarker } from "../../remark-plugins/markers";
 import remarkRehype from "remark-rehype";
 import remarkStringify from "remark-stringify";
 import rehypeRemark from "rehype-remark";
 import { defaultHandlers as remarkRehypeDefaultHandlers } from "mdast-util-to-hast";
-import { defaultHandlers as remarkStringifyDefaultHandlers } from "mdast-util-to-markdown";
+import { defaultHandlers as remarkStringifyDefaultHandlers, Handle, Options } from "mdast-util-to-markdown";
 import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
 
 const Bold = Mark.create({
@@ -47,11 +46,12 @@ export default Bold.extend({
             })
             .use(remarkStringify, {
                 handlers: {
-                    strong(node: Strong, parent, state, info) {
-                       return withStateOptions(state, { strong: node.data!.marker }, (state) =>
-                           remarkStringifyDefaultHandlers.strong(node, parent, state, info)
-                       );
-                    }
+                    strong: stringifyMarker(remarkStringifyDefaultHandlers.strong, (node) => ({
+                        marker: node.data!.marker ?? '*',
+                        options: {
+                            strong: node.data!.marker ?? '*',
+                        },
+                    })),
                 }
             });
     }

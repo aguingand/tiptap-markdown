@@ -8,10 +8,10 @@ import { MarkdownOptions } from "../index";
 import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
 import { MarkdownSerializer } from "./MarkdownSerializer";
 
-type MarkdownStorage = {
+export type MarkdownStorage = {
     options: MarkdownOptions,
     parser: MarkdownParser,
-    // serializer: MarkdownSerializer,
+    serializer: MarkdownSerializer,
     getMarkdown: () => string,
 }
 
@@ -32,7 +32,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
         }
     },
     addCommands() {
-        const commands = extensions.Commands.config.addCommands?.() as RawCommands;
+        const commands = extensions.Commands.config.addCommands?.call(this) as RawCommands;
         return {
             setContent: (content, emitUpdate, parseOptions) => (props) => {
                 return commands.setContent(
@@ -94,7 +94,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
     addStorage() {
         return {
             /// storage will be defined in onBeforeCreate() to prevent initial object overriding
-        }
+        } as any
     },
     addExtensions() {
         return [

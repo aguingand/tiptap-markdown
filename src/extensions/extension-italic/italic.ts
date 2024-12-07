@@ -1,7 +1,6 @@
 import { Mark } from "@tiptap/core";
 import { Emphasis } from "mdast";
-import { remarkMarker } from "../../remark-plugins/remark-marker-plugin";
-import { withStateOptions } from "../../util/state";
+import { remarkMarker, stringifyMarker } from "../../remark-plugins/markers";
 import remarkRehype from "remark-rehype";
 import rehypeRemark from "rehype-remark";
 import remarkStringify from "remark-stringify";
@@ -48,11 +47,12 @@ export default Italic.extend({
             })
             .use(remarkStringify, {
                 handlers: {
-                    emphasis(node: Emphasis, parent, state, info) {
-                        return withStateOptions(state, { emphasis: node.data!.marker }, (state) =>
-                            remarkStringifyDefaultHandlers.emphasis(node, parent, state, info)
-                        );
-                    }
+                    emphasis: stringifyMarker(remarkStringifyDefaultHandlers.emphasis, (node) => ({
+                        marker: node.data!.marker ?? '*',
+                        options: {
+                            emphasis: node.data!.marker ?? '*',
+                        },
+                    })),
                 }
             });
     }
