@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { parse } from "../../../__tests__/utils";
+import { parse } from "../../../test-utils";
 
 
 describe('bullet list', () => {

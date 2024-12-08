@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { dedent, parse, serialize } from "../../../__tests__/utils";
+import { dedent, parse, serialize } from "../../../test-utils";
 
 
 test('parse markdown', () => {

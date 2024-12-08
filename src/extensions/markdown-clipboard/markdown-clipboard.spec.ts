@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { clipboardEvent } from "../../../__tests__/utils/dom";
-import { createEditor } from "../../../__tests__/utils/editor";
+import { clipboardEvent } from "../../../test-utils/dom";
+import { createEditor } from "../../../test-utils/editor";
 
 
 describe('paste', () => {

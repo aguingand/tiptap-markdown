@@ -35,8 +35,8 @@ export default defineConfig(() => {
         test: {
             environment: 'jsdom',
             setupFiles: [
-                path.resolve(__dirname, '__tests__/utils/setup.js'),
-                path.resolve(__dirname, '__tests__/utils/setup-dom.js'),
+                path.resolve(__dirname, 'test-utils/setup/setup.ts'),
+                path.resolve(__dirname, 'test-utils/setup/setup-dom.ts'),
             ],
             include: ['src/**/*.spec.ts'],
         }

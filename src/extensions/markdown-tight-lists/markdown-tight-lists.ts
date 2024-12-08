@@ -31,9 +31,9 @@ export const MarkdownTightLists = Extension.create({
                 attributes: {
                     tight: {
                         default: this.options.tight,
-                        parseHTML: element =>
+                        parseHTML: (element) =>
                             element.getAttribute('data-tight') === 'true' || !element.querySelector('p'),
-                        renderHTML: attributes => ({
+                        renderHTML: (attributes) => ({
                             class: attributes.tight ? this.options.tightClass : null,
                             'data-tight': attributes.tight ? 'true' : null,
                         }),

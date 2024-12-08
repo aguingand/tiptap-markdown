@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { parse, serialize } from "../../../__tests__/utils";
+import { parse, serialize } from "../../../test-utils";
 
 test('markdown', () => {
     expect(parse('---')).toMatchSnapshot();

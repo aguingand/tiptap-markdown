@@ -1,4 +1,9 @@
-import {Extension, extensions, getSchemaByResolvedExtensions} from '@tiptap/core';
+import {
+    Content,
+    Extension,
+    extensions,
+    getSchemaByResolvedExtensions,
+} from '@tiptap/core';
 import { MarkdownTightLists } from "./extensions/markdown-tight-lists/markdown-tight-lists";
 import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clipboard";
@@ -47,7 +52,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
         return {
             setContent: (content, emitUpdate, parseOptions) => (props) => {
                 return commands.setContent(
-                    props.editor.storage.markdown.parser.parse(content),
+                    (props.editor.storage.markdown as MarkdownStorage).parser.parse(content as Content),
                     emitUpdate,
                     parseOptions
                 )(props);
@@ -55,7 +60,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             insertContentAt: (range, content, options) => (props) => {
                 return commands.insertContentAt(
                     range,
-                    props.editor.storage.markdown.parser.parse(content),
+                    (props.editor.storage.markdown as MarkdownStorage).parser.parse(content as Content),
                     options
                 )(props);
             },
@@ -65,10 +70,16 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
         this.editor.extensionManager.extensions = this.editor.extensionManager.extensions.map(extension => {
             const markdownExtension = markdownExtensions.find(e => e.name === extension.name);
             if(markdownExtension) {
-                const { name, defaultOptions, ...config } = markdownExtension.config;
+                const { name, defaultOptions, parseMarkdown, renderMarkdown, ...markdownExtensionConfig } = markdownExtension.config;
                 return extension
                     .extend({
-                        ...config,
+                        parseMarkdown,
+                        renderMarkdown,
+                    })
+                    .extend({
+                        ...markdownExtensionConfig,
+                        parseMarkdown: extension.config.parseMarkdown,
+                        renderMarkdown: extension.config.renderMarkdown,
                         addOptions() {
                             return {
                                 ...extension.options,
@@ -90,12 +101,12 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             parser: new MarkdownParser(this.editor),
             serializer: new MarkdownSerializer(this.editor),
             getMarkdown: () => {
-                return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
+                return (this.editor.storage.markdown as MarkdownStorage).serializer.serialize(this.editor.getHTML());
             },
             initialContent: this.editor.options.content,
         }
         if(this.editor.options.content) {
-            this.editor.options.content = this.editor.storage.markdown.parser.parse(this.editor.options.content);
+            this.editor.options.content = (this.editor.storage.markdown as MarkdownStorage).parser.parse(this.editor.options.content);
         }
     },
     onCreate() {

@@ -1,7 +1,7 @@
 import { createEditor, TestEditorOptions } from "./editor.js";
 import { getHTMLFromFragment, createNodeFromContent } from "@tiptap/core";
 import { Fragment } from "@tiptap/pm/model";
-import { MarkdownStorage } from "../../index";
+import { MarkdownStorage } from "../index";
 
 export function parse(content: string, options: TestEditorOptions = {}, asHTML = false) {
     const editor = createEditor(options);

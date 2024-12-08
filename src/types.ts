@@ -13,11 +13,11 @@ export type RenderMarkdownProps = {
 
 export type MarkdownExtensionConfig<Options> = {
     parseMarkdown(
-        this: { name: string, options: Options, editor: Editor },
+        this: { name: string, options: Options, editor: Editor, parent?: MarkdownExtensionConfig<Options>['parseMarkdown'] },
         { fromMarkdown, toHTML }: ParseMarkdownProps
     ): void,
     renderMarkdown(
-        this: { name: string, options: Options, editor: Editor },
+        this: { name: string, options: Options, editor: Editor, parent?: MarkdownExtensionConfig<Options>['renderMarkdown'] },
         { fromHTML, toMarkdown }: RenderMarkdownProps
     ): void,
 }

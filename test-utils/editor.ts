@@ -10,7 +10,7 @@ import Underline from '@tiptap/extension-underline';
 import CodeBlock, { CodeBlockOptions } from "@tiptap/extension-code-block";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
-import { Markdown, MarkdownOptions } from "../../src/Markdown";
+import { Markdown, MarkdownOptions } from "../src/Markdown";
 
 export type TestEditorOptions = {
     editorOptions?: Partial<EditorOptions>,

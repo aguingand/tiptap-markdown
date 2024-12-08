@@ -1,4 +1,4 @@
-import { Mark } from "@tiptap/core";
+import { Mark, markInputRule, markPasteRule } from "@tiptap/core";
 import { Emphasis } from "mdast";
 import { remarkMarker, stringifyMarker } from "../../remark-plugins/markers";
 import remarkRehype from "remark-rehype";
@@ -19,6 +19,9 @@ export default Italic.extend({
             ...this.parent?.(),
             'data-markdown-marker': {
                 default: '*',
+                renderHTML: (attributes) => ({
+                    'data-markdown-marker': attributes['data-markdown-marker'] === '*' ? null : attributes['data-markdown-marker'],
+                }),
             },
         }
     },
@@ -55,6 +58,24 @@ export default Italic.extend({
                     })),
                 }
             });
-    }
+    },
+    addInputRules() {
+        return this.parent?.().map(inputRule => markInputRule({
+            find: inputRule.find,
+            type: this.type,
+            getAttributes: {
+                'data-markdown-marker': inputRule.find.toString().includes('_') ? '_' : '*',
+            },
+        })) ?? [];
+    },
+    addPasteRules() {
+        return this.parent?.().map(pasteRule => markPasteRule({
+            find: pasteRule.find,
+            type: this.type,
+            getAttributes: {
+                'data-markdown-marker': pasteRule.find.toString().includes('_') ? '_' : '*',
+            },
+        })) ?? [];
+    },
 })
 

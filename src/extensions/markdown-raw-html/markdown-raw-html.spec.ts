@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { parse } from "../../../__tests__/utils";
+import { parse } from "../../../test-utils";
 
 test('parse block html node', () => {
     expect(parse('<custom-element>\nexample\n</custom-element>', {
