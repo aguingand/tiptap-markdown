@@ -1,6 +1,5 @@
 import { Editor } from "@tiptap/core";
 import { Processor } from "unified";
-import { MarkdownStorage } from "./Markdown";
 
 export type ParseMarkdownProps = {
     fromMarkdown: Processor<any,any,any,any,any>,
@@ -28,5 +27,3 @@ declare module '@tiptap/core' {
     interface MarkConfig<Options = any, Storage = any> extends MarkdownExtensionConfig<Options> {}
     interface ExtensionConfig<Options = any, Storage = any> extends MarkdownExtensionConfig<Options> {}
 }
-
-export { MarkdownStorage }

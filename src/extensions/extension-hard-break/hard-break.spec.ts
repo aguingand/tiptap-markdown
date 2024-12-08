@@ -11,9 +11,6 @@ test('parse markdown with double spaces', () => {
 test('parse markdown with breaks option', () => {
     expect(parse('example1\nexample2', { markdown: { breaks: true } })).toMatchSnapshot();
 })
-// test('markdown with breaks option + inline', () => {
-//     expect(parse('example1\nexample2', { markdown: { breaks: true }, inline: true })).toMatchSnapshot();
-// })
 test('parse html', () => {
     expect(parse('example1<br>example2')).toMatchSnapshot();
 });

@@ -3,8 +3,7 @@ import remarkStringify from "remark-stringify";
 import remarkRehype from "remark-rehype";
 import rehypeRemark from "rehype-remark";
 import { rehypeRemarkBulletListHandlers, remarkRehypeListHandlers } from "../../remark-plugins/lists";
-import { MarkdownOptions } from "../../../index";
-
+import { MarkdownStorage } from "../../Markdown";
 
 
 const BulletList = Node.create({
@@ -18,7 +17,7 @@ export default BulletList.extend({
         });
     },
     renderMarkdown({ toMarkdown }) {
-        const bulletListMarker = (this.editor.storage.markdown.options as MarkdownOptions).bulletListMarker;
+        const bulletListMarker = (this.editor.storage.markdown as MarkdownStorage).options.bulletListMarker;
         toMarkdown
             .use(rehypeRemark, {
                 handlers: rehypeRemarkBulletListHandlers,

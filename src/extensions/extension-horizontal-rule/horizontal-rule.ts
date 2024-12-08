@@ -1,6 +1,6 @@
 import { Node } from "@tiptap/core";
-import remarkStringify, { Options } from "remark-stringify";
-import { MarkdownOptions } from "../../../index";
+import remarkStringify from "remark-stringify";
+import { MarkdownStorage } from "../../Markdown";
 
 
 const HorizontalRule = Node.create({
@@ -13,7 +13,7 @@ export default HorizontalRule.extend({
     },
     renderMarkdown({ toMarkdown }) {
         toMarkdown.use(remarkStringify, {
-            rule: (this.editor.storage.markdown.options as MarkdownOptions).horizontalRuleMarker,
+            rule: (this.editor.storage.markdown as MarkdownStorage).options.horizontalRuleMarker,
         });
     },
 });

@@ -4,11 +4,22 @@ import { MarkdownParser } from "./MarkdownParser";
 import { MarkdownClipboard } from "./extensions/markdown-clipboard/markdown-clipboard";
 import type { RawCommands } from "@tiptap/core";
 import markdownExtensions from "./extensions";
-import { MarkdownOptions } from "../index";
 import { MarkdownRawHTML } from "./extensions/markdown-raw-html/markdown-raw-html";
 import { MarkdownSerializer } from "./MarkdownSerializer";
 
-export type MarkdownStorage = {
+export interface MarkdownOptions  {
+    html: boolean,
+    tightLists: boolean,
+    tightListClass: string,
+    bulletListMarker: '-' | '*' | '+',
+    horizontalRuleMarker: '-' | '_' | '*',
+    linkify: boolean,
+    breaks: boolean,
+    transformPastedText: boolean,
+    transformCopiedText: boolean,
+}
+
+export interface MarkdownStorage {
     options: MarkdownOptions,
     parser: MarkdownParser,
     serializer: MarkdownSerializer,
@@ -44,7 +55,7 @@ export const Markdown = Extension.create<MarkdownOptions, MarkdownStorage>({
             insertContentAt: (range, content, options) => (props) => {
                 return commands.insertContentAt(
                     range,
-                    props.editor.storage.markdown.parser.parse(content, { inline: true }),
+                    props.editor.storage.markdown.parser.parse(content),
                     options
                 )(props);
             },

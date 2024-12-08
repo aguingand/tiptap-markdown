@@ -1,5 +1,5 @@
 import { Node } from "@tiptap/core";
-import { MarkdownOptions } from "../../../index";
+import { MarkdownStorage } from "../../Markdown";
 import remarkBreaks from "remark-breaks";
 import { defaultHandlers as rehypeRemarkDefaultHandlers } from "hast-util-to-mdast";
 import rehypeRemark from "rehype-remark";
@@ -14,7 +14,7 @@ export const rehypeRemarkHardBreakHandlers: Pick<typeof rehypeRemarkDefaultHandl
 
 export default HardBreak.extend({
     parseMarkdown({ fromMarkdown }) {
-       if((this.editor.storage.markdown.options as MarkdownOptions).breaks) {
+       if((this.editor.storage.markdown as MarkdownStorage).options.breaks) {
            fromMarkdown.use(remarkBreaks);
        }
     },

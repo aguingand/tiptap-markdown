@@ -1,4 +1,4 @@
-import { Editor, Node, Mark, NodeConfig, MarkConfig } from "@tiptap/core";
+import { Editor, Node, Mark, NodeConfig, MarkConfig, EditorOptions } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
@@ -10,10 +10,10 @@ import Underline from '@tiptap/extension-underline';
 import CodeBlock, { CodeBlockOptions } from "@tiptap/extension-code-block";
 import TaskList from "@tiptap/extension-task-list";
 import TaskItem from "@tiptap/extension-task-item";
-import { Markdown } from "../../src/Markdown";
-import { MarkdownOptions } from "../../index";
+import { Markdown, MarkdownOptions } from "../../src/Markdown";
 
 export type TestEditorOptions = {
+    editorOptions?: Partial<EditorOptions>,
     image?: Partial<ImageOptions>,
     codeBlock?: Partial<CodeBlockOptions>,
     htmlNode?: Partial<NodeConfig>,
@@ -23,6 +23,7 @@ export type TestEditorOptions = {
 
 export function createEditor(options: TestEditorOptions) {
     return new Editor({
+        ...options.editorOptions,
         extensions: [
             Markdown.configure({
                 ...options.markdown,

@@ -7,8 +7,8 @@ test('parse', () => {
 test('parse soft break', () => {
     expect(parse('example1\nexample2')).toMatchSnapshot();
 });
-test('parse with spaces inline', () => {
-    expect(parse('  example ', { inline: true })).toMatchSnapshot();
+test('parse spaces are trimmed', () => {
+    expect(parse('  example ')).toMatchSnapshot();
 });
 test('serialize', () => {
     expect(serialize('example')).toEqual('example\n');

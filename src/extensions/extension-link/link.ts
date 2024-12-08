@@ -1,7 +1,7 @@
 import { Mark } from '@tiptap/core';
 import { gfmAutolinkLiteral } from 'micromark-extension-gfm-autolink-literal';
 import { gfmAutolinkLiteralFromMarkdown } from 'mdast-util-gfm-autolink-literal';
-import { MarkdownOptions } from '../../../index';
+import { MarkdownStorage } from "../../Markdown";
 
 const Link = Mark.create({
     name: 'link',
@@ -9,7 +9,7 @@ const Link = Mark.create({
 
 export default Link.extend({
     parseMarkdown({ fromMarkdown }) {
-        if((this.editor.storage.markdown.options as MarkdownOptions).linkify) {
+        if((this.editor.storage.markdown as MarkdownStorage).options.linkify) {
             (fromMarkdown.data().fromMarkdownExtensions ??= []).push(gfmAutolinkLiteralFromMarkdown());
             (fromMarkdown.data().micromarkExtensions ??= []).push(gfmAutolinkLiteral());
         }
