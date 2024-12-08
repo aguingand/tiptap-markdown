@@ -68,14 +68,5 @@ export default Italic.extend({
             },
         })) ?? [];
     },
-    addPasteRules() {
-        return this.parent?.().map(pasteRule => markPasteRule({
-            find: pasteRule.find,
-            type: this.type,
-            getAttributes: {
-                'data-markdown-marker': pasteRule.find.toString().includes('_') ? '_' : '*',
-            },
-        })) ?? [];
-    },
 })
 

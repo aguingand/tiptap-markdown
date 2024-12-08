@@ -1,4 +1,4 @@
-import { Mark, markInputRule, markPasteRule } from "@tiptap/core";
+import { Mark, markInputRule } from "@tiptap/core";
 import { Strong } from "mdast";
 import { remarkMarker, stringifyMarker } from "../../remark-plugins/markers";
 import remarkRehype from "remark-rehype";
@@ -64,15 +64,6 @@ export default Bold.extend({
             type: this.type,
             getAttributes: {
                 'data-markdown-marker': inputRule.find.toString().includes('__') ? '_' : '*',
-            },
-        })) ?? [];
-    },
-    addPasteRules() {
-        return this.parent?.().map(pasteRule => markPasteRule({
-            find: pasteRule.find,
-            type: this.type,
-            getAttributes: {
-                'data-markdown-marker': pasteRule.find.toString().includes('__') ? '_' : '*',
             },
         })) ?? [];
     },
