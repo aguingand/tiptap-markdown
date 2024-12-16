@@ -10,11 +10,11 @@
     "preview": "vite preview example",
     "preversion": "npm run build",
     "update:tiptap": "update-by-scope @tiptap",
-    "update:remark": "npm i rehype@latest rehype-dom-parse@latest rehype-dom-stringify@latest rehype-minify-whitespace@latest rehype-raw@latest rehype-remark@latest remark@latest remark-breaks@latest remark-gfm@latest remark-rehype@latest"
+    "update:remark": "npm i rehype@latest rehype-dom-parse@latest rehype-dom-stringify@latest rehype-minify-whitespace@latest rehype-raw@latest rehype-remark@latest remark@latest remark-breaks@latest remark-gfm@latest remark-rehype@latest",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
-  "workspaces": [
-    "example"
-  ],
   "main": "dist/tiptap-markdown.umd.js",
   "module": "dist/tiptap-markdown.es.js",
   "type": "module",

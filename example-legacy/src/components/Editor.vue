@@ -35,8 +35,8 @@
     import { Markdown } from "tiptap-markdown";
     import MenuBar from "./MenuBar.vue";
     import content from '../data/content.md?raw';
-    import Highlight from "../extensions/highlight";
-    import Container from "../extensions/container";
+    // import Highlight from "../extensions/highlight";
+    // import Container from "../extensions/container";
     import { common, createLowlight } from 'lowlight';
 
     const lowlight = createLowlight(common);
@@ -54,7 +54,6 @@
         },
         methods: {
             updateMarkdownOutput() {
-                // console.log(this.editor.storage.markdown);
                 this.markdown = this.editor.storage.markdown.getMarkdown();
             },
             handleInput() {
