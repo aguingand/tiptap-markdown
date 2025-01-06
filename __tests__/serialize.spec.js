@@ -84,6 +84,21 @@ describe('serialize', () => {
             expect(serialize('<ol><li>example1</li></ol><ol><li>example2</li></ol><ol><li>example3</li></ol>'))
                 .toEqual('1. example1\n\n\n1) example2\n\n\n1. example3'); // prosemirror-markdown insert 3 \n, only 2 are needed
         })
+        test('task list',() => {
+            const html = dedent`
+                <ul data-type="taskList">
+                    <li data-checked="false" data-type="taskItem">
+                        <label><input type="checkbox"><span></span></label>
+                        <div><p>foo</p></div>
+                    </li>
+                    <li data-checked="true" data-type="taskItem">
+                        <label><input type="checkbox" checked="checked"><span></span></label>
+                        <div><p>bar</p></div>
+                    </li>
+                </ul>`;
+            expect(serialize(html)).toEqual('- [ ] foo\n- [x] bar');
+            expect(serialize(html, {tightLists: false})).toEqual('- [ ] foo\n\n- [x] bar');
+        });
         test('fence', () => {
             expect(serialize('<pre><code class="language-js">example</code></pre>')).toEqual('```js\nexample\n```');
         })
