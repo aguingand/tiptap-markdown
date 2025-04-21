@@ -2,7 +2,7 @@
 
 The markdown extension for [Tiptap editor](https://www.tiptap.dev/).
 
-> **Warning**  
+> [!WARNING]
 > Since v0.7.0, `createMarkdownEditor` has been dropped in favor of a more friendly `Markdown` Tiptap extension. See the [migration guide](https://github.com/aguingand/tiptap-markdown/blob/main/docs/migration.md).
 
 ## Installation
