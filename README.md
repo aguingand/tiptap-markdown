@@ -1,9 +1,9 @@
+> [!WARNING]
+As Tiptap have now a solution for markdown (paid [Conversion extension](https://next.tiptap.dev/docs/conversion/import-export/markdown/editor-extensions) and more markdown handling [announced for v3](https://next.tiptap.dev/docs/resources/whats-new#whats-next-in-tiptap-3x)). I don't plan to release [v1](https://github.com/aguingand/tiptap-markdown/pull/67) nor addressing current issues / PR. Feel free to fork the project if you need.
+
 # Tiptap markdown
 
 The markdown extension for [Tiptap editor](https://www.tiptap.dev/).
-
-> **Warning**  
-> Since v0.7.0, `createMarkdownEditor` has been dropped in favor of a more friendly `Markdown` Tiptap extension. See the [migration guide](https://github.com/aguingand/tiptap-markdown/blob/main/docs/migration.md).
 
 ## Installation
 
