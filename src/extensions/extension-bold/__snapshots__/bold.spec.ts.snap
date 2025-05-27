@@ -1,0 +1,67 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`parse html 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
+              "data-markdown-marker": "*",
+            },
+            "type": "bold",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown with "*" 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
+              "data-markdown-marker": "*",
+            },
+            "type": "bold",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
+
+exports[`parse markdown with "_" 1`] = `
+[
+  {
+    "content": [
+      {
+        "marks": [
+          {
+            "attrs": {
+              "data-markdown-marker": "_",
+            },
+            "type": "bold",
+          },
+        ],
+        "text": "example",
+        "type": "text",
+      },
+    ],
+    "type": "paragraph",
+  },
+]
+`;
