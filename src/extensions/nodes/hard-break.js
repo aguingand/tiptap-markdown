@@ -18,7 +18,7 @@ export default HardBreak.extend({
                             state.write(
                                 state.inTable
                                     ? HTMLNode.storage.markdown.serialize.call(this, state, node, parent)
-                                    : "\\\n"
+                                    : "\n"
                             );
                             return;
                         }
