@@ -8,6 +8,8 @@ import Link from '@tiptap/extension-link';
 import Image from '@tiptap/extension-image';
 import Underline from '@tiptap/extension-underline';
 import CodeBlock from "@tiptap/extension-code-block";
+import TaskList from "@tiptap/extension-task-list";
+import TaskItem from "@tiptap/extension-task-item";
 import { Markdown } from "../../src/Markdown";
 
 export function createEditor({
@@ -45,6 +47,8 @@ export function createEditor({
                 name: 'html-mark',
                 ...htmlMark,
             }),
+            TaskList,
+            TaskItem,
         ],
     });
 }

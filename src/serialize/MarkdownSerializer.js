@@ -10,14 +10,17 @@ export class MarkdownSerializer {
      * @type {import('@tiptap/core').Editor}
      */
     editor = null;
+    options = {};
 
-    constructor(editor) {
+    constructor(editor, options) {
         this.editor = editor;
+        this.options = options;
     }
 
     serialize(content) {
         const state = new MarkdownSerializerState(this.nodes, this.marks, {
             hardBreakNodeName: HardBreak.name,
+            tightLists: this.options.tightLists,
         });
 
         state.renderContent(content);

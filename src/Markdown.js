@@ -42,7 +42,7 @@ export const Markdown = Extension.create({
         this.editor.storage.markdown = {
             options: { ...this.options },
             parser: new MarkdownParser(this.editor, this.options),
-            serializer: new MarkdownSerializer(this.editor),
+            serializer: new MarkdownSerializer(this.editor, this.options),
             getMarkdown: () => {
                 return this.editor.storage.markdown.serializer.serialize(this.editor.state.doc);
             },
