@@ -68,7 +68,7 @@ describe('clipboard', () => {
             const editor = new Editor({
                 content: '# My title',
                 extensions: [
-                    StarterKit,
+                    StarterKit.configure({ trailingNode: false }),
                     Markdown.configure({
                         transformCopiedText: false,
                     }),

@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`serialize > nodes > table > header in body 1`] = `
-<table style="minWidth: 25px">
+<table style="min-width: 25px;">
   <colgroup>
-    <col>
+    <col style="min-width: 25px;">
   </colgroup>
   <tbody>
     <tr>
@@ -29,9 +29,9 @@ exports[`serialize > nodes > table > header in body 1`] = `
 `;
 
 exports[`serialize > nodes > table > multiline cell 1`] = `
-<table style="minWidth: 25px">
+<table style="min-width: 25px;">
   <colgroup>
-    <col>
+    <col style="min-width: 25px;">
   </colgroup>
   <tbody>
     <tr>
@@ -51,9 +51,9 @@ exports[`serialize > nodes > table > multiline cell 1`] = `
 `;
 
 exports[`serialize > nodes > table > no header 1`] = `
-<table style="minWidth: 25px">
+<table style="min-width: 25px;">
   <colgroup>
-    <col>
+    <col style="min-width: 25px;">
   </colgroup>
   <tbody>
     <tr>
@@ -79,10 +79,10 @@ exports[`serialize > nodes > table > no header 1`] = `
 `;
 
 exports[`serialize > nodes > table > with colspan 1`] = `
-<table style="minWidth: 50px">
+<table style="min-width: 50px;">
   <colgroup>
-    <col>
-    <col>
+    <col style="min-width: 25px;">
+    <col style="min-width: 25px;">
   </colgroup>
   <tbody>
     <tr>
@@ -99,9 +99,9 @@ exports[`serialize > nodes > table > with colspan 1`] = `
 `;
 
 exports[`serialize > nodes > table > with rowspan 1`] = `
-<table style="minWidth: 25px">
+<table style="min-width: 25px;">
   <colgroup>
-    <col>
+    <col style="min-width: 25px;">
   </colgroup>
   <tbody>
     <tr>

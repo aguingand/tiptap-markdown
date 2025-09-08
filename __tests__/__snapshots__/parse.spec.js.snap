@@ -721,8 +721,10 @@ exports[`parse > nodes > image > html 1`] = `
   {
     "attrs": {
       "alt": "example",
+      "height": null,
       "src": "example.jpg",
       "title": null,
+      "width": null,
     },
     "type": "image",
   },
@@ -734,8 +736,10 @@ exports[`parse > nodes > image > markdown 1`] = `
   {
     "attrs": {
       "alt": "example",
+      "height": null,
       "src": "example.jpg",
       "title": null,
+      "width": null,
     },
     "type": "image",
   },
@@ -749,8 +753,10 @@ exports[`parse > nodes > image > markdown inline 1`] = `
       {
         "attrs": {
           "alt": "example",
+          "height": null,
           "src": "example.jpg",
           "title": null,
+          "width": null,
         },
         "type": "image",
       },
@@ -766,6 +772,7 @@ exports[`parse > nodes > ordered list > html 1`] = `
     "attrs": {
       "start": 1,
       "tight": true,
+      "type": null,
     },
     "content": [
       {
@@ -808,6 +815,7 @@ exports[`parse > nodes > ordered list > markdown 1`] = `
     "attrs": {
       "start": 1,
       "tight": true,
+      "type": null,
     },
     "content": [
       {
