@@ -22,11 +22,10 @@ export const Markdown = Extension.create({
     addCommands() {
         const commands = extensions.Commands.config.addCommands();
         return {
-            setContent: (content, emitUpdate, parseOptions) => (props) => {
+            setContent: (content, options) => (props) => {
                 return commands.setContent(
                     props.editor.storage.markdown.parser.parse(content),
-                    emitUpdate,
-                    parseOptions
+                    options
                 )(props);
             },
             insertContentAt: (range, content, options) => (props) => {
