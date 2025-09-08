@@ -7,9 +7,18 @@ The markdown extension for [Tiptap editor](https://www.tiptap.dev/).
 
 ## Installation
 
+For Tiptap v2
+
 ```bash
-npm install tiptap-markdown
+npm install tiptap-markdown@^0.8
 ```
+
+For Tiptap v3
+
+```bash
+npm install tiptap-markdown@latest
+```
+
 
 ### Requirements
 Supports all frameworks handled by Tiptap (Vue 2, Vue 3, React, [see full list](https://www.tiptap.dev/installation#integration-guides)...)
